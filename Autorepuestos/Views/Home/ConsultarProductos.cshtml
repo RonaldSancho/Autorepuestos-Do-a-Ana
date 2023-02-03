@@ -1,0 +1,111 @@
+@{
+    ViewBag.Title = "ConsultarProductos";
+}
+
+    <h1>Catalogo</h1>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="@Url.Action("CarritoCompras", "Home")"><img src="~/template/img/carritoCompras.png" alt="" width="30px"></a></li>
+            <li></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row row-cols-4 g-4">
+            <div class="col">
+                <div class="card">
+                    <img src="~/template/img/clutch.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Clutch</h5>
+                        <p class="card-text">Las mejores bombas de clutch.</p><br />
+                        <a class="btn btn-warning btn-block mg-b-10 fa fa-shopping-cart mg-r-10" data-bs-toggle="modal" href="#exampleModalToggle" role="button" style="background-color: #0866C6; border-color: #2B333E">Agregar al Carrito</a>
+                        <a href="#" class="btn btn-primary" style="margin: 5px 0">Ver mas</a>
+                    </div>
+                </div>
+            </div>
+        <div class="col">
+            <div class="card">
+                <img src="~/template/img/clutch.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Clutch</h5>
+                    <p class="card-text">Las mejores bombas de clutch.</p><br />
+                    <a class="btn btn-warning btn-block mg-b-10 fa fa-shopping-cart mg-r-10" data-bs-toggle="modal" href="#exampleModalToggle" role="button" style="background-color: #0866C6; border-color: #2B333E">Agregar al Carrito</a>
+                    <a href="#" class="btn btn-primary" style="margin: 5px 0">Ver mas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="~/template/img/clutch.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Clutch</h5>
+                    <p class="card-text">Las mejores bombas de clutch.</p><br />
+                    <a class="btn btn-warning btn-block mg-b-10 fa fa-shopping-cart mg-r-10" data-bs-toggle="modal" href="#exampleModalToggle" role="button" style="background-color: #0866C6; border-color: #2B333E">Agregar al Carrito</a>
+                    <a href="#" class="btn btn-primary" style="margin: 5px 0">Ver mas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="~/template/img/clutch.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Clutch</h5>
+                    <p class="card-text">Las mejores bombas de clutch.</p><br />
+                    <a class="btn btn-warning btn-block mg-b-10 fa fa-shopping-cart mg-r-10" data-bs-toggle="modal" href="#exampleModalToggle" role="button" style="background-color: #0866C6; border-color: #2B333E">Agregar al Carrito</a>
+                    <a href="#" class="btn btn-primary" style="margin: 5px 0">Ver mas</a>
+                </div>
+            </div>
+        </div>
+                    <div class="col">
+                <div class="card">
+                    <img src="~/template/img/clutch.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Clutch</h5>
+                        <p class="card-text">Las mejores bombas de clutch.</p><br />
+                        <a class="btn btn-warning btn-block mg-b-10 fa fa-shopping-cart mg-r-10" data-bs-toggle="modal" href="#exampleModalToggle" role="button" style="background-color: #0866C6; border-color: #2B333E">Agregar al Carrito</a>
+                        <a href="#" class="btn btn-primary" style="margin: 5px 0">Ver mas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="~/template/img/bateria.jpg" class="card-img-top" alt="...">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label" style="font-weight: bold;">Especificaciones</label>
+                            <div class="modal-body">
+                                Modelo: Racing Max <br>
+                                Marca: America<br>
+                                Precio: $2000<br>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Mensaje</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Producto agregado exitosamente
+                </div>
+            </div>
+        </div>
+    </div>

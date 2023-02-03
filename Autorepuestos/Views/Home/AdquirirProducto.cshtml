@@ -1,0 +1,46 @@
+@{
+    ViewBag.Title = "AdquirirProducto";
+}
+
+    <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-md-100v">
+
+        <div class="login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white">
+            <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">Finalizar Compra</div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nombre Completo">
+            </div><!-- form-group -->
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Numero de Cedula">
+            </div><!-- form-group -->
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Direccion">
+            </div><!-- form-group -->
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Comprobante de pago sinpe">
+            </div><!-- form-group -->
+            <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Terminar Compra</a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Se ha enviado un comprobante de compra a su correo electronico
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            'use strict';
+
+            $('.select2').select2({
+                minimumResultsForSearch: Infinity
+            });
+        });
+    </script>

@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "CrearFactura";
+}
+<div class="sl-pagebody">
+    <div class="card pd-20 pd-sm-40 mg-t-50">
+        <h6 class="card-body-title ">Ventas</h6>
+
+        <div class="row  ">
+            <div class="col-lg-4">
+                <label>Vendedor</label>
+                <select class="form-control select2" data-placeholder="Choose one">
+                    <option label="Seleccione un vendedor"></option>
+                    <option value="Allan">Allan</option>
+                    <option value="Elgin">Elgin</option>
+                    <option value="Jonnatan">Jonnatan</option>
+                    <option value="Ana">Ana</option>
+                </select>
+                <br />
+
+            </div><!-- col-4 -->
+            <div class="col-lg-4 ">
+                <label>Nombre del cliente:</label>
+                <input class="form-control" placeholder="Cliente" type="text">
+            </div><!-- col-4 -->
+            <!-- col-4 -->
+        </div><!-- row -->
+        <div class="row">
+            <div class="col-lg-4 mg-t-20 mg-lg-t-0">
+                <label>Seleccionar Producto</label>
+                <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
+                    <option label="Seleccione el producto"></option>
+                    <option value="Bujias">Bujias</option>
+                    <option value="Coolant">Coolant</option>
+                    <option value="Zapatas">Zapatas</option>
+                    <option value="Bombas">Bombas</option>
+                    <option value="Fibras">Fibras</option>
+                </select>
+            </div><!-- col-4 -->
+            <div class="col-2">
+                <label>Cantidad</label>
+                <input class="form-control" value="1" type="number">
+            </div><!-- col -->
+            <div class="col-2 mg-t-10 mg-lg-t-0">
+                <label>Precio total</label>
+                <input class="form-control" placeholder="₡2500" type="text">
+            </div><!-- col -->
+            <div class="col-4 mg-t-10 mg-lg-t-0">
+                <a href="#AgregarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Agregar Producto</a>
+            </div>
+        </div>
+
+
+    </div><!-- card -->
+    <div class="card pd-20 pd-sm-40">
+
+        <div class="table-wrapper">
+            <table id="datatable1" class="table display responsive nowrap">
+                <thead>
+                    <tr>
+
+                        <th class="wd-10p">Codigo</th>
+                        <th class="wd-20p">Producto</th>
+                        <th class="wd-10p">Cantidad</th>
+                        <th class="wd-10p">Precio</th>
+                        <th class="wd-15p">Modificar</th>
+                        <th class="wd-10p">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>917995</td>
+                        <td>Zapata de Frenos</td>
+                        <td>2</td>
+                        <td>₡22366</td>
+                        <td><a href="#EditarCantidad" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                        <td><a href="#EliminarProducto" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                    </tr>
+                    <tr>
+                        <td>278659</td>
+                        <td>Rotula de Cremayera</td>
+
+                        <td>1</td>
+                        <td>₡17387</td>
+                        <td><a href="#EditarCantidad" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                        <td><a href="#EliminarProducto" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                    </tr>
+                    <tr>
+                        <td>397999</td>
+                        <td>Rol de empuje</td>
+
+                        <td>4</td>
+                        <td>₡42944</td>
+                        <td><a href="#EditarCantidad" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                        <td><a href="#EliminarProducto" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                    </tr>
+                    <tr>
+                        <td>139633</td>
+                        <td>Bomba de agua</td>
+                        <td>3</td>
+                        <td>₡48675</td>
+                        <td><a href="#EditarCantidad" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                        <td><a href="#EliminarProducto" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div><!-- table-wrapper -->
+
+    </div><!-- card -->
+</div>
+
+@* ---------------------------Edita la cantidad del primer producto----------------------------  *@
+<div id="EditarCantidad" class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h5>Editar Cantidad</h5>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-10">
+                    <label>Cantidad</label>
+                    <input class="form-control" value="2" type="number">
+                </div><!-- col -->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="EliminarProducto" class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Eliminación Exitosamente</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-body">
+                <h5>Producto eliminado </h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="AgregarProducto" class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-body">
+                <h5>Producto agregado</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

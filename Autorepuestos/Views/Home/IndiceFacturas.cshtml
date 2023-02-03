@@ -1,0 +1,352 @@
+﻿
+@{
+    ViewBag.Title = "IndiceFacturas";
+}
+
+<h1>Facturas</h1>
+<a href="@Url.Action("CrearFactura", "Home")">
+    <button type="submit" class="btn btn-primary">Nueva Factura</button>
+</a>
+
+<div class="sl-mainpanel container" style="margin:0 400px 0px 175px">
+    <div class="sl-pagebody">
+        <div class="card pd-20 pd-sm-40">
+            <h6 class="card-body-title">Facturas</h6>
+
+
+            <div class="table-wrapper">
+                <div class="col-lg-4  ">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Busca por numero de factura...">
+                        <span class="input-group-btn">
+                            <button class="btn bd bg-white tx-gray-600" type="button"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div><!-- input-group -->
+                    <br />
+                </div><!-- col-4 -->
+                <div class="wd-200">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon ion-calendar tx-16 lh-0 op-6"></i></span>
+                        <input id="datepickerNoOfMonths" type="text" class="form-control" placeholder="MM/DD/YYYY">
+                    </div>
+                </div><!-- wd-200 -->
+                <br />
+                <table id="datatable1" class="table display responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th class="wd-15p">Vendedor</th>
+                            <th class="wd-15p">No. de factura</th>
+                            <th class="wd-20p">Nombre Cliente</th>
+                            <th class="wd-15p">Fecha</th>
+                            <th class="wd-10p">Monto total</th>
+                            <th class="wd-10p">Visualizar</th>
+                            <th class="wd-10p">Modificar</th>
+                            <th class="wd-10p"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Allan</td>
+                            <td>5901</td>
+                            <td>Ronald</td>
+                            <td>16/10/2022</td>
+                            <td>79169</td>
+                            <td><a href="#VisualizarFactura" role="button" class="btn btn-large btn-dark" data-toggle="modal">Visualizar</a></td>
+                            <td><a href="#EditarFactura" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                            <td><a href="#AnularFactura" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                        </tr>
+                        <tr>
+                            <td>Elgin</td>
+                            <td>5743</td>
+                            <td>null</td>
+                            <td>27/09/2022</td>
+                            <td>96655</td>
+                            <td><a href="#VisualizarFactura" role="button" class="btn btn-large btn-dark" data-toggle="modal">Visualizar</a></td>
+                            <td><a href="#EditarFactura" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                            <td><a href="#AnularFactura" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                        </tr>
+                        <tr>
+                            <td>Allan</td>
+                            <td>5863</td>
+                            <td>Anthony</td>
+                            <td>01/11/2022</td>
+                            <td>61409</td>
+                            <td><a href="#VisualizarFactura" role="button" class="btn btn-large btn-dark" data-toggle="modal">Visualizar</a></td>
+                            <td><a href="#EditarFactura" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                            <td><a href="#AnularFactura" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                        </tr>
+                        <tr>
+                            <td>Allan</td>
+                            <td>5264</td>
+                            <td>Francisco</td>
+                            <td>24/09/2022</td>
+                            <td>34651</td>
+                            <td><a href="#VisualizarFactura" role="button" class="btn btn-large btn-dark" data-toggle="modal">Visualizar</a></td>
+                            <td><a href="#EditarFactura" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                            <td><a href="#AnularFactura" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                        </tr>
+                        <tr>
+                            <td>Elgin</td>
+                            <td>9906</td>
+                            <td>Gabriel</td>
+                            <td>05/11/2022</td>
+                            <td>23016</td>
+                            <td><a href="#VisualizarFactura" role="button" class="btn btn-large btn-dark" data-toggle="modal">Visualizar</a></td>
+                            <td><a href="#EditarFactura" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                            <td><a href="#AnularFactura" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                        </tr>
+                        <tr>
+                            <td>Jonnatan</td>
+                            <td>7400</td>
+                            <td>Angela</td>
+                            <td>16/11/2022</td>
+                            <td>28591</td>
+                            <td><a href="#VisualizarFactura" role="button" class="btn btn-large btn-dark" data-toggle="modal">Visualizar</a></td>
+                            <td><a href="#EditarFactura" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                            <td><a href="#AnularFactura" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                        </tr>
+                        <tr>
+                            <td>Josue</td>
+                            <td>7638</td>
+                            <td>Maria</td>
+                            <td>29/10/2022</td>
+                            <td>38954</td>
+                            <td><a href="#VisualizarFactura" role="button" class="btn btn-large btn-dark" data-toggle="modal">Visualizar</a></td>
+                            <td><a href="#EditarFactura" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                            <td><a href="#AnularFactura" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                        </tr>
+                        <tr>
+                            <td>Elgin</td>
+                            <td>7000</td>
+                            <td>Vidal</td>
+                            <td>16/09/2022</td>
+                            <td>63083</td>
+                            <td><a href="#VisualizarFactura" role="button" class="btn btn-large btn-dark" data-toggle="modal">Visualizar</a></td>
+                            <td><a href="#EditarFactura" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                            <td><a href="#AnularFactura" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                        </tr>
+                        <tr>
+                            <td>Ana</td>
+                            <td>8423</td>
+                            <td>Diego</td>
+                            <td>20/11/2022</td>
+                            <td>64579</td>
+                            <td><a href="#VisualizarFactura" role="button" class="btn btn-large btn-dark" data-toggle="modal">Visualizar</a></td>
+                            <td><a href="#EditarFactura" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+                            <td><a href="#AnularFactura" role="button" class="btn btn-large btn-danger" data-toggle="modal">Eliminar</a></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div><!-- table-wrapper -->
+        </div><!-- card -->
+    </div>
+</div>
+
+@* -----------------------Ventana de visualizar factura solo se usa la primera---------------------- *@
+<div id="VisualizarFactura" class="modal fade ">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Visualizador de facturas</h4>
+            </div>
+            <div class="modal-body">
+                <table id="datatable1" class="table display responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th class="wd-15p">Codigo</th>
+                            <th class="wd-15p">Producto</th>
+                            <th class="wd-20p">Cantidad</th>
+                            <th class="wd-15p">Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>5486973</td>
+                            <td>Fibras</td>
+                            <td>2</td>
+                            <td>40000</td>
+
+                        </tr>
+                        <tr>
+                            <td>1628763</td>
+                            <td>Coolant</td>
+                            <td>1</td>
+                            <td>20169</td>
+
+                        </tr>
+                        <tr>
+                            <td>1975836</td>
+                            <td>Bujias</td>
+                            <td>1</td>
+                            <td>10000</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="EditarFactura" class="modal fade ">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Editor de facturas</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg mg-t-10 mg-lg-t-0">
+                        <label>Código</label>
+                        <input class="form-control" placeholder="5486973" readonly="" type="text">
+                        <input class="form-control" placeholder="1628763" readonly="" type="text">
+                        <input class="form-control" placeholder="1975836" readonly="" type="text">
+                    </div><!-- col -->
+                    <div class="col-lg mg-t-10 mg-lg-t-0">
+                        <label>Producto</label>
+                        <input class="form-control" placeholder="Fibras" readonly="" type="text">
+                        <input class="form-control" placeholder="Colant" readonly="" type="text">
+                        <input class="form-control" placeholder="Bujias" readonly="" type="text">
+                    </div><!-- col -->
+                    <div class="col-lg mg-t-10 mg-lg-t-0">
+                        <label>Cantidad</label>
+                        <input class="form-control" value="2" type="number">
+                        <input class="form-control" value="1" type="number">
+                        <input class="form-control" value="1" type="number">
+                    </div><!-- col -->
+                    <div class="col-lg mg-t-10 mg-lg-t-0">
+                        <label>Precio</label>
+                        <input class="form-control" placeholder="40000" readonly="" type="text">
+                        <input class="form-control" placeholder="20169" readonly="" type="text">
+                        <input class="form-control" placeholder="10000" readonly="" type="text">
+
+                    </div><!-- col -->
+
+                    <div class="col-lg mg-t-10 mg-lg-t-0">
+                        <label>Eliminar</label>
+                        <a href="#AnularProducto" role="button" class="btn btn-primary" data-toggle="modal">Eliminar</a>
+                        <br />
+                        <a href="#AnularProducto" role="button" class="btn btn-primary" data-toggle="modal">Eliminar</a>
+                        <br />
+                        <a href="#AnularProducto" role="button" class="btn btn-primary" data-toggle="modal">Eliminar</a>
+                    </div><!-- col -->
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <a href="#AñadirProducto" role="button" class="btn btn-primary" data-toggle="modal">Nuevo Producto</a>
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="AñadirProducto" class="modal fade ">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Añadir producto</h3>
+                <div class="modal-content">
+                    <div class="col-lg-12">
+                        <label>Seleccionar Producto</label>
+                        <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
+                            <option label="Seleccione el producto"></option>
+                            <option value="Bujias">Bujias</option>
+                            <option value="Coolant">Coolant</option>
+                            <option value="Zapatas">Zapatas</option>
+                            <option value="Bombas">Bombas</option>
+                            <option value="Fibras">Fibras</option>
+                        </select>
+
+                    </div><!-- col-4 -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#AñadirProducto2" role="button" class="btn btn-primary" data-toggle="modal">Añadir</a>
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="VentanaExito" class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Guardado Exitosamente</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Exito, factura editada correctamente</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="AnularFactura" class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Eliminado Exitosamente</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Factura eliminada satisfactoriamente</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@* --------------------Ventanas emergentes del editar y eliminar------------------ *@
+
+<div id="AnularProducto" class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Guardado Exitosamente</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Producto eliminada satisfactoriamente</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="AñadirProducto2" class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Guardado Exitosamente</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Producto agregado satisfactoriamente</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

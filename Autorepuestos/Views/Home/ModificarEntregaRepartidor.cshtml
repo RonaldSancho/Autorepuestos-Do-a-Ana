@@ -1,0 +1,97 @@
+@{
+    ViewBag.Title = "ModificarEntregaRepartidor";
+}
+
+
+    <div class="container">
+        <div class="card pd-20 pd-sm-40">
+            <h6 class="card-body-title">Modificar Entrega</h6>
+            <p class="mg-b-20 mg-sm-b-30" style="font-weight: bold;">Productos a Entregar</p>
+
+            <div class="form-layout">
+                <div class="row mg-b-25">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-control-label">Produto: <span class="tx-danger">*</span></label>
+                            <input class="form-control" type="text" name="producto" value="Radiador" placeholder="Ingrese producto" readonly>
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-control-label">Direccion de la Entrega: <span class="tx-danger">*</span></label>
+                            <input class="form-control" type="text" name="direccion" value="Parque Merced, 300m Este" placeholder="Ingrese la Direccion" readonly>
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-control-label">Telefono: <span class="tx-danger">*</span></label>
+                            <input class="form-control" type="tel" name="telefono" value="8998-6666" placeholder="Ingrese telefono" readonly>
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-8">
+                        <div class="form-group mg-b-10-force">
+                            <label class="form-control-label">Cedula del Cliente: <span class="tx-danger">*</span></label>
+                            <input class="form-control" type="text" name="Cedula" value="117066411" placeholder="Ingrese Cedula" readonly>
+                        </div>
+                    </div><!-- col-8 -->
+                    <div class="col-lg-4">
+                        <div class="form-group mg-b-10-force">
+                            <label class="form-control-label">Estado de la Entrega <span class="tx-danger">*</span></label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option value="1" selected>Pendiente</option>
+                                <option value="2">Realizado</option>
+                            </select>
+                        </div>
+                    </div><!-- col-4 -->
+                </div><!-- row -->
+
+                <div class="form-layout-footer">
+                    <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Modificar</a>
+                    <button class="btn btn-secondary"><a href="@Url.Action("MostrarEntregasRepartidor", "Home")">Cancelar</a></button>
+                </div><!-- form-layout-footer -->
+            </div><!-- form-layout -->
+        </div><!-- card -->
+    </div>
+
+
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Entrega modificada exitosamente
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<script src="../lib/jquery/jquery.js"></script>
+    <script src="../lib/popper.js/popper.js"></script>
+    <script src="../lib/bootstrap/bootstrap.js"></script>
+    <script src="../lib/jquery-ui/jquery-ui.js"></script>
+    <script src="../lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+    <script src="../lib/highlightjs/highlight.pack.js"></script>
+    <script src="../lib/select2/js/select2.min.js"></script>
+
+    <script src="../js/starlight.js"></script>
+    <script>
+        $(function () {
+            'use strict';
+
+            $('.select2').select2({
+                minimumResultsForSearch: Infinity
+            });
+        })
+    </script>*@

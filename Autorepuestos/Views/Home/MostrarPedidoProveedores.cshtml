@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "MostrarPedidoProveedores";
+}
+
+    <h1>Pedidos</h1>
+  
+        <a href="@Url.Action("AgregarPedidoProveedores", "Home")">
+            <button type="submit" class="btn btn-primary">Nuevo Pedido</button>
+        </a>
+  <br />
+    <br /> 
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th scope="col">Código Pedido</th>
+                <th scope="col">Proveedor</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Precio Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio Total</th>
+                <th scope="col">Colaborador</th>
+                <th scope="col">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">10202</th>
+                <td>Luis Carvajal</td>
+                <td>Motor</td>
+                <td>$300</td>
+                <td>10</td>
+                <td>$3000</td>
+                <td>Angelo Fajardo</td>
+
+                <td>
+                    <a href="@Url.Action("ModificarPedidoProveedores", "Home")">
+                        <button type="submit" class="btn btn-primary">Editar</button>
+                    </a>
+                </td>
+
+
+                <td><a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Eliminar</a></td>
+
+            </tr>
+            <tr>
+                <th scope="row">10202</th>
+                <td>Luis Carvajal</td>
+                <td>Batería</td>
+                <td>$500</td>
+                <td>10</td>
+                <td>$3000</td>
+                <td>Angelo Fajardo</td>
+
+                <td><a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Editar</a></td>
+
+                <td><a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Eliminar</a></td>
+
+            </tr>
+
+            <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalToggleLabel"></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Pedido eliminado
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tbody>
+    </table>
+
+

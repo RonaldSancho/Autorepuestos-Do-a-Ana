@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Starlight Responsive Bootstrap 4 Admin Template</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css/" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="~/template/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/template/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+    <link href="~/template/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+@*    <link rel="stylesheet" href="~/template/css/Style-ConsultaProducto.css">*@
+    <link rel="stylesheet" href="~/template/css/starlight.css">
+</head>
+
+    <body>
+
+        <div class="sl-logo"><a href="@Url.Action("ConsultarProductos","Home")">Repuestos Doña Ana</a></div>
+        <div class="sl-sideleft">
+            <div class="input-group input-group-search">
+                <span class="input-group-btn">
+                </span>
+            </div>
+
+            <label class="sidebar-label">Navigation</label>
+            <div class="sl-sideleft-menu">
+
+                <a href="#" class="sl-menu-link">
+                    <div class="sl-menu-item">
+                        <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+                        <span class="menu-item-label">Administrador</span>
+                        <i class="menu-item-arrow fa fa-angle-down"></i>
+                    </div>
+                </a>
+                <ul class="sl-menu-sub nav flex-column">
+                    <li class="nav-item"><a href="@Url.Action("MostrarEntregasAdmin", "Home")" class="nav-link">Mostrar Entregas</a></li>
+                    <li class="nav-item"><a href="@Url.Action("ConsultarProductos", "Home")" class="nav-link">Consultar Productos</a></li>
+                    <li class="nav-item"><a href="@Url.Action("MostrarEntregasRepartidor", "Home")" class="nav-link">Mostrar Entrega Repartidor</a></li>
+                    <li class="nav-item"><a href="@Url.Action("TablaFechas", "Home")" class="nav-link">Reportes</a></li>
+                    <li class="nav-item"><a href="@Url.Action("TablaDevolucion", "Home")" class="nav-link">Bitacoras</a></li>
+                    <li class="nav-item"><a href="@Url.Action("IndiceProductos", "Home")" class="nav-link">Indice Productos</a></li>
+                    <li class="nav-item"><a href="@Url.Action("MostrarPedidoProveedores", "Home")" class="nav-link">Pedidos</a></li>
+                    <li class="nav-item"><a href="@Url.Action("IndiceFacturas", "Home")" class="nav-link">Indice Facturas</a></li>
+                </ul>
+
+                <a href="#" class="sl-menu-link">
+                    <div class="sl-menu-item">
+                        <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+                        <span class="menu-item-label">Repartidor</span>
+                        <i class="menu-item-arrow fa fa-angle-down"></i>
+                    </div>
+                </a>
+                <ul class="sl-menu-sub nav flex-column">
+                    <li class="nav-item"><a href="@Url.Action("MostrarEntregasRepartidor", "Home")" class="nav-link">Mostrar Entrega Repartidor</a></li>
+
+                </ul>
+
+                <a href="#" class="sl-menu-link">
+                    <div class="sl-menu-item">
+                        <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+                        <span class="menu-item-label">Cliente</span>
+                        <i class="menu-item-arrow fa fa-angle-down"></i>
+                    </div>
+                </a>
+                <ul class="sl-menu-sub nav flex-column">
+                    <li class="nav-item"><a href="@Url.Action("ConsultarProductos", "Home")" class="nav-link">Consultar Productos</a></li>
+                </ul>
+
+                <a href="@Url.Action("Index", "Home")" class="sl-menu-link">
+                    <div class="sl-menu-item">
+                        <span class="menu-item-label">Cerrar Sesion</span>
+                    </div>
+                </a>
+                <ul class="sl-menu-sub nav flex-column">
+                    <li class="nav-item"><a href="@Url.Action("Index", "Home")" class="nav-link">Cerrar Sesion</a></li>
+                </ul>
+            </div>
+            <br>
+        </div>
+
+        <div class="sl-header">
+            <div class="sl-header-left">
+                <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i class="icon ion-navicon-round"></i></a></div>
+                <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href=""><i class="icon ion-navicon-round"></i></a></div>
+            </div>
+
+        </div>
+
+        <div class="sl-mainpanel">
+
+
+            <div class="sl-pagebody">
+                <div class="sl-page-title">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+        <script src="~/template/lib/jquery/jquery.js"></script>
+        <script src="~/template/lib/popper.js/popper.js"></script>
+        <script src="~/template/lib/bootstrap/bootstrap.js"></script>
+        <script src="~/template/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+        <script src="~/template/js/starlight.js"></script>
+        <script src="~/template/lib/select2/js/select2.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#example').DataTable();
+            });
+        </script>
+
+        @RenderSection("modals", required: false)
+        @RenderSection("scripts", required: false)
+
+    </body>
+</html>
