@@ -26,6 +26,7 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public IActionResult ConsultarProductos(UsuariosEntities usuario)
         {
+
             if (_usuariosModel.ValidarUsuario(usuario) != null)
                 return View();
             else
