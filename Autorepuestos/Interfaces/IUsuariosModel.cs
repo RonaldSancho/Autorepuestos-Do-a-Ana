@@ -4,8 +4,7 @@ namespace Autorepuestos.Interfaces
 {
     public interface IUsuariosModel
     {
-
-        public UsuariosEntities? ValidarUsuario(UsuariosEntities usuario);
+        public UsuariosEntities? ValidarUsuarios(UsuariosEntities usuario);
 
     }
 }
