@@ -1,7 +1,7 @@
 ﻿@model Autorepuestos.Entities.UsuariosEntities
 
 @{
-    ViewBag.Title = "InicioSesión";
+    ViewData["Tittle"] = "InicioSesión";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
@@ -11,21 +11,26 @@
             <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">AutoRepuestos<span class="tx-info tx-normal">DoñaAna</span></div>
             <div class="tx-center mg-b-60">Inicio de Sesión</div>
 
-            @using (Html.BeginForm("ConsultarProductos", "Home", FormMethod.Post)){
+            @using (Html.BeginForm("ConsultarProductos", "Home", FormMethod.Post))
+            {
+
+                @Html.AntiForgeryToken()
+
                 <div class="form-group">
-                    @Html.TextBoxFor(m => m.Correo, new {@class="form-control", @placeholder="Correo"})
+                    @Html.TextBoxFor(m => m.pCorreo, new {@class="form-control", @placeholder="Correo"})
+                    <span asp-validation-for="pCorreo" class="text-danger"></span> @*Se usa para ver el texto del DataAnnotation*@
                 </div>
 
                 <div class="form-group">
-                    @Html.TextBoxFor(m => m.Contrasena, new {@class="form-control", @placeholder="Contraseña", @type="Password"})
+                    @Html.TextBoxFor(m => m.pContrasena, new {@class="form-control", @placeholder="Contraseña", @type="Password"})
                     @*<a href="" class="tx-info tx-12 d-block mg-t-10">No recuerda su contraseña?</a>*@
+                    <span asp-validation-for="pContrasena" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-info btn-block">Iniciar sesión</button>
+                    <input type="submit" class="btn btn-info btn-block" value="Iniciar Sesión" />
                 </div>
             }
-
             @*<div class="mg-t-60 tx-center">Not yet a member? <a href="page-signup.html" class="tx-info">Sign Up</a></div>*@
         </div>
     </div>

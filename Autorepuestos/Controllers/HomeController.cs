@@ -27,7 +27,7 @@ namespace Autorepuestos.Controllers
         public IActionResult ConsultarProductos(UsuariosEntities usuario)
         {
 
-            if (_usuariosModel.ValidarUsuario(usuario) != null)
+            if (_usuariosModel.ValidarUsuarios(usuario) != null)
                 return View();
             else
                 return View("Index");
