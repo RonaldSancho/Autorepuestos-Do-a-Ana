@@ -1,3 +1,4 @@
+@model Autorepuestos.Entities.PedidosEntities
 @{
     ViewBag.Title = "ModificarPedido";
 }
@@ -5,65 +6,93 @@
 
 <div class="container">
     <div class="card pd-20 pd-sm-40">
-            <h6 class="card-body-title">Pedidos</h6>
-            <p class="mg-b-20 mg-sm-b-30" style="font-weight: bold;">Agregar un pedido</p>
+        <h6 class="card-body-title">Pedidos</h6>
+        <p class="mg-b-20 mg-sm-b-30" style="font-weight: bold;">Agregar un pedido</p>
+        @using (Html.BeginForm("AgregarPedidoProveedores", "Home", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+        {
+            @*<div class="row mg-b-25">*@
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.IdPedido, new{@class="form-control-label"})
+                    @Html.TextBoxFor(m=>m.IdPedido, new{@class="form-control", @style="color:grey", @type="number"})
+                    @*<label class="form-control-label">Codigo Pedido <span class="tx-danger">*</span></label>*@
+                    @*<input class="form-control" style="color:grey" type="text" name="codigo" value="1023" readonly placeholder="Codigo">*@
+                </div>
+            </div>
 
-        <div class="form-layout">
-                <div class="row mg-b-25">
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label class="form-control-label">Codigo Pedido <span class="tx-danger">*</span></label>
-                            <input class="form-control" style="color:grey" type="text" name="codigo" value="1023" readonly placeholder="Codigo">
-                        </div>
-                    </div><!-- col-4 -->
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label class="form-control-label">Proveedor <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="proveedor" value="" placeholder="Nombre del Proveedor">
-                        </div>
-                    </div><!-- col-4 -->
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label class="form-control-label">Producto <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="tel" name="producto" value="" placeholder="Nombre del Producto">
-                        </div>
-                    </div><!-- col-4 -->
-                    <div class="col-lg-4">
-                        <div class="form-group mg-b-10-force">
-                            <label class="form-control-label">Precio Producto<span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="precio" value="" placeholder="Precio del producto">
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group mg-b-10-force">
-                            <label class="form-control-label">Cantidad<span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="cantidad" value="" placeholder="Cantidad">
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group mg-b-10-force">
-                            <label class="form-control-label">Precio Total<span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" style="color:grey" name="preciototal" value="" readonly placeholder="preciototal">
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="form-group mg-b-10-force">
-                            <label class="form-control-label">Colaborador<span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="colaborador" value="" placeholder="Colaborador">
-                        </div>
-                    </div><!-- row -->
+            <!-- col-4 -->
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.IdProducto, new{@class="form-control-label"})
+                    @Html.TextBoxFor(m=>m.IdProducto, new{@class="form-control", @style="color:grey"})
+                    @*<label class="form-control-label">Producto <span class="tx-danger">*</span></label>
+                <input class="form-control" type="tel" name="producto" value="" placeholder="Nombre del Producto">*@
+                </div>
+            </div>
 
-                    <div class="form-layout-footer">
-                        <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Agregar</a>
-                        <button class="btn btn-secondary"><a href="@Url.Action("MostrarPedidoProveedores", "Home")">Cancelar</a></button>
-                    </div><!-- form-layout-footer -->
-                </div><!-- form-layout -->
-        </div><!-- card -->
+            <!-- col-4 -->
+            <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                    @Html.LabelFor(m => m.IdFactura, new{@class="form-control-label"})
+                    @Html.TextBoxFor(m=>m.IdFactura, new{@class="form-control", @style="color:grey"})
+                    @*<label class="form-control-label">Precio Producto<span class="tx-danger">*</span></label>
+                <input class="form-control" type="text" name="precio" value="" placeholder="Precio del producto">*@
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                    @Html.LabelFor(m => m.Cantidad, new{@class="form-control-label"})
+                    @Html.TextBoxFor(m=>m.Cantidad, new{@class="form-control", @style="color:grey"})
+                    @*<label class="form-control-label">Cantidad<span class="tx-danger">*</span></label>
+                <input class="form-control" type="text" name="cantidad" value="" placeholder="Cantidad">*@
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                    @Html.LabelFor(m => m.IdProveedor, new{@class="form-control-label"})
+                    @Html.TextBoxFor(m=>m.IdProveedor, new{@class="form-control", @style="color:grey"})
+                    @*<label class="form-control-label">Precio Total<span class="tx-danger">*</span></label>
+                <input class="form-control" type="text" style="color:grey" name="preciototal" value="" readonly placeholder="preciototal">*@
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                    @Html.LabelFor(m => m.PrecioProducto, new{@class="form-control-label"})
+                    @Html.TextBoxFor(m=>m.PrecioProducto, new{@class="form-control", @style="color:grey"})
+                    @*<label class="form-control-label">Colaborador<span class="tx-danger">*</span></label>
+                <input class="form-control" type="text" name="colaborador" value="" placeholder="Colaborador">*@
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                    @Html.LabelFor(m => m.PrecioTotal, new{@class="form-control-label"})
+                    @Html.TextBoxFor(m=>m.PrecioTotal, new{@class="form-control", @style="color:grey"})
+                    @*<label class="form-control-label">Colaborador<span class="tx-danger">*</span></label>
+                <input class="form-control" type="text" name="colaborador" value="" placeholder="Colaborador">*@
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                    @Html.LabelFor(m => m.IdUsuario, new{@class="form-control-label"})
+                    @Html.TextBoxFor(m=>m.IdUsuario, new{@class="form-control", @style="color:grey"})
+                    @*<label class="form-control-label">Colaborador<span class="tx-danger">*</span></label>
+                <input class="form-control" type="text" name="colaborador" value="" placeholder="Colaborador">*@
+                </div>
+            </div>
+
+            <div class="form-layout-footer">
+                <button class="btn btn-primary" @*data-bs-toggle="modal"*@ @*href="#exampleModalToggle"*@ role="button">Agregar</button>
+                <button class="btn btn-secondary"><a href="@Url.Action("MostrarPedidoProveedores", "Home")">Cancelar</a></button>
+            </div>
+            @* </div> *@
+        }
     </div>
 </div>
 
 
-    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+@* <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -85,9 +114,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
-    @*<script src="../lib/jquery/jquery.js"></script>
+@*<script src="../lib/jquery/jquery.js"></script>
     <script src="../lib/popper.js/popper.js"></script>
     <script src="../lib/bootstrap/bootstrap.js"></script>
     <script src="../lib/jquery-ui/jquery-ui.js"></script>
