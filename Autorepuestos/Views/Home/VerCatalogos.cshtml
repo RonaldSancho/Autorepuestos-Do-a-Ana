@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Autorepuestos.Entities.CatalogosEntities>
+@{
+    ViewData["Title"] = "ConsultarProductos";
+}
+<br />
+<br />
+<br />
+<h2>Nuestros productos</h2>
+@*    <nav class="navbar navbar-expand-lg bg-light">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="@Url.Action("CarritoCompras", "Home")"><img src="~/template/img/carritoCompras.png" alt="" width="30px"></a></li>
+            <li></li>
+        </ul>
+    </nav>*@
+@*<div class="row gy-4 justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+                <div class="card">
+                    <img src="@Url.Content(item.Imagen)" width="150" height="200"  />
+                    <div class="card-body">
+                        <div class="text-title">
+                            @Html.DisplayFor(modelItem => item.NombreProducto)
+                        </div>
+                        <p class="card-text">
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </p>
+                        <p class="card-text">
+                        @Html.DisplayFor(modelItem => item.Precio)                        
+                        </p>
+                        <a class="btn btn-primary" data-bs-toggle="modal" href="#AgregarCarrito" role="button">Agregar al Carrito</a>
+                        <a class="btn btn-primary" role="button" href="@Url.Action("VerCatalogo","Home", new{id = item.IdProducto})">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Gallery Item -->
+    }
+</div>*@
+
+<div class="row gy-4 justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+                <div class="card">
+                    <img class='mx-auto img-thumbnail'
+                     src="@Url.Content(item.Imagen)"
+                     width="150" height="200" />
+
+                    <div class="card-body text-center mx-auto">
+                        <div class='cvp'>
+                            <h5 class="card-title font-weight-bold">@Html.DisplayFor(modelItem => item.NombreProducto)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Precio)</p>
+                            <a class="btn btn-primary" data-bs-toggle="modal" href="#AgregarCarrito" role="button">Agregar al Carrito</a> <br><br>
+                            <a class="btn btn-primary" role="button" href="@Url.Action("VerCatalogo","Home", new{id = item.IdProducto})">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="~/template/img/bateria.jpg" class="card-img-top" alt="...">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label" style="font-weight: bold;">Especificaciones</label>
+                        <div class="modal-body">
+                            Modelo: Racing Max <br>
+                            Marca: America<br>
+                            Precio: $2000<br>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Mensaje</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Producto agregado exitosamente
+            </div>
+        </div>
+    </div>
+</div>

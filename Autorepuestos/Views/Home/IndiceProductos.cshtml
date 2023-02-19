@@ -2,165 +2,130 @@
 @{
     ViewBag.Title = "IndiceProductos";
 }
-<div class="sl-pagebody">
-    <div class="card pd-20 pd-sm-40">
-        <h6 class="card-body-title">Productos</h6>
-        <div class="row pd-t-20 justify-content-end">
-            <div class="col-lg-6 mg-t-20 mg-lg-t-0 ">
-                <div class="input-group ">
-                    <input type="text" class="form-control " placeholder="Buscando...">
-                    <span class="input-group-btn">
-                        <button class="btn bd bg-white tx-gray-600" type="button"><i class="fa fa-search"></i></button>
-                    </span>
-                </div><!-- input-group -->
+<br />
+<br />
+<br />
 
-            </div><!-- col-4 -->
-        </div><!-- row -->
-        <div class="table-wrapper">
-            <a href="#AgregarProducto" role="button" class="btn btn-dark btn-md justify-content-start" data-toggle="modal">Nuevo Producto</a>
-            <br />
+<h1>Índice Productos</h1>
+<table id="example" class="table table-dark" style="width:100%">
+    <thead>
+        <tr>
+            <th class="wd-15p">Código</th>
+            <th class="wd-30p">Nombre</th>
+            <th class="wd-20p">Categoría</th>
+            <th class="wd-lg-1000p">Descripción</th>
+            <th class="wd-15p">Cantidad</th>
+            <th class="wd-10p">Precio</th>
+            <th class="wd-30p">Proveedor</th>
+            <th class="wd-15p">Modificar</th>
 
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>685915</td>
+            <td>Rotulas de Suspension</td>
+            <td>Rotulas</td>
+            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis erat euismod lacus tincidunt facilisis ac nec diam. Donec at malesuada turpis. Morbi hendrerit molestie purus eu semper. Vivamus non dolor malesuada, ultricies dui et, tincidunt leo. Sed laoreet rhoncus ante a consequat. Quisque nisl sapien, tempor iaculis facilisis id, ullamcorper vitae enim. Vivamus eu sem purus. Praesent velit dolor, vulputate at justo nec, mattis vulputate diam. Proin tristique lorem felis, ac aliquam ipsum elementum id. Nulla nec egestas justo. Praesent et pretium velit. Nulla sapien urna, dapibus sed tempor eget, molestie in arcu.</td>
+            <td>28</td>
+            <td>₡17645</td>
+            <td>Rere</td>
+            <td><a href="#EditarProducto1" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+        </tr>
+        <tr>
+            <td>917995</td>
+            <td>Zapata de freno</td>
+            <td>Zapatas</td>
+            <td>Etiam vel nibh id erat consectetur consectetur eget et lectus. Mauris eu erat ut nibh suscipit tristique. Curabitur ullamcorper gravida lorem, sit amet maximus mauris pharetra id. Proin dictum sapien erat, ac suscipit elit vulputate quis. Donec accumsan nulla eu lacus lacinia ultrices. Nulla semper, ligula fringilla semper consectetur, risus mi fringilla sem, eget ornare arcu felis vel mauris. Donec vitae luctus lacus. Nam luctus orci at nibh molestie, in pellentesque enim pretium.</td>
+            <td>28</td>
+            <td>₡11183</td>
+            <td>Suisei</td>
+            <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+        </tr>
+        <tr>
+            <td>397999</td>
+            <td>Rol de empuje</td>
+            <td>Roles</td>
+            <td>Etiam vel nibh id erat consectetur consectetur eget et lectus. Mauris eu erat ut nibh suscipit tristique. Curabitur ullamcorper gravida lorem, sit amet maximus mauris pharetra id. Proin dictum sapien erat, ac suscipit elit vulputate quis. Donec accumsan nulla eu lacus lacinia ultrices. Nulla semper, ligula fringilla semper consectetur, risus mi fringilla sem, eget ornare arcu felis vel mauris. Donec vitae luctus lacus. Nam luctus orci at nibh molestie, in pellentesque enim pretium.</td>
+            <td></td>
+            <td>₡10736</td>
+            <td>Grand Prix</td>
+            <td>28<a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+        </tr>
+        <tr>
+            <td>278659</td>
+            <td>Rotula de cremallera</td>
+            <td>Rotulas</td>
+            <td>Duis in risus auctor, ultricies nunc tristique, posuere arcu. Proin tincidunt finibus lectus sed malesuada. Sed eget nibh ac ipsum posuere posuere. Vivamus facilisis pharetra nunc, vitae tincidunt lacus feugiat at. Quisque eu commodo ligula. Donec ullamcorper faucibus nisi. Phasellus finibus ex maximus odio mattis pulvinar. Praesent malesuada lectus vel erat laoreet accumsan sed non metus. Fusce vitae ultricies massa. Integer ac purus at metus ullamcorper laoreet. Proin imperdiet erat vitae dictum suscipit.</td>
+            <td>28</td>
+            <td>₡17387</td>
+            <td>Diser S.A.</td>
+            <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+        </tr>
+        <tr>
+            <td>139633</td>
+            <td>Bomba de agua</td>
+            <td>Bombas</td>
+            <td>Nunc posuere posuere augue, vel scelerisque tellus faucibus non. Nunc sapien sem, pretium ut aliquet eu, molestie et justo. Praesent ac imperdiet ex. Morbi pulvinar diam ex, ac mollis nisl maximus sit amet. Vivamus viverra finibus facilisis. Morbi semper et augue at vulputate. Vestibulum vulputate erat non dui ultricies, non hendrerit felis tincidunt. Proin scelerisque feugiat mattis. Duis at malesuada nunc. Phasellus pellentesque aliquam varius. Donec ornare lobortis cursus. Maecenas eget ultricies lorem. In congue libero quis urna scelerisque, sit amet venenatis erat dictum.</td>
+            <td>28</td>
+            <td>₡16225</td>
+            <td>Valeo Automotriz S.A.</td>
+            <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+        </tr>
+        <tr>
+            <td>379996</td>
+            <td>Filtro de aire</td>
+            <td>Filtros</td>
+            <td>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse ac purus dolor. Phasellus maximus molestie felis, id venenatis ex placerat auctor. Mauris vitae turpis ac ante efficitur scelerisque. Aliquam erat volutpat. Etiam mollis augue vitae nulla sodales accumsan. Cras ac ornare est.</td>
+            <td>28</td>
+            <td>₡3254</td>
+            <td>Importadora Brigo</td>
+            <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+        </tr>
+        <tr>
+            <td>770411</td>
+            <td>Filtro de gasolina</td>
+            <td>Filtros</td>
+            <td>Vestibulum tristique ligula quam, vel mattis sapien malesuada a. Sed elementum ultricies arcu. Etiam laoreet dolor erat, condimentum volutpat libero rutrum quis. Nunc convallis sem mattis dolor vehicula laoreet. Nunc at elementum eros, eget euismod libero. Maecenas mattis tempor tempor. Nulla risus ipsum, blandit non turpis ac, finibus faucibus eros. Sed fermentum ante leo. Nullam molestie consequat consequat. Nullam fermentum nibh at dolor ullamcorper consectetur. Donec eleifend nulla a lorem mattis facilisis. Proin odio ipsum, laoreet non nisi in, efficitur convallis purus.</td>
+            <td>28</td>
+            <td>₡20578</td>
+            <td>Auto Sasa</td>
+            <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+        </tr>
+        <tr>
+            <td>900032</td>
+            <td>Filtro de aceite</td>
+            <td>Filtros</td>
+            <td>Phasellus rhoncus nisi id mi aliquam maximus. Nullam fringilla, sem eget lacinia consequat, felis arcu faucibus nibh, sit amet accumsan magna tellus eget ligula. Maecenas faucibus nunc eros, ut feugiat massa suscipit sit amet. Sed sapien dui, porttitor ac fermentum nec, elementum non ex. Morbi nibh ipsum, finibus in tempor sed, egestas et ligula. Proin vel odio non arcu ullamcorper porttitor. Ut volutpat quam sed augue tempor bibendum. Nam scelerisque erat metus, id luctus neque convallis in. Vivamus dignissim maximus sodales. Aenean enim libero, sollicitudin ut mauris eget, mollis suscipit nisl. Nullam varius in velit sagittis mattis. Donec consequat neque facilisis, commodo ligula eget, dignissim lorem. Donec eleifend quis orci tristique pretium. Fusce accumsan vulputate pellentesque. Curabitur lectus ipsum, pulvinar quis nulla sit amet, varius tincidunt metus.</td>
+            <td>28</td>
+            <td>₡12386</td>
+            <td>La Guacamaya</td>
+            <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+        </tr>
+        <tr>
+            <td>387124</td>
+            <td>Rotula de dirección</td>
+            <td>Rotulas</td>
+            <td>Sed eleifend nulla id neque dapibus pellentesque. Nullam sodales volutpat leo, a lacinia neque facilisis id. Donec tempor feugiat pharetra. Etiam eu nunc sed elit rhoncus congue. Pellentesque at sem erat. Maecenas pretium semper enim eget faucibus. Praesent orci lectus, lobortis sed quam sed, gravida tincidunt odio. Ut ac massa lorem. Donec laoreet orci cursus orci ultricies finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</td>
+            <td>28</td>
+            <td>₡24397</td>
+            <td>Sol de Kobe</td>
+            <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+        </tr>
+        <tr>
+            <td>359644</td>
+            <td>Bushing de tijereta</td>
+            <td>Bushines</td>
+            <td>Mauris massa metus, iaculis eu ipsum et, aliquet tincidunt sem. Morbi velit turpis, finibus eget urna nec, tempus venenatis sem. Integer pharetra leo est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus sollicitudin ligula ac est auctor, dapibus congue ante mollis. Etiam facilisis ultricies efficitur. Suspendisse potenti. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras a suscipit est, eu pulvinar sapien. Vestibulum efficitur ut massa et ultricies. Nunc cursus nunc et sem hendrerit malesuada. Praesent mattis viverra laoreet. Nullam a ullamcorper est. Aliquam erat volutpat.</td>
+            <td>28</td>
+            <td>₡11874</td>
+            <td>Navemar</td>
+            <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
+        </tr>
 
-            <table id="datatable1" class="table display responsive nowrap">
-                <thead>
-                    <tr>
-                        <th class="wd-15p">Código</th>
-                        <th class="wd-30p">Nombre</th>
-                        <th class="wd-20p">Categoría</th>
-                        <th class="wd-lg-1000p">Descripción</th>
-                        <th class="wd-15p">Cantidad</th>
-                        <th class="wd-10p">Precio</th>
-                        <th class="wd-30p">Proveedor</th>
-                        <th class="wd-15p">Modificar</th>
+    </tbody>
+</table>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>685915</td>
-                        <td>Rotulas de Suspension</td>
-                        <td>Rotulas</td>
-                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis erat euismod lacus tincidunt facilisis ac nec diam. Donec at malesuada turpis. Morbi hendrerit molestie purus eu semper. Vivamus non dolor malesuada, ultricies dui et, tincidunt leo. Sed laoreet rhoncus ante a consequat. Quisque nisl sapien, tempor iaculis facilisis id, ullamcorper vitae enim. Vivamus eu sem purus. Praesent velit dolor, vulputate at justo nec, mattis vulputate diam. Proin tristique lorem felis, ac aliquam ipsum elementum id. Nulla nec egestas justo. Praesent et pretium velit. Nulla sapien urna, dapibus sed tempor eget, molestie in arcu.</td>
-                        <td>28</td>
-                        <td>₡17645</td>
-                        <td>Rere</td>
-                        <td><a href="#EditarProducto1" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
-                    </tr>
-                    <tr>
-                        <td>917995</td>
-                        <td>Zapata de freno</td>
-                        <td>Zapatas</td>
-                        <td>Etiam vel nibh id erat consectetur consectetur eget et lectus. Mauris eu erat ut nibh suscipit tristique. Curabitur ullamcorper gravida lorem, sit amet maximus mauris pharetra id. Proin dictum sapien erat, ac suscipit elit vulputate quis. Donec accumsan nulla eu lacus lacinia ultrices. Nulla semper, ligula fringilla semper consectetur, risus mi fringilla sem, eget ornare arcu felis vel mauris. Donec vitae luctus lacus. Nam luctus orci at nibh molestie, in pellentesque enim pretium.</td>
-                        <td>28</td>
-                        <td>₡11183</td>
-                        <td>Suisei</td>
-                        <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
-                    </tr>
-                    <tr>
-                        <td>397999</td>
-                        <td>Rol de empuje</td>
-                        <td>Roles</td>
-                        <td>Etiam vel nibh id erat consectetur consectetur eget et lectus. Mauris eu erat ut nibh suscipit tristique. Curabitur ullamcorper gravida lorem, sit amet maximus mauris pharetra id. Proin dictum sapien erat, ac suscipit elit vulputate quis. Donec accumsan nulla eu lacus lacinia ultrices. Nulla semper, ligula fringilla semper consectetur, risus mi fringilla sem, eget ornare arcu felis vel mauris. Donec vitae luctus lacus. Nam luctus orci at nibh molestie, in pellentesque enim pretium.</td>
-                        <td></td>
-                        <td>₡10736</td>
-                        <td>Grand Prix</td>
-                        <td>28<a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
-                    </tr>
-                    <tr>
-                        <td>278659</td>
-                        <td>Rotula de cremallera</td>
-                        <td>Rotulas</td>
-                        <td>Duis in risus auctor, ultricies nunc tristique, posuere arcu. Proin tincidunt finibus lectus sed malesuada. Sed eget nibh ac ipsum posuere posuere. Vivamus facilisis pharetra nunc, vitae tincidunt lacus feugiat at. Quisque eu commodo ligula. Donec ullamcorper faucibus nisi. Phasellus finibus ex maximus odio mattis pulvinar. Praesent malesuada lectus vel erat laoreet accumsan sed non metus. Fusce vitae ultricies massa. Integer ac purus at metus ullamcorper laoreet. Proin imperdiet erat vitae dictum suscipit.</td>
-                        <td>28</td>
-                        <td>₡17387</td>
-                        <td>Diser S.A.</td>
-                        <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
-                    </tr>
-                    <tr>
-                        <td>139633</td>
-                        <td>Bomba de agua</td>
-                        <td>Bombas</td>
-                        <td>Nunc posuere posuere augue, vel scelerisque tellus faucibus non. Nunc sapien sem, pretium ut aliquet eu, molestie et justo. Praesent ac imperdiet ex. Morbi pulvinar diam ex, ac mollis nisl maximus sit amet. Vivamus viverra finibus facilisis. Morbi semper et augue at vulputate. Vestibulum vulputate erat non dui ultricies, non hendrerit felis tincidunt. Proin scelerisque feugiat mattis. Duis at malesuada nunc. Phasellus pellentesque aliquam varius. Donec ornare lobortis cursus. Maecenas eget ultricies lorem. In congue libero quis urna scelerisque, sit amet venenatis erat dictum.</td>
-                        <td>28</td>
-                        <td>₡16225</td>
-                        <td>Valeo Automotriz S.A.</td>
-                        <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
-                    </tr>
-                    <tr>
-                        <td>379996</td>
-                        <td>Filtro de aire</td>
-                        <td>Filtros</td>
-                        <td>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse ac purus dolor. Phasellus maximus molestie felis, id venenatis ex placerat auctor. Mauris vitae turpis ac ante efficitur scelerisque. Aliquam erat volutpat. Etiam mollis augue vitae nulla sodales accumsan. Cras ac ornare est.</td>
-                        <td>28</td>
-                        <td>₡3254</td>
-                        <td>Importadora Brigo</td>
-                        <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
-                    </tr>
-                    <tr>
-                        <td>770411</td>
-                        <td>Filtro de gasolina</td>
-                        <td>Filtros</td>
-                        <td>Vestibulum tristique ligula quam, vel mattis sapien malesuada a. Sed elementum ultricies arcu. Etiam laoreet dolor erat, condimentum volutpat libero rutrum quis. Nunc convallis sem mattis dolor vehicula laoreet. Nunc at elementum eros, eget euismod libero. Maecenas mattis tempor tempor. Nulla risus ipsum, blandit non turpis ac, finibus faucibus eros. Sed fermentum ante leo. Nullam molestie consequat consequat. Nullam fermentum nibh at dolor ullamcorper consectetur. Donec eleifend nulla a lorem mattis facilisis. Proin odio ipsum, laoreet non nisi in, efficitur convallis purus.</td>
-                        <td>28</td>
-                        <td>₡20578</td>
-                        <td>Auto Sasa</td>
-                        <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
-                    </tr>
-                    <tr>
-                        <td>900032</td>
-                        <td>Filtro de aceite</td>
-                        <td>Filtros</td>
-                        <td>Phasellus rhoncus nisi id mi aliquam maximus. Nullam fringilla, sem eget lacinia consequat, felis arcu faucibus nibh, sit amet accumsan magna tellus eget ligula. Maecenas faucibus nunc eros, ut feugiat massa suscipit sit amet. Sed sapien dui, porttitor ac fermentum nec, elementum non ex. Morbi nibh ipsum, finibus in tempor sed, egestas et ligula. Proin vel odio non arcu ullamcorper porttitor. Ut volutpat quam sed augue tempor bibendum. Nam scelerisque erat metus, id luctus neque convallis in. Vivamus dignissim maximus sodales. Aenean enim libero, sollicitudin ut mauris eget, mollis suscipit nisl. Nullam varius in velit sagittis mattis. Donec consequat neque facilisis, commodo ligula eget, dignissim lorem. Donec eleifend quis orci tristique pretium. Fusce accumsan vulputate pellentesque. Curabitur lectus ipsum, pulvinar quis nulla sit amet, varius tincidunt metus.</td>
-                        <td>28</td>
-                        <td>₡12386</td>
-                        <td>La Guacamaya</td>
-                        <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
-                    </tr>
-                    <tr>
-                        <td>387124</td>
-                        <td>Rotula de dirección</td>
-                        <td>Rotulas</td>
-                        <td>Sed eleifend nulla id neque dapibus pellentesque. Nullam sodales volutpat leo, a lacinia neque facilisis id. Donec tempor feugiat pharetra. Etiam eu nunc sed elit rhoncus congue. Pellentesque at sem erat. Maecenas pretium semper enim eget faucibus. Praesent orci lectus, lobortis sed quam sed, gravida tincidunt odio. Ut ac massa lorem. Donec laoreet orci cursus orci ultricies finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</td>
-                        <td>28</td>
-                        <td>₡24397</td>
-                        <td>Sol de Kobe</td>
-                        <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal">Modificar</a></td>
-                    </tr>
-                    <tr>
-                        <td>359644</td>
-                        <td>Bushing de tijereta</td>
-                        <td>Bushines</td>
-                        <td>Mauris massa metus, iaculis eu ipsum et, aliquet tincidunt sem. Morbi velit turpis, finibus eget urna nec, tempus venenatis sem. Integer pharetra leo est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus sollicitudin ligula ac est auctor, dapibus congue ante mollis. Etiam facilisis ultricies efficitur. Suspendisse potenti. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras a suscipit est, eu pulvinar sapien. Vestibulum efficitur ut massa et ultricies. Nunc cursus nunc et sem hendrerit malesuada. Praesent mattis viverra laoreet. Nullam a ullamcorper est. Aliquam erat volutpat.</td>
-                        <td>28</td>
-                        <td>₡11874</td>
-                        <td>Navemar</td>
-                        <td><a href="#EditarProducto" role="button" class="btn btn-large btn-primary" data-toggle="modal" >Modificar</a></td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-
-        </div><!-- table-wrapper -->
-        <div class="ht-80 bd d-flex align-items-center justify-content-center">
-            <nav aria-label="Page navigation">
-                <ul class="pagination pagination-basic mg-b-0">
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div><!-- card -->
-
-</div><!-- sl-mainpanel -->
 <!-- Esta parte del codigo es para la primera opcion de modificar solo esta tiene los datos correctos-->
 <div id="EditarProducto1" class="modal fade ">
     <div class="modal-dialog">

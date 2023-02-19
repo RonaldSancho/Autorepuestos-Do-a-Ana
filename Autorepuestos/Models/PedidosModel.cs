@@ -1,8 +1,10 @@
 ﻿using Autorepuestos.Entities;
 using Autorepuestos.Interfaces;
 using Dapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MySql.Data.MySqlClient;
 using System.Data;
+using static Autorepuestos.Entities.PedidosEntities;
 
 namespace Autorepuestos.Models
 {
@@ -14,15 +16,13 @@ namespace Autorepuestos.Models
         {
             _configuration = configuration;
         }
-        public PedidosEntities Crear(PedidosEntities pedido)
+        public void Crear(PedidosEntities pedido)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                return (PedidosEntities)conexion.Query<PedidosEntities>("CrearPedido", new
+                conexion.Execute("CrearPedido", new
                 {
-                    pedido.IdPedido,
                     pedido.IdProducto,
-                    pedido.IdFactura,
                     pedido.Cantidad,
                     pedido.IdProveedor,
                     pedido.PrecioProducto,
@@ -34,37 +34,14 @@ namespace Autorepuestos.Models
 
         }
 
-        //public List<PedidosEntities> Crear(PedidosEntities pedido)
-        //{
-        //    using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-        //    {
-        //        return conexion.Query<PedidosEntities>("CrearPedido", new
-        //        {
-        //            pedido.IdPedido,
-        //            pedido.IdProducto,
-        //            pedido.IdFactura,
-        //            pedido.Cantidad,
-        //            pedido.IdProveedor,
-        //            pedido.PrecioProducto,
-        //            pedido.PrecioTotal,
-        //            pedido.IdUsuario
-        //        },
-        //            commandType: CommandType.StoredProcedure).ToList();
-        //    }
-        //}
-
-
-
-
         public void Editar(PedidosEntities pedido)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                conexion.Query<PedidosEntities>("EditarPedido", new
+                conexion.Execute("EditarPedido", new
                 {
-                    pedido.IdPedido,
+                    pedido.pIdPedido,
                     pedido.IdProducto,
-                    pedido.IdFactura,
                     pedido.Cantidad,
                     pedido.IdProveedor,
                     pedido.PrecioProducto,
@@ -83,9 +60,13 @@ namespace Autorepuestos.Models
             }
         }
 
-        public PedidosEntities verPedido(int id)
+        public PedidosEntities? verPedido(int id)
         {
-            throw new NotImplementedException();
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                return conexion.Query<PedidosEntities>("VisualizarPedido", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+            }
         }
 
         public List<PedidosEntities> VerPedidos(PedidosEntities pedido)
@@ -93,6 +74,81 @@ namespace Autorepuestos.Models
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
                 return conexion.Query<PedidosEntities>("VerPedidos", new { }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public RespuestaPedido ConsultaPedidoProducto()
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                var resultado = conexion.Query("ConsultaPedidoProducto", new { }, commandType: CommandType.StoredProcedure).ToList();
+
+                RespuestaPedido respuesta = new RespuestaPedido();
+                List<PedidosEntities> datos = new List<PedidosEntities>();
+
+                if (resultado.Count > 0)
+                {
+                    foreach (var item in resultado)
+                    {
+                        datos.Add(new PedidosEntities
+                        {
+                            IdProducto = item.IdProducto,
+                            NombreProducto = item.NombreProducto,
+                        });
+                    }
+
+                    respuesta.RespuestaPedidos = datos;
+                }
+
+                return respuesta;
+            }
+        }
+
+        public RespuestaPedido ConsultaPedidoProveedor()
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                var resultado = conexion.Query("ConsultaPedidoProveedor", new { }, commandType: CommandType.StoredProcedure).ToList();
+                RespuestaPedido respuesta = new RespuestaPedido();
+                List<PedidosEntities> datos = new List<PedidosEntities>();
+
+                if (resultado.Count > 0)
+                {
+                    foreach (var item in resultado)
+                    {
+                        datos.Add(new PedidosEntities
+                        {
+                            IdProveedor = item.IdProveedor,
+                            NombreProveedor = item.NombreProveedor,
+                        });
+                    }
+                    respuesta.RespuestaPedidos = datos;
+                }
+                return respuesta;
+            }
+        }
+
+        public RespuestaPedido ConsultaPedidoUsuario()
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                var resultado = conexion.Query("ConsultaPedidoUsuario", new { }, commandType: CommandType.StoredProcedure).ToList();
+                RespuestaPedido respuesta = new RespuestaPedido();
+                List<PedidosEntities> datos = new List<PedidosEntities>();
+
+                if (resultado.Count > 0)
+                {
+                    foreach (var item in resultado)
+                    {
+                        datos.Add(new PedidosEntities
+                        {
+                            IdUsuario = item.IdUsuario,
+                            NombreUsuario = item.NombreUsuario,
+                        });
+                    }
+                    respuesta.RespuestaPedidos = datos;
+                }
+                return respuesta;
             }
         }
 

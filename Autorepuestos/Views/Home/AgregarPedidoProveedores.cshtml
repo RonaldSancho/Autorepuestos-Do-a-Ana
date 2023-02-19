@@ -11,56 +11,31 @@
         @using (Html.BeginForm("AgregarPedidoProveedores", "Home", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
         {
             @*<div class="row mg-b-25">*@
-            <div class="col-lg-4">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.IdPedido, new{@class="form-control-label"})
-                    @Html.TextBoxFor(m=>m.IdPedido, new{@class="form-control", @style="color:grey", @type="number"})
-                    @*<label class="form-control-label">Codigo Pedido <span class="tx-danger">*</span></label>*@
-                    @*<input class="form-control" style="color:grey" type="text" name="codigo" value="1023" readonly placeholder="Codigo">*@
-                </div>
-            </div>
-
             <!-- col-4 -->
             <div class="col-lg-4">
                 <div class="form-group">
                     @Html.LabelFor(m => m.IdProducto, new{@class="form-control-label"})
-                    @Html.TextBoxFor(m=>m.IdProducto, new{@class="form-control", @style="color:grey"})
-                    @*<label class="form-control-label">Producto <span class="tx-danger">*</span></label>
-                <input class="form-control" type="tel" name="producto" value="" placeholder="Nombre del Producto">*@
+                    @Html.DropDownListFor(model => model.IdProducto, ViewBag.ComboProductos as List<SelectListItem>, new { @class = "form-control" })
                 </div>
             </div>
-
+            <br />
             <!-- col-4 -->
-            <div class="col-lg-4">
-                <div class="form-group mg-b-10-force">
-                    @Html.LabelFor(m => m.IdFactura, new{@class="form-control-label"})
-                    @Html.TextBoxFor(m=>m.IdFactura, new{@class="form-control", @style="color:grey"})
-                    @*<label class="form-control-label">Precio Producto<span class="tx-danger">*</span></label>
-                <input class="form-control" type="text" name="precio" value="" placeholder="Precio del producto">*@
-                </div>
-            </div>
             <div class="col-lg-4">
                 <div class="form-group mg-b-10-force">
                     @Html.LabelFor(m => m.Cantidad, new{@class="form-control-label"})
                     @Html.TextBoxFor(m=>m.Cantidad, new{@class="form-control", @style="color:grey"})
-                    @*<label class="form-control-label">Cantidad<span class="tx-danger">*</span></label>
-                <input class="form-control" type="text" name="cantidad" value="" placeholder="Cantidad">*@
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="form-group mg-b-10-force">
                     @Html.LabelFor(m => m.IdProveedor, new{@class="form-control-label"})
-                    @Html.TextBoxFor(m=>m.IdProveedor, new{@class="form-control", @style="color:grey"})
-                    @*<label class="form-control-label">Precio Total<span class="tx-danger">*</span></label>
-                <input class="form-control" type="text" style="color:grey" name="preciototal" value="" readonly placeholder="preciototal">*@
+                    @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control" })
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="form-group mg-b-10-force">
                     @Html.LabelFor(m => m.PrecioProducto, new{@class="form-control-label"})
                     @Html.TextBoxFor(m=>m.PrecioProducto, new{@class="form-control", @style="color:grey"})
-                    @*<label class="form-control-label">Colaborador<span class="tx-danger">*</span></label>
-                <input class="form-control" type="text" name="colaborador" value="" placeholder="Colaborador">*@
                 </div>
             </div>
 
@@ -68,23 +43,20 @@
                 <div class="form-group mg-b-10-force">
                     @Html.LabelFor(m => m.PrecioTotal, new{@class="form-control-label"})
                     @Html.TextBoxFor(m=>m.PrecioTotal, new{@class="form-control", @style="color:grey"})
-                    @*<label class="form-control-label">Colaborador<span class="tx-danger">*</span></label>
-                <input class="form-control" type="text" name="colaborador" value="" placeholder="Colaborador">*@
                 </div>
             </div>
 
             <div class="col-lg-4">
                 <div class="form-group mg-b-10-force">
                     @Html.LabelFor(m => m.IdUsuario, new{@class="form-control-label"})
-                    @Html.TextBoxFor(m=>m.IdUsuario, new{@class="form-control", @style="color:grey"})
-                    @*<label class="form-control-label">Colaborador<span class="tx-danger">*</span></label>
-                <input class="form-control" type="text" name="colaborador" value="" placeholder="Colaborador">*@
+                    @Html.DropDownListFor(model => model.IdUsuario, ViewBag.ComboUsuarios as List<SelectListItem>, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-layout-footer">
+                <br />
                 <button class="btn btn-primary" @*data-bs-toggle="modal"*@ @*href="#exampleModalToggle"*@ role="button">Agregar</button>
-                <button class="btn btn-secondary"><a href="@Url.Action("MostrarPedidoProveedores", "Home")">Cancelar</a></button>
+                <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarPedidoProveedores","Home")">Cancelar</a>
             </div>
             @* </div> *@
         }
