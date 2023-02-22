@@ -1,0 +1,44 @@
+﻿@model Autorepuestos.Entities.PedidosEntities
+@{
+    ViewBag.Title = "DetallePedido";
+}
+
+<h1>Detalle</h1>
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(m => m.IdProducto)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.NombreProducto)</dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.Cantidad)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.Cantidad)</dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.IdProveedor)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.NombreProveedor)</dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.PrecioProducto)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.PrecioProducto)</dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.PrecioTotal)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.PrecioTotal)</dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.IdUsuario)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.NombreUsuario)</dd>
+    </dl>
+    <p>
+        <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarPedidoProveedores","Home")">Volver</a>
+    </p>
+</div>
