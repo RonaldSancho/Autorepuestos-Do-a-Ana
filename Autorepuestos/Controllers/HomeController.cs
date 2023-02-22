@@ -157,9 +157,9 @@ namespace Autorepuestos.Controllers
 
 
         [HttpGet]
-        public ActionResult VerCatalogo(int id)
+        public ActionResult VerProductoCatalogo(int id)
         {
-            var resultado = _CatalogosModel.VerCatalogo(id);
+            var resultado = _CatalogosModel.VerProductoCatalogo(id);
             if (resultado != null)
                 return View(resultado);
             else

@@ -6,7 +6,7 @@ namespace Autorepuestos.Interfaces
 {
     public interface ICatalogosModel
     {
-        public CatalogosEntities? VerCatalogo(int id);
+        public CatalogosEntities? VerProductoCatalogo(int id);
         public List<CatalogosEntities> VerCatalogos(CatalogosEntities catalogo);
 
 

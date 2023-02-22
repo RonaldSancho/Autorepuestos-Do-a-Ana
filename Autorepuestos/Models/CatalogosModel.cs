@@ -21,7 +21,7 @@ namespace Autorepuestos.Models
 
 
 
-        public CatalogosEntities? VerCatalogo(int id)
+        public CatalogosEntities? VerProductoCatalogo(int id)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {

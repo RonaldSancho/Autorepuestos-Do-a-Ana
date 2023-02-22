@@ -57,7 +57,7 @@
                             <br>
                             <p class="card-text">@Html.DisplayFor(modelItem => item.Precio)</p>
                             <a class="btn btn-primary" data-bs-toggle="modal" href="#AgregarCarrito" role="button">Agregar al Carrito</a> <br><br>
-                            <a class="btn btn-primary" role="button" href="@Url.Action("VerCatalogo","Home", new{id = item.IdProducto})">Ver más</a>
+                            <a class="btn btn-primary" role="button" href="@Url.Action("VerProductoCatalogo","Home", new{id = item.IdProducto})">Ver más</a>
                         </div>
                     </div>
                 </div>
