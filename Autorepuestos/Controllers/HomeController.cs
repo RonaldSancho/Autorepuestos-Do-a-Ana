@@ -13,13 +13,15 @@ namespace Autorepuestos.Controllers
         private readonly IUsuariosModel _UsuariosModel;
         private readonly IPedidosModel _PedidosModel;
         private readonly ICatalogosModel _CatalogosModel;
+        private readonly IEntregasModel _EntregasModel;
 
-        public HomeController(ILogger<HomeController> logger, IUsuariosModel usuariosModel, IPedidosModel pedidosModel, ICatalogosModel catalogoModel)
+        public HomeController(ILogger<HomeController> logger, IUsuariosModel usuariosModel, IPedidosModel pedidosModel, ICatalogosModel catalogoModel, IEntregasModel entregasModel)
         {
             _logger = logger;
             _UsuariosModel = usuariosModel;
             _PedidosModel = pedidosModel;
             _CatalogosModel = catalogoModel;
+            _EntregasModel = entregasModel;
         }
 
         [HttpGet]
@@ -46,6 +48,7 @@ namespace Autorepuestos.Controllers
             return View(_PedidosModel.VerPedidos(pedido));
         }
 
+        [HttpGet]
         public ActionResult AgregarPedidoProveedores()
         {
             var resultado1 = _PedidosModel.ConsultaPedidoProducto();
@@ -163,6 +166,89 @@ namespace Autorepuestos.Controllers
                 return View("Error");
         }
 
+
+        //Parte de entregas
+        [HttpGet]
+        public ActionResult VerEntregas(EntregasEntities entrega)
+        {
+            return View(_EntregasModel.VerEntregas(entrega));
+        }
+
+        [HttpGet]
+        public ActionResult AgregarEntrega()
+        {
+            var result1 = _EntregasModel.ConsultaEntregaProducto();
+            var result2 = _EntregasModel.ConsultaEntregaUsuario();
+            if (result1 != null && result2 != null)
+            {
+                var dropdownProductos = new List<SelectListItem>();
+                var dropdownUsuarios = new List<SelectListItem>();
+
+                foreach (var item in result1.RespuestaEntregas)
+                    dropdownProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
+
+                foreach (var item in result2.RespuestaEntregas)
+                    dropdownUsuarios.Add(new SelectListItem { Text = item.NombreUsuario, Value = item.IdUsuario.ToString() });
+
+                ViewBag.ComboProducto = dropdownProductos;
+                ViewBag.ComboUsuario = dropdownUsuarios;
+                return View();
+            }
+            else
+                return View("Error");
+        }
+
+        [HttpPost]
+        public ActionResult AgregarEntrega(EntregasEntities entrega)
+        {
+            _EntregasModel.AgregarEntrega(entrega);
+            return RedirectToAction("VerEntregas");
+        }
+
+        [HttpGet]
+        public ActionResult EditarEntrega(int id)
+        {
+            var result1 = _EntregasModel.ConsultaEntregaProducto();
+            var result2 = _EntregasModel.ConsultaEntregaUsuario();
+            if (result1 != null && result2 != null)
+            {
+                var dropdownProductos = new List<SelectListItem>();
+                var dropdownUsuarios = new List<SelectListItem>();
+
+                foreach (var item in result1.RespuestaEntregas)
+                    dropdownProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
+
+                foreach (var item in result2.RespuestaEntregas)
+                    dropdownUsuarios.Add(new SelectListItem { Text = item.NombreUsuario, Value = item.IdUsuario.ToString() });
+
+                ViewBag.ComboProducto = dropdownProductos;
+                ViewBag.ComboUsuario = dropdownUsuarios;
+
+                var consulta = _EntregasModel.ConsultarEntrega(id);
+                if (consulta != null)
+                {
+                    return View(consulta);
+                }
+                return View();
+            }
+            else
+                return View("Error");
+        }
+
+        [HttpPost]
+        public ActionResult EditarEntrega(EntregasEntities entrega)
+        {
+            _EntregasModel.Editar(entrega);
+            return RedirectToAction("VerEntregas");
+        }
+
+        [HttpGet]
+        public ActionResult EliminarEntrega(int id)
+        {
+            _EntregasModel.EliminarEntrega(id);
+            return RedirectToAction("VerEntregas");
+
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

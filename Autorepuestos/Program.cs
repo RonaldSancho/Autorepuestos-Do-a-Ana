@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUsuariosModel, UsuariosModel>();
 builder.Services.AddScoped<IPedidosModel, PedidosModel>();
 builder.Services.AddScoped<ICatalogosModel, CatalogosModel>();
+builder.Services.AddScoped<IEntregasModel, EntregasModel>();
 
 var app = builder.Build();
 
