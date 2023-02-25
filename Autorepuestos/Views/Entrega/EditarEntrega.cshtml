@@ -8,7 +8,7 @@
     <div class="card pd-20 pd-sm-40">
         <h6 class="card-body-title">Pedidos</h6>
         <p class="mg-b-20 mg-sm-b-30" style="font-weight: bold;">Editar un pedido</p>
-        @using (Html.BeginForm("EditarEntrega", "Home", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+        @using (Html.BeginForm("EditarEntrega", "Entrega", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
         {
             @Html.HiddenFor(m => m.pIdEntrega, new{@class="form-control", @style="color:grey"})
 
@@ -39,7 +39,7 @@
 
             <div class="form-layout-footer">
                 <button class="btn btn-primary" @*data-bs-toggle="modal" href="#exampleModalToggle"*@ role="button">Modificar</button>
-                <a class="btn btn-secondary" role="button" href="@Url.Action("VerEntregas","Home")">Cancelar</a>
+                <a class="btn btn-secondary" role="button" href="@Url.Action("VerEntregas","Entrega")">Cancelar</a>
             </div>
         }
     </div>

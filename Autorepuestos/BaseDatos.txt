@@ -1,0 +1,454 @@
+Create database AutoRepuestos;
+use AutoRepuestos;
+
+/*********************************************INICIO TABLAS****************************************************************/
+Create table Informacion(
+IdInformacion int primary key auto_increment,
+Nombre varchar(30) not null,
+CedulaJuridica varchar(60) not null,
+Telefono varchar(30) not null,
+Correo varchar(60) not null);
+insert into Informacion(Nombre,CedulaJuridica,Telefono,Correo) values('Info', 'dsf0262610sfsd', '748451', 'nakjsdja');
+
+Create table Rol(
+IdRol int primary key auto_increment,
+NombreRol varchar(20));
+insert into Rol(NombreRol) values('Administrador');
+
+Create table Usuario(
+IdUsuario int primary key auto_increment,
+NombreUsuario varchar(30) not null,
+Apellido1 varchar(20) not null,
+Apellido2 varchar(20) not null,
+IdRol int not null,
+Cedula varchar(30) not null,
+Telefono varchar(30) not null,
+Correo varchar(60) not null,
+Contrasena varchar(16) not null,
+foreign key(IdRol) references Rol(IdRol));
+insert into Usuario(NombreUsuario,Apellido1,Apellido2,IdRol,Cedula,Telefono,Correo,Contrasena) values('Ronald' ,'Sancho', 'Díaz', 1, '118430219', '84278434', 'ronalsancho@gmail.com', '123');
+insert into Usuario(NombreUsuario,Apellido1,Apellido2,IdRol,Cedula,Telefono,Correo,Contrasena) values('Randall' ,'Sancho', 'Díaz', 1, '118430219', '84278434', 'ronalsancho@gmail.com', '123');
+insert into Usuario(NombreUsuario,Apellido1,Apellido2,IdRol,Cedula,Telefono,Correo,Contrasena) values('Randall' ,'Sancho', 'Díaz', 1, '118430219', '84278434', 'ronaldsancho@gmail.com', '123');
+
+Create table Proveedor(
+IdProveedor int primary key auto_increment,
+NombreProveedor varchar(40) not null,
+Telefono varchar(30) not null,
+Direccion varchar(80) not null);
+insert into Proveedor(NombreProveedor,Telefono,Direccion) values('Casa Blanca', '22102222', '250m oeste');
+insert into Proveedor(NombreProveedor,Telefono,Direccion) values('Guacamaya', '45588555', '250m oeste');
+
+Create table Categoria(
+IdCategoria int primary key auto_increment,
+NombreCategoria varchar(30) not null);
+insert into Categoria(NombreCategoria) values('Preuba');
+insert into Categoria(NombreCategoria) values('Tuercas');
+insert into Categoria(NombreCategoria) values('Bujias');
+
+Create table Producto(
+IdProducto int primary key auto_increment,
+NombreProducto varchar(30) not null,
+Descripcion varchar(60) not null,
+Precio decimal not null,
+IdCategoria int not null,
+Existencias int not null,
+IdProveedor int not null,
+foreign key(IdCategoria) references Categoria(IdCategoria),
+foreign key(IdProveedor) references Proveedor(IdProveedor));
+alter table Producto add Imagen varchar(100)  ;
+insert into Producto(NombreProducto,Descripcion,Precio,IdCategoria,Existencias,IdProveedor,Imagen) values('Bateria','America',25500,1,1,1,'~/template/img/bateria.jpg');
+insert into Producto(NombreProducto,Descripcion,Precio,IdCategoria,Existencias,IdProveedor,Imagen) values('Bomba de Agua','Suli',10000,1,1,1,'~/template/img/bombaAgua.jpg');
+insert into Producto(NombreProducto,Descripcion,Precio,IdCategoria,Existencias,IdProveedor,Imagen) values('Frenos','Segunda mano',40000,1,1,1,'~/template/img/frenos.jpg');
+insert into Producto(NombreProducto,Descripcion,Precio,IdCategoria,Existencias,IdProveedor,Imagen) values('Retrovisor','De fábrica',12000,1,1,1,'~/template/img/retrovisor.jpg');
+
+Create table Orden(
+IdOrden int primary key auto_increment,
+IdProducto int not null,
+Cantidad int not null,
+foreign key(IdProducto) references Producto(IdProducto));
+insert into Orden(IdProducto,Cantidad) values(1, 1);
+
+Create table Factura(
+IdFactura int primary key auto_increment,
+Fecha date not null,
+IdInformacion int not null, /*esto debido a que necesitamos la cedula juridica y otros datos de esa tabla*/
+IdUsuario int not null,
+IdOrden int not null,
+Total decimal not null,
+TotalIva decimal not null, 
+foreign key(IdInformacion) references Informacion(IdInformacion),
+foreign key(IdUsuario) references Usuario(IdUsuario),
+foreign key(IdOrden) references Orden(IdOrden));
+insert into Factura(Fecha,IdInformacion,IdUsuario,IdOrden,Total,TotalIva) values('21-2-10', 1, 1 , 1, 200 ,200); /*anno mes dia*/
+
+Create table Pedidos(
+IdPedido int primary key auto_increment,
+IdProducto int not null,
+Cantidad int not null,
+IdProveedor int not null,
+PrecioProducto decimal not null,
+PrecioTotal decimal not null,
+IdUsuario int null,
+foreign key(IdProducto) references Producto(IdProducto),
+foreign key(IdProveedor) references Proveedor(IdProveedor),
+foreign key(IdUsuario) references Usuario(IdUsuario));
+insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) values(1,30,1,3000,3000,1);
+insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) values(1,50,1,1200,1200,1);
+
+Create table Errores(
+IdError int primary key auto_increment,
+FechaHora datetime,
+Codigo varchar(30) not null, 
+Mensaje varchar(80) not null,
+IdUsuario int not null,
+Origen varchar(60) not null,
+foreign key(IdUsuario) references Usuario(IdUsuario));
+
+Create table Entregas(
+IdEntrega int primary key auto_increment,
+IdProducto int not null,
+DireccionEntrega varchar(80) not null,
+IdUsuario int not null, /*apartir de este dato se debe de jalar la cedula y el telefono*/
+Estado varchar(10) not null, /*Pendiente o Realizado*/
+foreign key(IdProducto) references Producto(IdProducto), 
+foreign key(IdUsuario) references Usuario(IdUsuario));
+
+Create table Bitacora(
+IdBitacora int primary key auto_increment,
+FechaHora datetime not null,
+IdUsuario int not null,
+Accion varchar(30) not null, /*ya sea un error al iniciar sesion o que se este devolviendo algun articulo*/
+Resultado varchar(30) not null, /*fallo de sesion o devolucion del articulo de forma exitosa*/
+foreign key(IdUsuario) references Usuario(IdUsuario));
+
+Create table Carrito(
+IdCarrito int primary key auto_increment,
+IdProducto int not null,
+foreign key (IdProducto) references Producto(IdProducto));
+
+insert into Carrito(IdCarrito,IdProducto) values(1,1);
+insert into Carrito(IdCarrito,IdProducto) values(2,1);
+/*********************************************FIN TABLAS****************************************************************/
+
+/*********************************************INICIO SP****************************************************************/
+/* INICIO SP DE PEDIDOS */
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `VisualizarPedido`(id int)
+begin
+	 SELECT B.NombreProveedor,
+			C.NombreProducto,
+			A.Cantidad,
+			A.PrecioProducto,
+			A.PrecioTotal,
+			U.NombreUsuario,
+            A.IdPedido 'pIdPedido',
+            C.IdProducto,
+            B.IdProveedor,
+            U.IdUsuario
+    FROM Pedidos A, Proveedor B, Producto C, Usuario U
+	where A.IdProveedor= B.IdProveedor
+    AND A.IdProducto = C.IdProducto
+    AND A.IdUsuario= U.IdUsuario
+    AND A.IdPedido= id;
+    
+end$$
+
+
+delimiter //
+create procedure VerPedidos()
+begin
+	SELECT A.IdPedido 'pIdPedido',
+			B.NombreProveedor,
+			C.NombreProducto,
+			A.Cantidad,
+			A.PrecioProducto,
+			A.PrecioTotal,
+			U.NombreUsuario
+    FROM Pedidos A, Proveedor B, Producto C, Usuario U
+	where A.IdProveedor= B.IdProveedor
+    AND A.IdProducto = C.IdProducto
+    AND A.IdUsuario= U.IdUsuario;
+end//
+
+
+delimiter //
+create procedure EliminarPedido(id int)
+begin
+	Delete from Pedidos where IdPedido = id; 
+end//
+
+
+delimiter //
+create procedure CrearPedido(IdProducto int,Cantidad int, IdProveedor int, PrecioProducto decimal, PrecioTotal decimal, IdUsuario int)
+begin
+	Insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) values(IdProducto,Cantidad, IdProveedor, PrecioProducto, PrecioTotal, IdUsuario);
+end//
+
+
+delimiter //
+create procedure EditarPedido(pIdPedido int, IdProducto int,Cantidad int, IdProveedor int, PrecioProducto decimal, PrecioTotal decimal, IdUsuario int)
+begin
+	Update Pedidos
+    Set IdProducto=IdProducto,
+    Cantidad=Cantidad, IdProveedor=IdProveedor, PrecioProducto=PrecioProducto, 
+    PrecioTotal=PrecioTotal, IdUsuario=IdUsuario
+    where IdPedido=pIdPedido;
+end//
+
+
+delimiter //
+create procedure ConsultaPedidoProducto()
+begin
+	SELECT IdProducto ,NombreProducto
+    from Producto;
+end//
+
+
+delimiter // 
+create procedure ConsultaPedidoProveedor()
+begin
+	Select IdProveedor, NombreProveedor
+    from Proveedor;
+end//
+
+
+delimiter // 
+create procedure ConsultaPedidoUsuario()
+begin
+	Select IdUsuario, NombreUsuario
+    from Usuario;
+end//
+/* FIN SP DE PEDIDOS */
+
+
+/* INICIO SP DE USUARIO */
+delimiter $$
+create procedure ValidarUsuario(in pcorreo varchar(60), in pcontrasena varchar(16) )
+begin
+    select IdUsuario, Correo
+    from Usuario 
+    where Correo = pcorreo
+    and Contrasena = pcontrasena;
+end
+$$
+/* FIN SP DE USUARIO */
+
+/* INICIO SP DE CATALOGO */
+delimiter $$
+create procedure VisualizarCatalogo(in IdProducto int)
+begin
+select A.IdProducto,
+A.NombreProducto,
+A.Descripcion,
+A.Existencias,
+C.IdProveedor,
+A.Precio,
+B.IdCategoria,
+A.Imagen
+from Producto A,Categoria B,Proveedor C
+where A.IdProveedor=C.IdProveedor
+and A.IdCategoria=B.IdCategoria;
+end$$
+
+
+delimiter $$
+create procedure VerCatalogos()
+begin
+	select 
+	IdProducto,NombreProducto,Descripcion,Precio,IdCategoria,IdProveedor,Existencias,Imagen
+	from Producto;
+	end;
+$$
+
+/* FIN SP DE CATALOGO */
+
+/* INICIO SP DE PRODUCTOS */
+
+delimiter $$
+CREATE PROCEDURE VerProductos()
+BEGIN
+	SELECT p.IdProducto 'pIdProducto',
+    p.NombreProducto,
+    p.Descripcion,
+    p.Precio,
+    c.nombrecategoria,
+    p.existencias,
+    pr.nombreproveedor
+	FROM producto p, categoria c, proveedor pr
+    where p.idcategoria = c.idcategoria and 
+          p.idproveedor = pr.idproveedor;
+
+END
+$$
+
+
+DELIMITER $$
+create procedure VisualizarProducto(id int)
+begin
+	 
+     SELECT p.IdProducto 'pIdProducto',
+    p.NombreProducto,
+    p.Descripcion,
+    p.Precio,
+    c.nombrecategoria,
+    p.existencias,
+    pr.nombreproveedor
+	FROM producto p, categoria c, proveedor pr
+    where p.idcategoria = c.idcategoria and 
+          p.idproveedor = pr.idproveedor
+          AND p.IdProducto= id;
+          
+end$$
+
+delimiter $$
+CREATE PROCEDURE EliminarProducto(in id INT)
+BEGIN
+	Delete from Producto where IdProducto = id;
+END
+$$
+
+delimiter $$
+CREATE PROCEDURE EditarProducto(in pIdProducto INT, in NombreProducto varchar(30),
+in Descripcion varchar(60), in Precio decimal(18,0),
+in IdCategoria INT, in Existencias INT, in IdProveedor INT)
+BEGIN
+	   UPDATE Producto
+	   SET 
+	       NombreProducto = NombreProducto,
+		   Descripcion = Descripcion,
+	       Precio = Precio,
+		   IdCategoria = IdCategoria,
+	       Existencias = Existencias,
+	       IdProveedor = IdProveedor
+	 
+	   WHERE IdProducto = pIdProducto;
+END
+$$
+
+
+delimiter $$
+create procedure CrearProducto( in NombreProducto varchar(30),in Descripcion varchar(60),
+in Precio decimal(18,0), in IdCategoria INT, in Existencias INT,
+in IdProveedor INT)
+begin
+	Insert into Producto (NombreProducto, Descripcion, Precio,IdCategoria,
+Existencias,IdProveedor)
+	values(NombreProducto,Descripcion, Precio, IdCategoria, Existencias, IdProveedor);
+end
+$$
+
+       
+delimiter $$
+create procedure ConsultaProductoCategoria()
+begin 
+select IdCategoria, NombreCategoria
+from Categoria;
+end
+$$
+
+delimiter $$
+create procedure ConsultaProductoProveedor()
+begin
+select IdProveedor, NombreProveedor
+from Proveedor;
+end
+$$
+
+/* FIN SP DE PRODUCTOS */
+
+
+/* INICIO SP DE ENTREGAS */
+delimiter //
+create procedure VerEntregas()
+begin
+	SELECT e.IdEntrega 'pIdEntrega',
+		   p.NombreProducto,
+           e.DireccionEntrega,
+		   u.Telefono,
+           u.Cedula,
+           e.Estado,
+           u.IdUsuario,
+           p.IdProducto
+	FROM entregas e, Producto p, usuario u
+    WHERE e.IdProducto= p.IdProducto 
+    AND e.IdUsuario= u.IdUsuario;
+end//
+
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(1,'250M OESTE DEL PALI', 1,'Pendiente');
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(2,'250M Sur DEL MasXMenos', 1,'Realizado');
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(3,'250M ESTE DEL Colegio', 1,'Pendiente');
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(4,'250M OESTE DEL Price', 1,'Realizado');
+
+delimiter //
+create procedure AgregarEntrega(IdProducto int,DireccionEntrega varchar(80),IdUsuario int,Estado varchar(10))
+begin
+	Insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(IdProducto,DireccionEntrega,IdUsuario,Estado);
+end//
+
+delimiter // 
+create procedure EditarEntrega(pIdEntrega int, IdProducto int,DireccionEntrega varchar(80),IdUsuario int,Estado varchar(10))
+begin
+	Update Entregas
+    Set IdProducto=IdProducto,
+    DireccionEntrega= DireccionEntrega,
+    IdUsuario=IdUsuario,
+    Estado=Estado
+    where IdEntrega=pIdEntrega;
+end//
+
+delimiter //
+create procedure ConsultarEntrega(id int)
+begin
+	select e.IdEntrega 'pIdEntrega',
+		   p.NombreProducto,
+           e.DireccionEntrega,
+		   u.Telefono,
+           u.Cedula,
+           e.Estado,
+           u.IdUsuario,
+           p.IdProducto
+	FROM entregas e, Producto p, usuario u
+    WHERE e.IdProducto= p.IdProducto 
+    AND e.IdUsuario= u.IdUsuario
+	AND e.IdEntrega= id;
+end//
+
+delimiter ;
+
+delimiter //
+create procedure EliminarEntrega(id int)
+begin
+	Delete from Entregas where IdEntrega = id; 
+end//
+delimiter ;
+/* FIN SP DE ENTREGAS */
+
+
+/* INICIO SP DE CARRITO */
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarCarrito` ()   
+BEGIN
+	SELECT c.IdCarrito,
+		   p.IdProducto,
+           p.NombreProducto,
+		   p.Precio, 
+		   p.Imagen
+	FROM carrito c
+INNER JOIN producto p ON p.IdProducto = c.IdProducto;
+end$$
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EliminarCarrito` (id INT)   
+BEGIN
+	DELETE FROM carrito
+	WHERE IdCarrito = id;
+END$$
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AgregarCarrito`(id INT)
+BEGIN
+	INSERT INTO carrito (IdProducto)
+	VALUES (id);
+end$$
+/* FIN SP DE CARRITO */
+/*********************************************FIN SP****************************************************************/

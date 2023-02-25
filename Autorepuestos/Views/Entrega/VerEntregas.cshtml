@@ -23,8 +23,8 @@
                             <p class="card-text">Telefono: @Html.DisplayFor(modelItem => item.Telefono)</p>
                             <p class="card-text">Cedula Cliente: @Html.DisplayFor(modelItem => item.Cedula)</p>
                             <p class="card-text">Estado: @Html.DisplayFor(modelItem => item.Estado)</p><!--Ver si se puede pasar esto a un checkbox-->
-                            <a class="btn btn-primary" @*data-bs-toggle="modal"*@ href="@Url.Action("EditarEntrega", "Home", new{id= item.pIdEntrega})" role="button">Editar</a> 
-                            <a class="btn btn-primary" role="button" href="@Url.Action("EliminarEntrega","Home", new{id = item.pIdEntrega})">Eliminar</a>
+                            <a class="btn btn-primary" @*data-bs-toggle="modal"*@ href="@Url.Action("EditarEntrega", "Entrega", new{id= item.pIdEntrega})" role="button">Editar</a>
+                            <a class="btn btn-primary" role="button" href="@Url.Action("EliminarEntrega","Entrega", new{id = item.pIdEntrega})">Eliminar</a>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
 <br />
 <h1>Pedidos</h1>
 <br />
-<a class="btn btn-primary" role="button" href="@Url.Action("AgregarPedidoProveedores", "Home")">Nuevo Pedido</a>
+<a class="btn btn-primary" role="button" href="@Url.Action("AgregarPedidoProveedores", "Pedido")">Nuevo Pedido</a>
 <br />
 <br />
 <div class="table-responsive">
@@ -38,10 +38,10 @@
                     <td>@Html.DisplayFor(modelItem => item.PrecioTotal)</td>
                     <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
                     <td>
-                        <a class="btn btn-primary" role="button" href="@Url.Action("ModificarPedidoProveedores","Home", new{id = item.pIdPedido})">Actualizar</a>
+                        <a class="btn btn-primary" role="button" href="@Url.Action("ModificarPedidoProveedores","Pedido", new{id = item.pIdPedido})">Actualizar</a>
                     </td>
-                    <td><a class="btn btn-primary" role="button" href="@Url.Action("EliminarPedido","Home", new{id = item.pIdPedido})">Eliminar</a></td>@*recordar ver lo del toggle*@
-                    <td><a class="btn btn-primary" role="button" href="@Url.Action("DetallePedido","Home", new{id = item.pIdPedido})">Detalle</a></td>
+                    <td><a class="btn btn-primary" role="button" href="@Url.Action("EliminarPedido","Pedido", new{id = item.pIdPedido})">Eliminar</a></td>@*recordar ver lo del toggle*@
+                    <td><a class="btn btn-primary" role="button" href="@Url.Action("DetallePedido","Pedido", new{id = item.pIdPedido})">Detalle</a></td>
                 </tr>
             }
 

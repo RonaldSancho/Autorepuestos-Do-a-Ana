@@ -1,0 +1,60 @@
+﻿@model Autorepuestos.Entities.ProductosEntities
+@{
+    ViewBag.Title = "AgregarProducto";
+}
+
+
+<div class="container">
+    <div class="card pd-20 pd-sm-40">
+        <h6 class="card-body-title">Pedidos</h6>
+        <p class="mg-b-20 mg-sm-b-30" style="font-weight: bold;">Editar un producto</p>
+        @using (Html.BeginForm("AgregarProducto", "Productos", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+        {
+            @*<div class="form-layout">
+        <div class="row mg-b-25">*@
+
+            @Html.HiddenFor(m => m.pIdProducto, new{@class="form-control", @style="color:grey"})
+
+
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.IdCategoria, htmlAttributes: new {@class="form-control-label"})
+                    @Html.DropDownListFor(model => model.IdCategoria, ViewBag.ComboCategorias as List<SelectListItem>, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                    @Html.LabelFor(m => m.NombreProducto, htmlAttributes: new{@class="form-control-label"})
+                    @Html.EditorFor(m => m.NombreProducto)
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                    @Html.LabelFor(m => m.IdProveedor, htmlAttributes: new{@class="form-control-label"})
+                    @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group mg-b-10-force">
+                    @Html.LabelFor(m => m.Precio, htmlAttributes: new{@class="form-control-label"})
+                    @Html.EditorFor(m => m.Precio)
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="form-group mg-b-10-force">
+                    @Html.LabelFor(m => m.Existencias, htmlAttributes: new{@class="form-control-label"})
+                    @Html.EditorFor(m => m.Existencias)
+                </div>
+            </div>
+
+
+            <div class="form-layout-footer">
+                <button class="btn btn-primary" @*data-bs-toggle="modal" href="#exampleModalToggle"*@ role="button">Agregar</button>
+                <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarProductos","Productos")">Cancelar</a>
+            </div>
+
+
+        }
+    </div>
+</div>

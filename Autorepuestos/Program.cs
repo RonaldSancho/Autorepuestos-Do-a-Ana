@@ -9,6 +9,8 @@ builder.Services.AddScoped<IUsuariosModel, UsuariosModel>();
 builder.Services.AddScoped<IPedidosModel, PedidosModel>();
 builder.Services.AddScoped<ICatalogosModel, CatalogosModel>();
 builder.Services.AddScoped<IEntregasModel, EntregasModel>();
+builder.Services.AddScoped<ICarritoModel, CarritoModel>();
+builder.Services.AddScoped<IProductosModel, ProductosModel>();
 
 var app = builder.Build();
 
