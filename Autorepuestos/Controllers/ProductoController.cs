@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Autorepuestos.Controllers
 {
-    public class ProductosController : Controller
+    public class ProductoController : Controller
     {
-        private readonly ILogger<ProductosController> _logger;
+        private readonly ILogger<ProductoController> _logger;
         private readonly IProductosModel _ProductosModel;
 
-        public ProductosController(ILogger<ProductosController> logger, IProductosModel productos)
+        public ProductoController(ILogger<ProductoController> logger, IProductosModel productos)
         {
             _logger = logger;
             _ProductosModel = productos;

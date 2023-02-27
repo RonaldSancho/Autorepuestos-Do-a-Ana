@@ -8,7 +8,7 @@
     <div class="card pd-20 pd-sm-40">
         <h6 class="card-body-title">Pedidos</h6>
         <p class="mg-b-20 mg-sm-b-30" style="font-weight: bold;">Agregar un pedido</p>
-        @using (Html.BeginForm("AgregarPedidoProveedores", "Pedido", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+        @using (Html.BeginForm("AgregarPedido", "Pedido", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
         {
 
             <div class="col-lg-4">
@@ -55,7 +55,7 @@
             <div class="form-layout-footer">
                 <br />
                 <button class="btn btn-primary" @*data-bs-toggle="modal"*@ @*href="#exampleModalToggle"*@ role="button">Agregar</button>
-                <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarPedidoProveedores","Pedido")">Cancelar</a>
+                <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarPedido","Pedido")">Cancelar</a>
             </div>
             @* </div> *@
         }

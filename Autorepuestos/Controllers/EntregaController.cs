@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Autorepuestos.Controllers
 {
-    public class EntregasController : Controller
+    public class EntregaController : Controller
     {
-        private readonly ILogger<EntregasController> _logger;
+        private readonly ILogger<EntregaController> _logger;
         private readonly IEntregasModel _EntregasModel;
 
-        public EntregasController(ILogger<EntregasController> logger, IEntregasModel entregasModel)
+        public EntregaController(ILogger<EntregaController> logger, IEntregasModel entregasModel)
         {
             _logger = logger;
             _EntregasModel = entregasModel;
@@ -50,7 +50,7 @@ namespace Autorepuestos.Controllers
         public ActionResult AgregarEntrega(EntregasEntities entrega)
         {
             _EntregasModel.AgregarEntrega(entrega);
-            return RedirectToAction("VerEntregas");
+            return RedirectToAction("VerEntregas", "Entrega");
         }
 
         [HttpGet]
@@ -87,14 +87,14 @@ namespace Autorepuestos.Controllers
         public ActionResult EditarEntrega(EntregasEntities entrega)
         {
             _EntregasModel.Editar(entrega);
-            return RedirectToAction("VerEntregas");
+            return RedirectToAction("VerEntregas", "Entrega");
         }
 
         [HttpGet]
         public ActionResult EliminarEntrega(int id)
         {
             _EntregasModel.EliminarEntrega(id);
-            return RedirectToAction("VerEntregas");
+            return RedirectToAction("VerEntregas", "Entrega");
 
         }
     }

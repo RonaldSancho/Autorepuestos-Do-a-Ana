@@ -5,6 +5,7 @@ namespace Autorepuestos.Entities
     public class EntregasEntities
     {
         public int pIdEntrega { get; set; }
+        [DisplayName("Producto")]
         public int IdProducto { get; set; }
         [DisplayName("Producto")]
         public string NombreProducto { get; set; } = string.Empty;

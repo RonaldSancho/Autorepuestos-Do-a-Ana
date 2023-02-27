@@ -5,26 +5,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Autorepuestos.Controllers
 {
-    public class PedidosController : Controller
+    public class PedidoController : Controller
     {
-        private readonly ILogger<PedidosController> _logger;
+        private readonly ILogger<PedidoController> _logger;
         private readonly IPedidosModel _PedidosModel;
 
 
-        public PedidosController(ILogger<PedidosController> logger,IPedidosModel pedidosModel)
+        public PedidoController(ILogger<PedidoController> logger,IPedidosModel pedidosModel)
         {
             _logger = logger;
             _PedidosModel = pedidosModel;
         }
 
         [HttpGet]
-        public ActionResult MostrarPedidoProveedores(PedidosEntities pedido)
+        public ActionResult MostrarPedido(PedidosEntities pedido)
         {
             return View(_PedidosModel.VerPedidos(pedido));
         }
 
         [HttpGet]
-        public ActionResult AgregarPedidoProveedores()
+        public ActionResult AgregarPedido()
         {
             var resultado1 = _PedidosModel.ConsultaPedidoProducto();
             var resultado2 = _PedidosModel.ConsultaPedidoProveedor();
@@ -54,24 +54,24 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpPost]
-        public ActionResult AgregarPedidoProveedores(PedidosEntities pedido)
+        public ActionResult AgregarPedido(PedidosEntities pedido)
         {
 
             _PedidosModel.Crear(pedido);
-            return RedirectToAction("MostrarPedidoProveedores");
+            return RedirectToAction("MostrarPedido");
         }
 
         [HttpGet]
         public ActionResult EliminarPedido(int id)
         {
             _PedidosModel.eliminar(id);
-            return RedirectToAction("MostrarPedidoProveedores");
+            return RedirectToAction("MostrarPedido");
 
         }
 
 
         [HttpGet]
-        public ActionResult ModificarPedidoProveedores(int id)
+        public ActionResult ModificarPedido(int id)
         {
             var resultado1 = _PedidosModel.ConsultaPedidoProducto();
             var resultado2 = _PedidosModel.ConsultaPedidoProveedor();
@@ -105,11 +105,11 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModificarPedidoProveedores(PedidosEntities pedido)
+        public ActionResult ModificarPedido(PedidosEntities pedido)
         {
             //este llamara a la interfaz
             _PedidosModel.Editar(pedido);
-            return RedirectToAction("MostrarPedidoProveedores");
+            return RedirectToAction("MostrarPedido");
 
         }
 

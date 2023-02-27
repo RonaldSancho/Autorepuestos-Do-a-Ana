@@ -42,11 +42,11 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a href="@Url.Action("MostrarProductos", "Productos")">Productos</a></li>
-                    <li><a href="@Url.Action("CarritoCompras", "Carrito")" class="active">Home</a></li>
+                    <li><a href="@Url.Action("MostrarProductos", "Producto")">Productos</a></li>
+                    <li><a href="@Url.Action("CarritoCompras", "Carrito")" class="active">Carrito</a></li>
                     <li><a href="about.html">About</a></li>
                     <li class="dropdown">
-                        <a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        @*<a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
                             <li><a href="gallery.html">Nature</a></li>
                             <li><a href="gallery.html">People</a></li>
@@ -62,10 +62,10 @@
                                     <li><a href="#">Sub Menu 3</a></li>
                                 </ul>
                             </li>
-                        </ul>
+                        </ul>*@
                     </li>
-                    <li><a href="@Url.Action("VerEntregas", "Home")">Entregas</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
+                    <li><a href="@Url.Action("MostrarPedido", "Pedido")">Pedido</a></li>
                 </ul>
             </nav><!-- .navbar -->
 
