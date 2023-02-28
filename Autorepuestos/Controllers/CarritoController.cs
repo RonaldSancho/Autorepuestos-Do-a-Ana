@@ -31,13 +31,31 @@ namespace Autorepuestos.Controllers
             _CarritoModel.EliminarCarrito(id);
             return RedirectToAction("CarritoCompras", "Carrito");
         }
-
         [HttpGet]
-        public ActionResult AgregarCarrito(int id, int cant)
+        public ActionResult AgregarCarrito(int id)
         {
-            _CarritoModel.AgregarCarrito(id, cant);
+            _CarritoModel.AgregarCarrito(id);
             return RedirectToAction("VerCatalogos", "Catalogo");
         }
+
+        //[HttpGet]
+        //public ActionResult AgregarCarrito(int id, int cant)
+        //{
+        //    _CarritoModel.AgregarCarrito(id, cant);
+        //    return RedirectToAction("Prueba", "Carrito");
+        //}
+
+
+        //[HttpGet]
+        //public ActionResult Prueba(CarritoEntities entidad)
+        //{
+        //    var resultado = _CarritoModel.MostrarProductoCarrito(entidad.IdProducto);
+        //    if (resultado != null)
+        //        return View(resultado);
+        //    else
+        //        return View("Error");
+
+        //}
 
         //[HttpGet]
         //public ActionResult AgregarCarrito(int id)
@@ -53,5 +71,12 @@ namespace Autorepuestos.Controllers
 
         //    return RedirectToAction("VerCatalogos", "Catalogo");
         //}
+
+        [HttpGet]
+        public ActionResult FinalizarCompra()
+        {
+            _CarritoModel.FinalizarCompra();
+            return RedirectToAction("VerCatalogos", "Catalogo");
+        }
     }
 }

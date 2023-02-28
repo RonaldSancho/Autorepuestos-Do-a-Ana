@@ -124,6 +124,7 @@ foreign key(IdUsuario) references Usuario(IdUsuario));
 Create table Carrito(
 IdCarrito int primary key auto_increment,
 IdProducto int not null,
+Cantidad int not null default 1,
 foreign key (IdProducto) references Producto(IdProducto));
 
 insert into Carrito(IdCarrito,IdProducto) values(1,1);
@@ -432,7 +433,8 @@ BEGIN
 		   p.IdProducto,
            p.NombreProducto,
 		   p.Precio, 
-		   p.Imagen
+		   p.Imagen,
+           c.Cantidad
 	FROM carrito c
 INNER JOIN producto p ON p.IdProducto = c.IdProducto;
 end$$
@@ -444,13 +446,7 @@ BEGIN
 	WHERE IdCarrito = id;
 END$$
 
-DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AgregarCarrito`(id INT)
-BEGIN
-	INSERT INTO carrito (IdProducto)
-	VALUES (id);
-end$$
-
+/*Este es el que debe de implementarse a futuro pero no sirve*/
 DELIMITER $$
 CREATE PROCEDURE AgregarCarrito(Id int, Cant int)
 BEGIN
@@ -462,5 +458,36 @@ BEGIN
     END IF;
 END$$
 
+/*Procedimiento sirve para solo sumar cantidad, pero no para estar mandandole una cantidad exacta*/
+DELIMITER $$
+CREATE PROCEDURE AgregarCarrito(id int)
+BEGIN
+	IF EXISTS (SELECT * FROM carrito WHERE IdProducto = id)
+    THEN
+		UPDATE Carrito SET Cantidad = Cantidad + 1 WHERE IdProducto = id;
+    ELSE
+    INSERT INTO Carrito (IdProducto) VALUES (id);
+    END IF;
+END$$
+
+delimiter $$
+create procedure FinalizarCompra()
+begin
+	insert into Orden(IdProducto, Cantidad) select IdProducto, Cantidad from Carrito; 
+end$$
 /* FIN SP DE CARRITO */
 /*********************************************FIN SP****************************************************************/
+
+/*********************************************INICIO TRIGGER****************************************************************/
+
+/****************************Inicio de Triggers CARRITO*/
+create trigger ActualizarExistenciasProductoInsert after insert on Orden for each row
+update Producto set Existencias = Existencias - new.Cantidad
+where IdProducto = new.IdProducto;
+
+/*create trigger ActualizarExistenciasProductoUpdate after update on Carrito for each row
+update Producto set Existencias = Existencias - new.Cantidad
+where IdProducto = new.IdProducto;*/
+
+/*FIN TRIGGERS CARRITO*/
+/*********************************************FIN TRIGGER****************************************************************/

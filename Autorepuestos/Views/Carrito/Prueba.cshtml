@@ -1,0 +1,28 @@
+﻿@model Autorepuestos.Entities.CarritoEntities
+@{
+    ViewBag.Title = "DetalleCarrito";
+}
+
+<h1>Detalle Carrito</h1>
+<div>
+    <hr />
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(m => m.IdProducto)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.NombreProducto)</dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.Precio)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.Precio)</dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(m => m.Cantidad)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.Cantidad)</dd>*@
+    </dl>
+    <p>
+        <a class="btn btn-secondary" role="button" href="@Url.Action("","Carrito")">Volver</a>
+    </p>
+</div>

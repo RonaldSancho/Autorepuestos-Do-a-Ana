@@ -13,6 +13,8 @@
         public class RespuestaCarrito
         {
             public List<CarritoEntities> RespuestaCarro { get; set; } = new List<CarritoEntities>();
+
+            public CarritoEntities? Carrito { get; set; } 
         }
     }
 }

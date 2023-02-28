@@ -33,22 +33,37 @@ namespace Autorepuestos.Models
             }
         }
 
-        //public void AgregarCarrito(int id)
-        //{
-        //    using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-        //    {
-        //         conexion.Query<CarritoEntities>("AgregarCarrito", new { id }, commandType: CommandType.StoredProcedure);
-        //    }
-        //}
-
-        public void AgregarCarrito(int id, int cant)
+        public void AgregarCarrito(int id)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                 conexion.Query<CarritoEntities>("AgregarCarrito", new { id , cant}, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                conexion.Query<CarritoEntities>("AgregarCarrito", new { id }, commandType: CommandType.StoredProcedure);
             }
         }
 
+        //public void AgregarCarrito(int id, int cant)
+        //{
+        //    using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+        //    {
+        //         conexion.Query<CarritoEntities>("AgregarCarrito", new { id , cant}, commandType: CommandType.StoredProcedure).FirstOrDefault();
+        //    }
+        //}
+
+        //public CarritoEntities? MostrarProductoCarrito(int id)
+        //{
+        //    using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+        //    {
+        //       return conexion.Query<CarritoEntities>("MostrarProductoCarrito", new { id}, commandType: CommandType.StoredProcedure).FirstOrDefault();
+        //    }
+        //}
+
+        public void FinalizarCompra()
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("FinalizarCompra", new {  }, commandType: CommandType.StoredProcedure);
+            }
+        }
 
     }
 }
