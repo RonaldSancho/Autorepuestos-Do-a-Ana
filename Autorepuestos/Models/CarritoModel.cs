@@ -33,12 +33,22 @@ namespace Autorepuestos.Models
             }
         }
 
-        public void AgregarCarrito(int id)
+        //public void AgregarCarrito(int id)
+        //{
+        //    using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+        //    {
+        //         conexion.Query<CarritoEntities>("AgregarCarrito", new { id }, commandType: CommandType.StoredProcedure);
+        //    }
+        //}
+
+        public void AgregarCarrito(int id, int cant)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                 conexion.Query<CarritoEntities>("AgregarCarrito", new { id }, commandType: CommandType.StoredProcedure);
+                 conexion.Query<CarritoEntities>("AgregarCarrito", new { id , cant}, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
+
+
     }
 }

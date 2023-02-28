@@ -12,6 +12,7 @@
         <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Precio</th>
+            <th scope="col">Cantidad</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
@@ -22,6 +23,7 @@
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
                 <td>@Html.DisplayFor(modelItem => item.Precio)</td>
+                <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
                 <td><img src="@Url.Content(item.Imagen)" width="75" height="75" /></td>
                 <td><a class="btn btn-primary" role="button" href="@Url.Action("EliminarCarrito","Carrito", new{id = item.IdCarrito})">Eliminar</a></td>@*recordar ver lo del toggle*@
             </tr>

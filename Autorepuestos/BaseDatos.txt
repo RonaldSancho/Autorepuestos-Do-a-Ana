@@ -450,5 +450,17 @@ BEGIN
 	INSERT INTO carrito (IdProducto)
 	VALUES (id);
 end$$
+
+DELIMITER $$
+CREATE PROCEDURE AgregarCarrito(Id int, Cant int)
+BEGIN
+	IF EXISTS (SELECT * FROM carrito WHERE IdProducto = Id)
+    THEN
+		UPDATE Carrito SET Cantidad = Cantidad + cant WHERE IdProducto = Id;
+    ELSE
+    INSERT INTO Carrito (IdProducto, Cantidad) VALUES (Id, Cant);
+    END IF;
+END$$
+
 /* FIN SP DE CARRITO */
 /*********************************************FIN SP****************************************************************/

@@ -29,14 +29,29 @@ namespace Autorepuestos.Controllers
         public ActionResult EliminarCarrito(int id)
         {
             _CarritoModel.EliminarCarrito(id);
-            return RedirectToAction("CarritoCompras","Carrito");
+            return RedirectToAction("CarritoCompras", "Carrito");
         }
 
         [HttpGet]
-        public ActionResult AgregarCarrito(int id)
+        public ActionResult AgregarCarrito(int id, int cant)
         {
-            _CarritoModel.AgregarCarrito(id);
-            return RedirectToAction("VerCatalogos","Catalogo");
+            _CarritoModel.AgregarCarrito(id, cant);
+            return RedirectToAction("VerCatalogos", "Catalogo");
         }
+
+        //[HttpGet]
+        //public ActionResult AgregarCarrito(int id)
+        //{
+        //    if (_CarritoModel.ExisteEnCarrito->num_rows > 0)
+        //    {
+        //        AumentarCantidad(id);
+        //    }
+        //    else
+        //    {
+        //        AgregarCarrito(id);
+        //    }
+
+        //    return RedirectToAction("VerCatalogos", "Catalogo");
+        //}
     }
 }

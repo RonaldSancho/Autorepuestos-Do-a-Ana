@@ -8,6 +8,7 @@ namespace Autorepuestos.Interfaces
 
         public CarritoEntities? EliminarCarrito(int id);
 
-        public void AgregarCarrito(int id);
+        public void AgregarCarrito(int id, int cant);
+
     }
 }
