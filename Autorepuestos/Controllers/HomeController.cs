@@ -30,7 +30,38 @@ namespace Autorepuestos.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(new UsuariosEntities());
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult RegistrarUsuario()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegistrarUsuario(UsuariosEntities usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _UsuariosModel.RegitrarUsuario(usuario);
+                    return View("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.mensaje = "Se presentó un inconveniente con el sistema.";
+                    return View();
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult CorreoExistente(string pcorreo)
+        {
+            return Json(_UsuariosModel.CorreoExistente(pcorreo));
         }
 
         public IActionResult Error()

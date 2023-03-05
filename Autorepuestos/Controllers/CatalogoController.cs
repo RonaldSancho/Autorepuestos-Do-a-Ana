@@ -24,16 +24,25 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public ActionResult VerCatalogos(CatalogosEntities catalogo, UsuariosEntities usuarios)
         {
-            var resultado = _UsuariosModel.ValidarUsuarios(usuarios);
-            if(resultado != null)
+            try
             {
-                return View(_CatalogosModel.VerCatalogos(catalogo));
+                var resultado = _UsuariosModel.ValidarUsuarios(usuarios);
+                if (resultado != null)
+                {
+                    return View(_CatalogosModel.VerCatalogos(catalogo));
+                }
+                else
+                {
+                    ViewBag.mensaje = "Valide sus credenciales por favor.";
+                    return RedirectToAction("Index","Home");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                ViewBag.mensaje = "Valide sus credenciales por favor.";
+                ViewBag.mensaje = "Se presentó un inconveniente con el sistema.";
                 return RedirectToAction("Index","Home");
             }
+
             
         }
 

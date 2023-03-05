@@ -23,9 +23,11 @@ Apellido2 varchar(20) not null,
 IdRol int not null,
 Cedula varchar(30) not null,
 Telefono varchar(30) not null,
-Correo varchar(60) not null,
+Correo varchar(60) unique not null,
 Contrasena varchar(16) not null,
 foreign key(IdRol) references Rol(IdRol));
+alter table usuario
+drop column Apellido2;
 insert into Usuario(NombreUsuario,Apellido1,Apellido2,IdRol,Cedula,Telefono,Correo,Contrasena) values('Ronald' ,'Sancho', 'Díaz', 1, '118430219', '84278434', 'ronalsancho@gmail.com', '123');
 insert into Usuario(NombreUsuario,Apellido1,Apellido2,IdRol,Cedula,Telefono,Correo,Contrasena) values('Randall' ,'Sancho', 'Díaz', 1, '118430219', '84278434', 'ronalsancho@gmail.com', '123');
 insert into Usuario(NombreUsuario,Apellido1,Apellido2,IdRol,Cedula,Telefono,Correo,Contrasena) values('Randall' ,'Sancho', 'Díaz', 1, '118430219', '84278434', 'ronaldsancho@gmail.com', '123');
@@ -232,6 +234,24 @@ begin
     and Contrasena = pcontrasena;
 end
 $$
+
+DELIMITER $$
+CREATE PROCEDURE RegistrarUsuario(in pnombre varchar(30), in papellido1 varchar(20), in pcedula varchar(30),
+															   in ptelefono varchar(30), in pcorreo varchar(60), in pcontrasena varchar(16))
+BEGIN
+	insert into usuario(NombreUsuario, Apellido1, IdRol, Cedula, Telefono, Correo, Contrasena) values ( pnombre, papellido1, 1, pcedula, ptelefono,
+																										pcorreo, pcontrasena);
+END$$
+
+delimiter $$
+create procedure CorreoExistente(in pcorreo varchar(60))
+begin
+    select IdUsuario, Correo, Contrasena
+    from Usuario 
+    where Correo = pcorreo;
+end
+$$
+
 /* FIN SP DE USUARIO */
 
 /* INICIO SP DE CATALOGO */
