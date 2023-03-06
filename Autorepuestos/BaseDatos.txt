@@ -466,29 +466,54 @@ BEGIN
 	WHERE IdCarrito = id;
 END$$
 
-/*Este es el que debe de implementarse a futuro pero no sirve*/
 DELIMITER $$
-CREATE PROCEDURE AgregarCarrito(Id int, Cant int)
+CREATE PROCEDURE AgregarCarrito(IdProducto int, Cantidad int)
 BEGIN
-	IF EXISTS (SELECT * FROM carrito WHERE IdProducto = Id)
-    THEN
-		UPDATE Carrito SET Cantidad = Cantidad + cant WHERE IdProducto = Id;
-    ELSE
-    INSERT INTO Carrito (IdProducto, Cantidad) VALUES (Id, Cant);
-    END IF;
+    INSERT INTO Carrito (IdProducto, Cantidad) VALUES (IdProducto, Cantidad);
 END$$
 
-/*Procedimiento sirve para solo sumar cantidad, pero no para estar mandandole una cantidad exacta*/
 DELIMITER $$
-CREATE PROCEDURE AgregarCarrito(id int)
+create procedure ProductoCarrito(id int)
+begin
+     SELECT p.IdProducto,
+    p.NombreProducto,
+    p.Descripcion,
+    p.Precio,
+    p.existencias
+	FROM producto p
+    where  p.IdProducto= id;    
+end$$
+
+delimiter //
+create procedure EditarCarrito(IdCarrito int, Cantidad int)
+begin
+	Update Carrito
+    Set Carrito.Cantidad = Cantidad
+    where Carrito.IdCarrito = IdCarrito;
+end//
+delimiter ;
+
+delimiter //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `MostrarProductoCarrito`(id int)
 BEGIN
-	IF EXISTS (SELECT * FROM carrito WHERE IdProducto = id)
-    THEN
-		UPDATE Carrito SET Cantidad = Cantidad + 1 WHERE IdProducto = id;
-    ELSE
-    INSERT INTO Carrito (IdProducto) VALUES (id);
-    END IF;
-END$$
+	SELECT c.IdCarrito,
+		   p.NombreProducto,
+           p.Existencias,
+           c.Cantidad
+	FROM carrito c, producto p
+	where c.IdProducto = p.IdProducto and 
+    c.IdCarrito= id;
+end
+// ;
+
+delimiter //
+CREATE PROCEDURE ConsultaExisteProductoCarrito(id int)
+BEGIN
+	SELECT IdCarrito, Cantidad
+	FROM carrito 
+	where carrito.IdProducto = id;
+end
+// ;
 
 delimiter $$
 create procedure FinalizarCompra()

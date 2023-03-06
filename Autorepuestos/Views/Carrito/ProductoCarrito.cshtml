@@ -1,0 +1,52 @@
+﻿@model Autorepuestos.Entities.CatalogosEntities
+@{
+    ViewBag.Title = "DetalleProducto";
+}
+
+<h1>Detalle Producto</h1>
+<div>
+    <hr />
+    @*<dl>*@
+    @using (Html.BeginForm("AgregarCarrito", "Carrito", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+    {
+        @Html.HiddenFor(m => m.IdProducto)
+        <div>
+            @Html.DisplayNameFor(m => m.NombreProducto)
+            @Html.DisplayFor(m => m.NombreProducto)
+        </div>
+        @*<dd>@Html.DisplayFor(m => m.NombreProducto)</dd>*@
+
+        <div>
+            @Html.DisplayNameFor(m => m.Descripcion)
+            @Html.DisplayFor(m => m.Descripcion)
+        </div>
+     @*   <dd>@Html.DisplayFor(m => m.Descripcion)</dd>*@
+
+         <div>
+            @Html.DisplayNameFor(m => m.Precio)
+            @Html.DisplayFor(m => m.Precio)
+        </div>
+       @* <dd>@Html.DisplayFor(m => m.Precio)</dd>*@
+
+        <div>
+            @Html.DisplayNameFor(m => m.Existencias)
+            @Html.DisplayFor(m => m.Existencias)
+        </div>
+       @* <dd>@Html.DisplayFor(m => m.Existencias)</dd>*@
+
+        
+        <div class="col-lg-4">
+            <div class="form-group mg-b-10-force">
+                 @Html.LabelFor(m => m.Cantidad)
+                 @Html.EditorFor(m=>m.Cantidad)
+            </div>
+         </div>
+    <p>
+        <button class="btn btn-primary" role="button">Agregar</button>
+    </p>
+    }
+    @*</dl>*@
+    <p>
+        <a class="btn btn-secondary" role="button" href="@Url.Action("VerCatalogos","Catalogo")">Volver</a>
+    </p>
+</div>

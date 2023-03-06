@@ -18,9 +18,6 @@ namespace Autorepuestos.Models
             _configuration = configuration;
         }
 
-
-
-
         public CatalogosEntities? VerProductoCatalogo(int id)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
@@ -37,8 +34,6 @@ namespace Autorepuestos.Models
                 return conexion.Query<CatalogosEntities>("VerCatalogos", new { }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
-
-
     }
 }
 

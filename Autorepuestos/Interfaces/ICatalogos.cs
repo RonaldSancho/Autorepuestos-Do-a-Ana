@@ -8,7 +8,5 @@ namespace Autorepuestos.Interfaces
     {
         public CatalogosEntities? VerProductoCatalogo(int id);
         public List<CatalogosEntities> VerCatalogos(CatalogosEntities catalogo);
-
-
     }
 }

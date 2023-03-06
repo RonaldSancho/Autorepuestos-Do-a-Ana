@@ -33,29 +33,45 @@ namespace Autorepuestos.Models
             }
         }
 
-        public void AgregarCarrito(int id)
+        public CatalogosEntities? ProductoCarrito(int id)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                conexion.Query<CarritoEntities>("AgregarCarrito", new { id }, commandType: CommandType.StoredProcedure);
+                return conexion.Query<CatalogosEntities>("ProductoCarrito", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 
-        //public void AgregarCarrito(int id, int cant)
-        //{
-        //    using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-        //    {
-        //         conexion.Query<CarritoEntities>("AgregarCarrito", new { id , cant}, commandType: CommandType.StoredProcedure).FirstOrDefault();
-        //    }
-        //}
+        public void AgregarCarrito(CatalogosEntities entidad)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("AgregarCarrito", new { entidad.IdProducto, entidad.Cantidad }, commandType: CommandType.StoredProcedure);
+            }
+        }
 
-        //public CarritoEntities? MostrarProductoCarrito(int id)
-        //{
-        //    using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-        //    {
-        //       return conexion.Query<CarritoEntities>("MostrarProductoCarrito", new { id}, commandType: CommandType.StoredProcedure).FirstOrDefault();
-        //    }
-        //}
+        public void EditarCarrito(CarritoEntities entidad)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("EditarCarrito", new { entidad.IdCarrito, entidad.Cantidad }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public CarritoEntities? MostrarProductoCarrito(int id)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                return conexion.Query<CarritoEntities>("MostrarProductoCarrito", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+
+        public CarritoEntities? ConsultaExisteProductoCarrito(int id)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                return conexion.Query<CarritoEntities>("ConsultaExisteProductoCarrito", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
 
         public void FinalizarCompra()
         {

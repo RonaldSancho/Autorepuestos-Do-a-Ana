@@ -31,46 +31,54 @@ namespace Autorepuestos.Controllers
             _CarritoModel.EliminarCarrito(id);
             return RedirectToAction("CarritoCompras", "Carrito");
         }
+
         [HttpGet]
-        public ActionResult AgregarCarrito(int id)
+        public ActionResult ProductoCarrito(int id)
         {
-            _CarritoModel.AgregarCarrito(id);
-            return RedirectToAction("VerCatalogos", "Catalogo");
+            var resultado = _CarritoModel.ProductoCarrito(id);
+            if (resultado != null)
+                return View(resultado);
+            else
+                return View("Error");
+
         }
 
-        //[HttpGet]
-        //public ActionResult AgregarCarrito(int id, int cant)
+        //[HttpPost]
+        //public ActionResult AgregarCarrito(CatalogosEntities entidad)
         //{
-        //    _CarritoModel.AgregarCarrito(id, cant);
-        //    return RedirectToAction("Prueba", "Carrito");
-        //}
-
-
-        //[HttpGet]
-        //public ActionResult Prueba(CarritoEntities entidad)
-        //{
-        //    var resultado = _CarritoModel.MostrarProductoCarrito(entidad.IdProducto);
-        //    if (resultado != null)
-        //        return View(resultado);
-        //    else
-        //        return View("Error");
-
-        //}
-
-        //[HttpGet]
-        //public ActionResult AgregarCarrito(int id)
-        //{
-        //    if (_CarritoModel.ExisteEnCarrito->num_rows > 0)
-        //    {
-        //        AumentarCantidad(id);
-        //    }
-        //    else
-        //    {
-        //        AgregarCarrito(id);
-        //    }
-
+        //    _CarritoModel.AgregarCarrito(entidad);
         //    return RedirectToAction("VerCatalogos", "Catalogo");
         //}
+
+        [HttpPost]
+        public ActionResult AgregarCarrito(CatalogosEntities entidad)
+        {
+            var resultado = _CarritoModel.ConsultaExisteProductoCarrito(entidad.IdProducto);
+            if (resultado != null)
+                return RedirectToAction("VerCatalogos", "Catalogo");
+            else
+            {
+                _CarritoModel.AgregarCarrito(entidad);
+                return RedirectToAction("VerCatalogos", "Catalogo");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult ModificarCarrito(int id)
+        {
+            var resultado = _CarritoModel.MostrarProductoCarrito(id);
+            if (resultado != null)
+                return View(resultado);
+            else
+                return View("Error");
+        }
+
+        [HttpPost]
+        public IActionResult ModificarCarrito(CarritoEntities entidad)
+        {
+            _CarritoModel.EditarCarrito(entidad);
+            return RedirectToAction("CarritoCompras", "Carrito");
+        }
 
         [HttpGet]
         public ActionResult FinalizarCompra()

@@ -52,8 +52,6 @@ namespace Autorepuestos.Controllers
             return View(_CatalogosModel.VerCatalogos(new CatalogosEntities()));
         }
 
-
-
         //ESCRIBIR ANTES DE ESTA LÍNEA//
 
         //[HttpGet]

@@ -10,8 +10,11 @@ namespace Autorepuestos.Entities
         public int Existencias { get; set; }
         public int IdProveedor { get; set; }
         public string Imagen { get; set; } = string.Empty;
+        [DisplayName("Producto")]
         public string NombreProducto { get; set; } = string.Empty;
         public string Descripcion { get; set; } = string.Empty;
+
+        public int Cantidad { get; set; }
     }
 
     public class RespuestaCatalogo
