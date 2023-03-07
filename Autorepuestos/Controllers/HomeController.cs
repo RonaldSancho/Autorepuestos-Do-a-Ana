@@ -2,10 +2,7 @@
 using Autorepuestos.Interfaces;
 using Autorepuestos.Models;
 using Microsoft.AspNetCore.Mvc;
-using MimeKit;
-using MimeKit.Text;
 using System.Diagnostics;
-using MailKit.Net.Smtp;
 
 namespace Autorepuestos.Controllers
 {
@@ -68,12 +65,11 @@ namespace Autorepuestos.Controllers
             return Json(_UsuariosModel.CorreoExistente(pcorreo));
         }
 
-        //[HttpGet]
-        //public ActionResult BuscarCorreoRecuperar(string pcorreo)
-        //{
-        //    return Json(_UsuariosModel.RecuperarContrasenna(pcorreo));
-        //}
-
+        [HttpGet]
+        public IActionResult Recuperar(string pCorreo)
+        {
+            return Json(_UsuariosModel.CorreoInactivo(pCorreo));
+        }
 
         [HttpGet]
         public ActionResult RecuperarContrasenna()
@@ -82,10 +78,10 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpPost]
-        public ActionResult RecuperarContrasenna(UsuariosEntities usuario)
+        public ActionResult RecuperarContrasenna(UsuariosEntities entidad)
         {
-            var resultado = _UsuariosModel.RecuperarContrasenna(usuario);
-            _UsuariosModel.RecuperarContrasennaCorreo(resultado.pCorreo, resultado.pContrasena);
+            var resultado = _UsuariosModel.RecuperarContrasenna(entidad);
+            _UsuariosModel.EnviarCorreo(resultado.pCorreo, resultado.pContrasena);
             return View();
         }
 

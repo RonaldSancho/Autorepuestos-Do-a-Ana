@@ -3,11 +3,10 @@ using Autorepuestos.Interfaces;
 using Autorepuestos.Models;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
-using MimeKit.Text;
-using MimeKit;
 using MySql.Data.MySqlClient;
-using MailKit.Net.Smtp;
 using System.Data.SqlClient;
+using System.Net.Mail;
+using System.Net;
 
 namespace Autorepuestos.Models
 {
@@ -55,39 +54,49 @@ namespace Autorepuestos.Models
                     return null;
             }
         }
+
+        public string CorreoInactivo(string pCorreo)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                var resultado = conexion.Query<UsuariosEntities>("CorreoExistente", new { pCorreo },
+                                commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
+
+                if (resultado == null)
+                    return "  ";
+                else
+                    return string.Empty;
+            }
+        }
+
         public UsuariosEntities? RecuperarContrasenna(UsuariosEntities usuario)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                return conexion.Query<UsuariosEntities>("CorreoExistente",
-                    new { usuario.pCorreo },
-                    commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                var resultado = conexion.Query<UsuariosEntities>("RecuperarContrasenna", new { usuario.pCorreo }, commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
+
+                if (resultado.pCorreo == null)
+                    return null;
+                else
+                {
+                    return resultado;
+                }
             }
         }
 
-        public void RecuperarContrasennaCorreo(string Correo, string Contrasena)
+        public void EnviarCorreo(string CorreoElectronico, string Contrasenna)
         {
-            string Email = _configuration.GetSection("EmailConfiguracion:Email").Value;
-            string titulo = _configuration.GetSection("EmailConfiguracion:Titulo").Value;
-            string Contraseña = _configuration.GetSection("EmailConfiguracion:Contraseña").Value;
-            string Host = _configuration.GetSection("EmailConfiguracion:Host").Value;
-            string Puerto = _configuration.GetSection("EmailConfiguracion:Puerto").Value;
-
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(Email));
-            email.To.Add(MailboxAddress.Parse(Correo));
-            email.Subject = titulo;
-            email.Body = new TextPart(TextFormat.Html)
-            { Text = "<h1>La contraseña del usuario " + Correo + " es " + Contrasena + "</h1>" };
-
-            using var smtp = new SmtpClient();
-
-            //smtp.CheckCertificateRevocation = false;
-            smtp.Connect(Email, 587, false);
-            smtp.Authenticate(Email, Contraseña);
-            smtp.Send(email);
-            smtp.Disconnect(true);
-
+            MailAddress Destinatario = new MailAddress(CorreoElectronico);
+            MailAddress Emisor = new MailAddress("mpita38@gmail.com");
+            MailMessage mensaje = new MailMessage(Destinatario, Emisor);
+            mensaje.Subject = "mpita38@gmail.com";
+            mensaje.Body = "Su contrasena es: " + Contrasenna;
+            SmtpClient cliente = new SmtpClient();
+            cliente.EnableSsl = true;
+            cliente.Host = "smtp.office365.com";
+            cliente.Port = 587;
+            cliente.Credentials = new NetworkCredential("mpita38@gmail.com", "gaboX2273");
+            cliente.Send(mensaje);
         }
     }
 }

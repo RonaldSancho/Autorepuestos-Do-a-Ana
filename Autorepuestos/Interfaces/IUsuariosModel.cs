@@ -13,7 +13,8 @@ namespace Autorepuestos.Interfaces
         public string CorreoExistente(string pcorreo);
 
         public UsuariosEntities? RecuperarContrasenna(UsuariosEntities usuario);
+        public void EnviarCorreo(string CorreoElectronico, string Contrasenna);
 
-        public void RecuperarContrasennaCorreo(string Correo, string Contrasena);
+        public string CorreoInactivo(string pCorreo);
     }
 }

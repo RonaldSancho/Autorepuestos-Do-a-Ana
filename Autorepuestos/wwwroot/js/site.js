@@ -27,14 +27,14 @@
 }
 
 function CorreoExistente2() {
-    let pcorreo = $("#pCorreo").val();
+    let pCorreo = $("#pCorreo").val();
     $("#RecuperarContrasena").prop("disabled", true);
 
-    if (pcorreo.trim() != "") {
+    if (pCorreo.trim() != "") {
         $.ajax({
-            url: '/Home/CorreoExistente',
+            url: '/Home/Recuperar',
             data: {
-                "pcorreo": pcorreo
+                "pCorreo": pCorreo
             },
             type: 'GET',
             dataType: 'json',
