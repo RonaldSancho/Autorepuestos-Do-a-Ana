@@ -26,8 +26,65 @@
     }
 }
 
+function CorreoExistente2() {
+    let pcorreo = $("#pCorreo").val();
+    $("#RecuperarContrasena").prop("disabled", true);
 
+    if (pcorreo.trim() != "") {
+        $.ajax({
+            url: '/Home/CorreoExistente',
+            data: {
+                "pcorreo": pcorreo
+            },
+            type: 'GET',
+            dataType: 'json',
+            success: function (res) {
 
+                if (res == "")
+                    $("#RecuperarContrasena").prop("disabled", false);
+                    //Swal.fire({
+                    //    icon: 'error',
+                    //    title: 'Error',
+                    //    text: 'Este correo no se encuentra registrado. Por favor, intente nuevamente.',
+                    //});
+                else
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Por favor, intente nuevamente.',
+                    });
+
+            }
+        });
+    }
+}
+
+function Recuperar() {
+    let pcorreo = $("#pCorreo").val();
+
+    $.ajax({
+        url: '/Home/Recuperar',
+        data: {
+            "pcorreo": pcorreo
+        },
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+            if (res == "")
+                //Swal.fire({
+                //    icon: 'success',
+                //    text: 'Se ha enviado un correo a su bendeja con su contraseña.',
+                //});
+                alert("Se ha enviado un mensaje con su contraseña a su correo electrónico");
+            else
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error en el sistema. Por favor, intente nuevamente.',
+                });
+        }
+    });
+}
 
 //function showAlert() {
 //    Swal.fire({

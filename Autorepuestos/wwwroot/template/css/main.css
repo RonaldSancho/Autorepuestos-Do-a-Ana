@@ -35,9 +35,9 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: var(--font-default);
-  color: var(--color-default);
-  background-color: var(--grisfondo);
+    font-family: var(--font-default);
+    color: var(--color-default);
+    background-color: #8691a6;
 }
 
 a {
@@ -340,10 +340,10 @@ h6 {
 # Header
 --------------------------------------------------------------*/
 .header {
-  transition: all 0.5s;
-  z-index: 997;
-  padding: 30px 0;
-  background-color: var(--gris);
+    transition: all 0.5s;
+    z-index: 997;
+    padding: 30px 0;
+    background-color: #2e69ae;
 }
 
 .header .logo {

@@ -1,0 +1,37 @@
+﻿@model Autorepuestos.Entities.UsuariosEntities
+
+@{
+    ViewData["Tittle"] = "InicioSesión";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+@*<button onclick="showAlert()">Mostrar SweetAlert2</button>*@
+
+<div class="d-flex align-items-center justify-content-center bg-sl-primary ht-100v">
+
+    <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white" style="width: 700px">
+        <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">AutoRepuestos<span class="tx-info tx-normal">DoñaAna</span></div>
+        <div class="tx-center mg-b-60">Registrarse</div>
+
+        @using (Html.BeginForm("RecuperarContrasenna", "Home", FormMethod.Post))
+        {
+            Html.AntiForgeryToken();
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.pCorreo, new {@class="form-control", @placeholder="Correo", @onblur = "CorreoExistente2();"})
+                        @Html.ValidationMessageFor(m => m.pCorreo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-layout-footer">
+                <input type="submit" id="RecuperarContrasena" disabled class="btn btn-info" value="Recuperar contraseña" />
+                <a role="button" class="btn btn-secondary" href="@Url.Action("Index","Home")">Volver</a>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="~/js/site.js"></script>
+

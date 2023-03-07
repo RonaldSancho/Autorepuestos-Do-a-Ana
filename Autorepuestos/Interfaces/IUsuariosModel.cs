@@ -11,5 +11,9 @@ namespace Autorepuestos.Interfaces
         //public string RegitrarUsuario(string pNombre, string pApellido1, string pCedula, string pTelefono, string pCorreo, string pContrasena);
 
         public string CorreoExistente(string pcorreo);
+
+        public UsuariosEntities? RecuperarContrasenna(UsuariosEntities usuario);
+
+        public void RecuperarContrasennaCorreo(string Correo, string Contrasena);
     }
 }

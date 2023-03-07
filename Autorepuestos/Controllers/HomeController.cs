@@ -2,8 +2,10 @@
 using Autorepuestos.Interfaces;
 using Autorepuestos.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using MimeKit;
+using MimeKit.Text;
 using System.Diagnostics;
+using MailKit.Net.Smtp;
 
 namespace Autorepuestos.Controllers
 {
@@ -16,15 +18,17 @@ namespace Autorepuestos.Controllers
         private readonly IPedidosModel _PedidosModel;
         private readonly ICatalogosModel _CatalogosModel;
         private readonly IEntregasModel _EntregasModel;
+        private readonly IConfiguration _configuration;
 
         public HomeController(ILogger<HomeController> logger, IUsuariosModel usuariosModel, IPedidosModel pedidosModel, 
-            ICatalogosModel catalogoModel, IEntregasModel entregasModel)
+            ICatalogosModel catalogoModel, IEntregasModel entregasModel, IConfiguration configuration)
         {
             _logger = logger;
             _UsuariosModel = usuariosModel;
             _PedidosModel = pedidosModel;
             _CatalogosModel = catalogoModel;
             _EntregasModel = entregasModel;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -63,6 +67,28 @@ namespace Autorepuestos.Controllers
         {
             return Json(_UsuariosModel.CorreoExistente(pcorreo));
         }
+
+        //[HttpGet]
+        //public ActionResult BuscarCorreoRecuperar(string pcorreo)
+        //{
+        //    return Json(_UsuariosModel.RecuperarContrasenna(pcorreo));
+        //}
+
+
+        [HttpGet]
+        public ActionResult RecuperarContrasenna()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RecuperarContrasenna(UsuariosEntities usuario)
+        {
+            var resultado = _UsuariosModel.RecuperarContrasenna(usuario);
+            _UsuariosModel.RecuperarContrasennaCorreo(resultado.pCorreo, resultado.pContrasena);
+            return View();
+        }
+
 
         public IActionResult Error()
         {
