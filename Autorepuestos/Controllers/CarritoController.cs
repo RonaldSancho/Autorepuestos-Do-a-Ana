@@ -21,8 +21,10 @@ namespace Autorepuestos.Controllers
 
         [HttpGet]
         public ActionResult CarritoCompras(CarritoEntities carro)
+
         {
-            return View(_CarritoModel.ConsultarCarrito(carro));
+            var usuario = HttpContext.Session.GetInt32("IdUsuario");
+            return View(_CarritoModel.ConsultarCarrito(carro, usuario));
         }
 
         [HttpGet]
@@ -53,12 +55,13 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public ActionResult AgregarCarrito(CatalogosEntities entidad)
         {
-            var resultado = _CarritoModel.ConsultaExisteProductoCarrito(entidad.IdProducto);
+            var usuario = HttpContext.Session.GetInt32("IdUsuario");
+            var resultado = _CarritoModel.ConsultaExisteProductoCarrito(entidad.IdProducto, usuario);
             if (resultado != null)
                 return RedirectToAction("VerCatalogos", "Catalogo");
             else
             {
-                _CarritoModel.AgregarCarrito(entidad);
+                _CarritoModel.AgregarCarrito(entidad, usuario);
                 return RedirectToAction("VerCatalogos", "Catalogo");
             }
         }

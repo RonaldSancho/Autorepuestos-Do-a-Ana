@@ -17,11 +17,11 @@ namespace Autorepuestos.Models
             _configuration = configuration;
         }
 
-        public List<CarritoEntities> ConsultarCarrito(CarritoEntities carro)
+        public List<CarritoEntities> ConsultarCarrito(CarritoEntities carro, int? IdUsuario)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                return conexion.Query<CarritoEntities>("ConsultarCarrito", new { }, commandType: CommandType.StoredProcedure).ToList();
+                return conexion.Query<CarritoEntities>("ConsultarCarrito", new { IdUsuario}, commandType: CommandType.StoredProcedure).ToList();
             }
         }
 
@@ -41,11 +41,11 @@ namespace Autorepuestos.Models
             }
         }
 
-        public void AgregarCarrito(CatalogosEntities entidad)
+        public void AgregarCarrito(CatalogosEntities entidad, int? IdUsuario)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                conexion.Execute("AgregarCarrito", new { entidad.IdProducto, entidad.Cantidad }, commandType: CommandType.StoredProcedure);
+                conexion.Execute("AgregarCarrito", new { entidad.IdProducto, entidad.Cantidad, IdUsuario }, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -65,11 +65,11 @@ namespace Autorepuestos.Models
             }
         }
 
-        public CarritoEntities? ConsultaExisteProductoCarrito(int id)
+        public CarritoEntities? ConsultaExisteProductoCarrito(int id, int? IdUsuario)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                return conexion.Query<CarritoEntities>("ConsultaExisteProductoCarrito", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                return conexion.Query<CarritoEntities>("ConsultaExisteProductoCarrito", new { id, IdUsuario}, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 

@@ -15,6 +15,7 @@ namespace Autorepuestos.Entities
         public string Descripcion { get; set; } = string.Empty;
 
         public int Cantidad { get; set; }
+        public int IdUsuario { get; set; }
     }
 
     public class RespuestaCatalogo

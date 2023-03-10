@@ -4,7 +4,7 @@ namespace Autorepuestos.Entities
 {
     public class UsuariosEntities : ValidationAttribute
     {
-        //public int IdUsuario { get; set; };
+        public int IdUsuario { get; set; }
         [Required(ErrorMessage = "El nombre es requerido.")]
         [MinLength(2, ErrorMessage = "El nombre no puede contener menos de 2 letras")]
         public string pNombre { get; set; } = string.Empty;

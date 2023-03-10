@@ -29,6 +29,7 @@ namespace Autorepuestos.Controllers
                 var resultado = _UsuariosModel.ValidarUsuarios(usuarios);
                 if (resultado != null)
                 {
+                    HttpContext.Session.SetInt32("IdUsuario", resultado.IdUsuario);
                     return View(_CatalogosModel.VerCatalogos(catalogo));
                 }
                 else

@@ -15,6 +15,8 @@ namespace Autorepuestos.Entities
 
         public string Existencias { get; set; } = string.Empty;
 
+        public int IdUsuario { get; set; }
+
         public class RespuestaCarrito
         {
             public List<CarritoEntities> RespuestaCarro { get; set; } = new List<CarritoEntities>();

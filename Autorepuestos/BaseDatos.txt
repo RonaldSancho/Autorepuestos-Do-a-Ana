@@ -128,6 +128,8 @@ IdCarrito int primary key auto_increment,
 IdProducto int not null,
 Cantidad int not null default 1,
 foreign key (IdProducto) references Producto(IdProducto));
+alter table Carrito add column IdUsuario int ;
+alter table Carrito add constraint foreign key(IdUsuario) references Usuario(IdUsuario);
 
 insert into Carrito(IdCarrito,IdProducto) values(1,1);
 insert into Carrito(IdCarrito,IdProducto) values(2,1);
@@ -455,16 +457,19 @@ delimiter ;
 
 /* INICIO SP DE CARRITO */
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarCarrito` ()   
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarCarrito` (IdUsuario int)   
 BEGIN
 	SELECT c.IdCarrito,
 		   p.IdProducto,
            p.NombreProducto,
 		   p.Precio, 
 		   p.Imagen,
-           c.Cantidad
-	FROM carrito c
-INNER JOIN producto p ON p.IdProducto = c.IdProducto;
+           c.Cantidad,
+           c.IdUsuario
+	FROM carrito c, producto p, Usuario u
+    where p.IdProducto= c.IdProducto
+    and c.IdUsuario = u.IdUsuario
+    and c.IdUsuario = IdUsuario;
 end$$
 
 DELIMITER $$
@@ -475,9 +480,9 @@ BEGIN
 END$$
 
 DELIMITER $$
-CREATE PROCEDURE AgregarCarrito(IdProducto int, Cantidad int)
+CREATE PROCEDURE AgregarCarrito(IdProducto int, Cantidad int, IdUsuario int)
 BEGIN
-    INSERT INTO Carrito (IdProducto, Cantidad) VALUES (IdProducto, Cantidad);
+    INSERT INTO Carrito (IdProducto, Cantidad, IdUsuario) VALUES (IdProducto, Cantidad, IdUsuario);
 END$$
 
 DELIMITER $$
@@ -515,11 +520,12 @@ end
 // ;
 
 delimiter //
-CREATE PROCEDURE ConsultaExisteProductoCarrito(id int)
+CREATE PROCEDURE ConsultaExisteProductoCarrito(id int, IdUsuario int)
 BEGIN
 	SELECT IdCarrito, Cantidad
 	FROM carrito 
-	where carrito.IdProducto = id;
+	where carrito.IdProducto = id
+    and carrito.IdUsuario= IdUsuario;
 end
 // ;
 
