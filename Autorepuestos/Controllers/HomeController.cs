@@ -2,6 +2,9 @@
 using Autorepuestos.Interfaces;
 using Autorepuestos.Models;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
+using MimeKit.Text;
+using MailKit.Net.Smtp;
 using System.Diagnostics;
 
 namespace Autorepuestos.Controllers
@@ -66,25 +69,67 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
-        public IActionResult Recuperar(string pCorreo)
-        {
-            return Json(_UsuariosModel.CorreoInactivo(pCorreo));
-        }
-
-        [HttpGet]
         public ActionResult RecuperarContrasenna()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch
+            {
+                ViewBag.mensaje = "Correo no registrado";
+                return View("Index");
+            }
         }
 
         [HttpPost]
-        public ActionResult RecuperarContrasenna(UsuariosEntities entidad)
+        public ActionResult RecuperarContrasenna(string pcorreo)
         {
-            var resultado = _UsuariosModel.RecuperarContrasenna(entidad);
-            _UsuariosModel.EnviarCorreo(resultado.pCorreo, resultado.pContrasena);
-            return View();
+            try
+            {
+                return View("Index");
+            }
+            catch
+            {
+                ViewBag.mensaje = "Correo no registrado";
+                return View("Index");
+            }
         }
 
+        [HttpGet]
+        public ActionResult Recuperar(UsuariosEntities usuario)
+        {
+            try
+            {
+                var resultado = _UsuariosModel.RecuperarContrasenna(usuario);
+
+                string Email = _configuration.GetSection("EmailConfiguracion:Email").Value;
+                string titulo = _configuration.GetSection("EmailConfiguracion:Titulo").Value;
+                string Contraseña = _configuration.GetSection("EmailConfiguracion:Contraseña").Value;
+                string Host = _configuration.GetSection("EmailConfiguracion:Host").Value;
+                string Puerto = _configuration.GetSection("EmailConfiguracion:Puerto").Value;
+
+                var email = new MimeMessage();
+                email.From.Add(MailboxAddress.Parse(Email));
+                email.To.Add(MailboxAddress.Parse(resultado.pCorreo));
+                email.Subject = titulo;
+                email.Body = new TextPart(TextFormat.Html)
+                { Text = "<h1>La contraseña del usuario " + resultado.pCorreo + " es " + resultado.pContrasena + "</h1>" };
+
+                using var smtp = new SmtpClient();
+                smtp.Connect(Host, int.Parse(Puerto), false);
+                smtp.Authenticate(Email, Contraseña);
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+            catch
+            {
+                ViewBag.mensaje = "Correo no registrado";
+                return View("Index");
+            }
+            return null;
+
+        }
 
         public IActionResult Error()
         {

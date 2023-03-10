@@ -252,6 +252,14 @@ begin
 end
 $$
 
+delimiter $$ 
+create procedure RecuperarContrasenna(in pCorreo varchar(60)) 
+begin    
+select IdUsuario, Correo 'pCorreo', Contrasena 'pContrasena'     
+from Usuario      
+where Correo = pCorreo; 
+end $$
+
 /* FIN SP DE USUARIO */
 
 /* INICIO SP DE CATALOGO */

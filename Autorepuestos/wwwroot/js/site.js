@@ -32,7 +32,7 @@ function CorreoExistente2() {
 
     if (pCorreo.trim() != "") {
         $.ajax({
-            url: '/Home/Recuperar',
+            url: '/Home/CorreoExistente',
             data: {
                 "pCorreo": pCorreo
             },
@@ -41,19 +41,13 @@ function CorreoExistente2() {
             success: function (res) {
 
                 if (res == "")
-                    $("#RecuperarContrasena").prop("disabled", false);
-                    //Swal.fire({
-                    //    icon: 'error',
-                    //    title: 'Error',
-                    //    text: 'Este correo no se encuentra registrado. Por favor, intente nuevamente.',
-                    //});
-                else
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
                         text: 'Por favor, intente nuevamente.',
                     });
-
+                else
+                    $("#RecuperarContrasena").prop("disabled", false);
             }
         });
     }
@@ -70,18 +64,11 @@ function Recuperar() {
         type: 'GET',
         dataType: 'json',
         success: function (res) {
-            if (res == "")
-                //Swal.fire({
-                //    icon: 'success',
-                //    text: 'Se ha enviado un correo a su bendeja con su contraseña.',
-                //});
-                alert("Se ha enviado un mensaje con su contraseña a su correo electrónico");
-            else
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Error en el sistema. Por favor, intente nuevamente.',
-                });
+            Swal.fire({
+                icon: 'success',
+                title: 'Hola',
+                text: 'Se ha enviado un correo a su bendeja con su contraseña.',
+            });
         }
     });
 }
