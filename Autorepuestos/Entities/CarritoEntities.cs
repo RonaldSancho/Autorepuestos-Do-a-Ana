@@ -17,6 +17,9 @@ namespace Autorepuestos.Entities
 
         public int IdUsuario { get; set; }
 
+        public decimal Subtotal { get; set; }
+
+        public decimal MontoTotal { get; set; }
         public class RespuestaCarrito
         {
             public List<CarritoEntities> RespuestaCarro { get; set; } = new List<CarritoEntities>();

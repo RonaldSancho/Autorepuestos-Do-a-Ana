@@ -13,6 +13,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Precio</th>
             <th scope="col">Cantidad</th>
+            <th scope="col">Subtotal</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
@@ -20,32 +21,37 @@
     <tbody>
         @foreach (var item in Model)
         {
+
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
-                <td>@Html.DisplayFor(modelItem => item.Precio)</td>
+                <td>¢@Html.DisplayFor(modelItem => item.Precio)</td>
                 <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
+                <td>¢@Html.DisplayFor(modelItem => item.Subtotal)</td>
                 <td><img src="@Url.Content(item.Imagen)" width="75" height="75" /></td>
                 <td>
                     <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCarrito","Carrito", new{id = item.IdCarrito})">Editar</a>
                     <a class="btn btn-primary" role="button" href="@Url.Action("EliminarCarrito","Carrito", new{id = item.IdCarrito})">Eliminar</a>
-                </td>@*recordar ver lo del toggle*@
+                </td>
             </tr>
         }
     </tbody>
+    <tr>
+        @*@foreach (var item in Model)
+        {
+            <td>Monto Final</td>
+            <td></td>
+            <td>Total</td>
+            <td>@Html.DisplayFor(modelItem => item.MontoTotal)</td>
+            <td></td>
+            <td></td>
+        }*@
+        <td>Monto Final</td>
+        <td></td>
+        <td>Total</td>
+        <td>¢0</td>
+        <td></td>
+        <td></td>
+    </tr>
 </table>
 
 <a href="@Url.Action("FinalizarCompra", "Carrito")" class="btn btn-primary">Finalizar Compra</a>
-
-@*    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Producto eliminado de forma exitosa.
-                </div>
-            </div>
-        </div>
-    </div>*@
-

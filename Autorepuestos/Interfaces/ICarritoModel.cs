@@ -18,5 +18,6 @@ namespace Autorepuestos.Interfaces
 
         public CarritoEntities? ConsultaExisteProductoCarrito(int id, int? IdUsuario);
 
+
     }
 }
