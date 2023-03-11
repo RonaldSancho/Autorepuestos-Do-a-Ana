@@ -13,6 +13,7 @@ builder.Services.AddScoped<ICatalogosModel, CatalogosModel>();
 builder.Services.AddScoped<IEntregasModel, EntregasModel>();
 builder.Services.AddScoped<ICarritoModel, CarritoModel>();
 builder.Services.AddScoped<IProductosModel, ProductosModel>();
+builder.Services.AddScoped<IFacturaModel, FacturaModel>();
 
 var app = builder.Build();
 

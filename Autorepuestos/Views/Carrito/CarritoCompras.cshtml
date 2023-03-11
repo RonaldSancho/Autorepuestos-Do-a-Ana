@@ -5,7 +5,6 @@
 <br />
 <br />
 <br />
-
 <h1>Carro de compras</h1>
 <table id="example" class="table table-dark" style="width:100%">
     <thead>
@@ -21,7 +20,6 @@
     <tbody>
         @foreach (var item in Model)
         {
-
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
                 <td>¢@Html.DisplayFor(modelItem => item.Precio)</td>
@@ -36,15 +34,6 @@
         }
     </tbody>
     <tr>
-        @*@foreach (var item in Model)
-        {
-            <td>Monto Final</td>
-            <td></td>
-            <td>Total</td>
-            <td>@Html.DisplayFor(modelItem => item.MontoTotal)</td>
-            <td></td>
-            <td></td>
-        }*@
         <td>Monto Final</td>
         <td></td>
         <td>Total</td>
@@ -53,5 +42,5 @@
         <td></td>
     </tr>
 </table>
+<a href="@Url.Action("CrearDetalleCarrito", "Carrito")" class="btn btn-primary">Finalizar Compra</a>
 
-<a href="@Url.Action("FinalizarCompra", "Carrito")" class="btn btn-primary">Finalizar Compra</a>

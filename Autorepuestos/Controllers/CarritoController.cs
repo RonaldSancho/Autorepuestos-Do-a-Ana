@@ -12,11 +12,13 @@ namespace Autorepuestos.Controllers
 
         private readonly ILogger<CarritoController> _logger;
         private readonly ICarritoModel _CarritoModel;
+        private readonly IFacturaModel _facturaModel;
 
-        public CarritoController(ILogger<CarritoController> logger, ICarritoModel carritoModel)
+        public CarritoController(ILogger<CarritoController> logger, ICarritoModel carritoModel, IFacturaModel facturaModel)
         {
             _logger = logger;
             _CarritoModel = carritoModel;
+            _facturaModel = facturaModel;
         }
 
         [HttpGet]
@@ -47,13 +49,6 @@ namespace Autorepuestos.Controllers
                 return View("Error");
 
         }
-
-        //[HttpPost]
-        //public ActionResult AgregarCarrito(CatalogosEntities entidad)
-        //{
-        //    _CarritoModel.AgregarCarrito(entidad);
-        //    return RedirectToAction("VerCatalogos", "Catalogo");
-        //}
 
         [HttpPost]
         public ActionResult AgregarCarrito(CatalogosEntities entidad)
@@ -90,6 +85,15 @@ namespace Autorepuestos.Controllers
         public ActionResult FinalizarCompra()
         {
             _CarritoModel.FinalizarCompra();
+            return RedirectToAction("VerCatalogos", "Catalogo");
+        }
+
+        [HttpGet]
+        public IActionResult CrearDetalleCarrito()
+        {
+            var usuario = HttpContext.Session.GetInt32("IdUsuario");
+            _CarritoModel.CrearDetalleCarrito(usuario);
+            _facturaModel.CrearFactura(usuario);
             return RedirectToAction("VerCatalogos", "Catalogo");
         }
     }

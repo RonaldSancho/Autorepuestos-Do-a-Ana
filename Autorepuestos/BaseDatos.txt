@@ -26,11 +26,8 @@ Telefono varchar(30) not null,
 Correo varchar(60) unique not null,
 Contrasena varchar(16) not null,
 foreign key(IdRol) references Rol(IdRol));
-alter table usuario
-drop column Apellido2;
-insert into Usuario(NombreUsuario,Apellido1,Apellido2,IdRol,Cedula,Telefono,Correo,Contrasena) values('Ronald' ,'Sancho', 'Díaz', 1, '118430219', '84278434', 'ronalsancho@gmail.com', '123');
-insert into Usuario(NombreUsuario,Apellido1,Apellido2,IdRol,Cedula,Telefono,Correo,Contrasena) values('Randall' ,'Sancho', 'Díaz', 1, '118430219', '84278434', 'ronalsancho@gmail.com', '123');
-insert into Usuario(NombreUsuario,Apellido1,Apellido2,IdRol,Cedula,Telefono,Correo,Contrasena) values('Randall' ,'Sancho', 'Díaz', 1, '118430219', '84278434', 'ronaldsancho@gmail.com', '123');
+alter table usuario drop column Apellido2;
+alter table usuario add column Direccion varchar(200);
 
 Create table Proveedor(
 IdProveedor int primary key auto_increment,
@@ -81,7 +78,8 @@ TotalIva decimal not null,
 foreign key(IdInformacion) references Informacion(IdInformacion),
 foreign key(IdUsuario) references Usuario(IdUsuario),
 foreign key(IdOrden) references Orden(IdOrden));
-insert into Factura(Fecha,IdInformacion,IdUsuario,IdOrden,Total,TotalIva) values('21-2-10', 1, 1 , 1, 200 ,200); /*anno mes dia*/
+alter table Factura add column Telefono varchar(30);
+alter table Factura add column Direccion varchar(200);
 
 Create table Pedidos(
 IdPedido int primary key auto_increment,
@@ -133,6 +131,32 @@ alter table Carrito add constraint foreign key(IdUsuario) references Usuario(IdU
 
 insert into Carrito(IdCarrito,IdProducto) values(1,1);
 insert into Carrito(IdCarrito,IdProducto) values(2,1);
+
+/*nuevos cambios en la base de datos*/
+Create table DetalleCarrito(
+IdDetalle int primary key not null auto_increment,
+IdProducto int not null,
+IdUsuario int not null,
+Precio decimal not null,
+Cantidad int not null,
+Subtotal decimal not null,
+foreign key(IdProducto) references Producto(IdProducto),
+foreign key(IdUsuario) references Usuario(IdUsuario));
+
+Create table Factura(
+IdFactura int primary key auto_increment,
+Fecha date not null,
+IdUsuario int not null,
+MontoTotal decimal not null,
+TipoPago varchar(20),
+foreign key(IdUsuario) references Usuario(IdUsuario));
+
+DROP TABLE Orden;
+ALTER TABLE Orden DROP FOREIGN KEY orden_ibfk_1;
+ALTER TABLE Factura DROP FOREIGN KEY factura_ibfk_3;
+ALTER TABLE Factura DROP FOREIGN KEY factura_ibfk_1;
+ALTER TABLE Factura DROP FOREIGN KEY factura_ibfk_2;
+DROP TABLE Factura;
 /*********************************************FIN TABLAS****************************************************************/
 
 /*********************************************INICIO SP****************************************************************/
@@ -536,6 +560,28 @@ begin
 	insert into Orden(IdProducto, Cantidad) select IdProducto, Cantidad from Carrito; 
 end$$
 /* FIN SP DE CARRITO */
+
+/* INICIO SP DE DETALLECARRITO */
+delimiter $$
+create procedure CrearDetalleCarrito(IdUsuario int)
+begin
+	insert into DetalleCarrito(IdProducto, IdUsuario, Precio,Cantidad, Subtotal) (select c.IdProducto, c.IdUsuario, p.Precio, c.Cantidad, (p.Precio * c.Cantidad) 'Subtotal' from Carrito c, Producto p where c.IdProducto=p.IdProducto and c.IdUsuario = IdUsuario); 
+end$$
+
+/*FIN SP DE DETALLECARRITO*/
+
+/*INICIO SP FACTURA*/
+
+delimiter $$
+create procedure CrearFactura(IdUsuario int)
+begin
+	insert into Factura(IdUsuario, Telefono, Direccion,Fecha, MontoTotal) (select d.IdUsuario, u.Telefono, u.Direccion, Now() 'Fecha', (sum(d.Subtotal)) 'MontoTotal'
+    from DetalleCarrito d, Usuario u 
+    where d.IdUsuario=u.IdUsuario and d.IdUsuario = IdUsuario
+    Group by d.IdUsuario, u.Telefono, u.Direccion); 
+end$$
+
+/*FIN SP DE FACTURA*/
 /*********************************************FIN SP****************************************************************/
 
 /*********************************************INICIO TRIGGER****************************************************************/

@@ -81,5 +81,18 @@ namespace Autorepuestos.Models
             }
         }
 
+
+        public void CrearDetalleCarrito(int? IdUsuario)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("CrearDetalleCarrito", new
+                {
+                    IdUsuario
+                },
+                 commandType: CommandType.StoredProcedure);
+            }
+        }
+
     }
 }
