@@ -465,6 +465,7 @@ BEGIN
 		   p.Precio, 
 		   p.Imagen,
            c.Cantidad,
+           (c.Cantidad * p.Precio) 'Subtotal',
            c.IdUsuario
 	FROM carrito c, producto p, Usuario u
     where p.IdProducto= c.IdProducto
