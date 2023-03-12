@@ -82,13 +82,6 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
-        public ActionResult FinalizarCompra()
-        {
-            _CarritoModel.FinalizarCompra();
-            return RedirectToAction("VerCatalogos", "Catalogo");
-        }
-
-        [HttpGet]
         public IActionResult CrearDetalleCarrito()
         {
             var usuario = HttpContext.Session.GetInt32("IdUsuario");

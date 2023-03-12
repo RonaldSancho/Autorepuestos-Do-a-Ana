@@ -12,8 +12,6 @@ namespace Autorepuestos.Interfaces
         public CarritoEntities? MostrarProductoCarrito(int id);
         public void EditarCarrito(CarritoEntities entidad);
 
-        public void FinalizarCompra();
-
         public CatalogosEntities? ProductoCarrito(int id);
 
         public CarritoEntities? ConsultaExisteProductoCarrito(int id, int? IdUsuario);

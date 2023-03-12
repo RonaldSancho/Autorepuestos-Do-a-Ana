@@ -73,15 +73,6 @@ namespace Autorepuestos.Models
             }
         }
 
-        public void FinalizarCompra()
-        {
-            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-            {
-                conexion.Execute("FinalizarCompra", new {  }, commandType: CommandType.StoredProcedure);
-            }
-        }
-
-
         public void CrearDetalleCarrito(int? IdUsuario)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))

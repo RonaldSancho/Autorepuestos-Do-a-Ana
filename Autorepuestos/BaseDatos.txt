@@ -595,5 +595,15 @@ where IdProducto = new.IdProducto;
 update Producto set Existencias = Existencias - new.Cantidad
 where IdProducto = new.IdProducto;*/
 
+create trigger ActualizarExistenciasProductoInsert after insert on DetalleCarrito for each row
+update Producto set Existencias = Existencias - new.Cantidad
+where IdProducto = new.IdProducto;
+
+select * from factura;
+select * from DetalleCarrito;
+delete from carrito;
+delete from DetalleCarrito;
+delete from factura;
+
 /*FIN TRIGGERS CARRITO*/
 /*********************************************FIN TRIGGER****************************************************************/
