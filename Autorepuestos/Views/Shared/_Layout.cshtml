@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>PhotoFolio Bootstrap Template - Index</title>
+    <title>Autorepuestos Doña Ana</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -34,10 +34,14 @@
         <div class="container-fluid d-flex align-items-center justify-content-between">
 
             <a href="@Url.Action("VerCatalogos","Catalogo")" class="logo d-flex align-items-center  me-auto me-lg-0">
+                @{
+                    var id = Context.Session.GetInt32("IdUsuario")?.ToString();
+                }
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <!-- <img src="assets/img/logo.png" alt=""> -->
                 <i class="bi bi-nut"></i>
                 <h1>AUTOREPUESTOS DOÑA ANA</h1>
+                Id: @id
             </a>
 
             <nav id="navbar" class="navbar">
@@ -66,6 +70,7 @@
                     </li>
                     <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
                     <li><a href="@Url.Action("MostrarPedido", "Pedido")">Pedido</a></li>
+                    <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
                 </ul>
             </nav><!-- .navbar -->
 

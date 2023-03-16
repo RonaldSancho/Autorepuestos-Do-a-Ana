@@ -22,7 +22,7 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpPost]
-        public ActionResult VerCatalogos(CatalogosEntities catalogo, UsuariosEntities usuarios)
+        public IActionResult VerCatalogos(CatalogosEntities catalogo, UsuariosEntities usuarios)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Autorepuestos.Controllers
                 if (resultado != null)
                 {
                     HttpContext.Session.SetInt32("IdUsuario", resultado.IdUsuario);
-                    return View(_CatalogosModel.VerCatalogos(catalogo));
+                    return RedirectToAction("VerCatalogos", "Catalogo");
                 }
                 else
                 {
@@ -48,9 +48,10 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
-        public ActionResult VerCatalogos()
+        [FiltroSesiones]
+        public IActionResult VerCatalogos(CatalogosEntities catalogo)
         {
-            return View(_CatalogosModel.VerCatalogos(new CatalogosEntities()));
+            return View(_CatalogosModel.VerCatalogos(catalogo));
         }
 
         //ESCRIBIR ANTES DE ESTA LÍNEA//

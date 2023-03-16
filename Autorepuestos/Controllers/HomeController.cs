@@ -9,8 +9,7 @@ using System.Diagnostics;
 
 namespace Autorepuestos.Controllers
 {
-    //Evita que el usuario no se regrese, poner en todos los Controllers que se creen
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -32,19 +31,20 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public IActionResult Index()
         {
+            HttpContext.Session.Remove("IdUsuario");
             return View();
         }
 
         [HttpGet]
-        public ActionResult RegistrarUsuario()
+        public IActionResult RegistrarUsuario()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult RegistrarUsuario(UsuariosEntities usuario)
+        public IActionResult RegistrarUsuario(UsuariosEntities usuario)
         {
             if (ModelState.IsValid)
             {
@@ -63,13 +63,13 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
-        public ActionResult CorreoExistente(string pcorreo)
+        public IActionResult CorreoExistente(string pcorreo)
         {
             return Json(_UsuariosModel.CorreoExistente(pcorreo));
         }
 
         [HttpGet]
-        public ActionResult RecuperarContrasenna()
+        public IActionResult RecuperarContrasenna()
         {
             try
             {
@@ -83,7 +83,7 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpPost]
-        public ActionResult RecuperarContrasenna(string pcorreo)
+        public IActionResult RecuperarContrasenna(string pcorreo)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
-        public ActionResult Recuperar(UsuariosEntities usuario)
+        public IActionResult Recuperar(UsuariosEntities usuario)
         {
             try
             {
@@ -131,6 +131,13 @@ namespace Autorepuestos.Controllers
 
         }
 
+        [HttpGet]
+        //[FiltroSesiones]
+        public IActionResult CerrarSesion() //el cerrar sesion no borra la variable de sesion
+        {
+            HttpContext.Session.Remove("IdUsuario");
+            return RedirectToAction("Index", "Home");
+        }
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
