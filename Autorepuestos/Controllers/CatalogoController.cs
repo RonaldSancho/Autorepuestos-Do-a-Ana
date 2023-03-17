@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 namespace Autorepuestos.Controllers
 {
+    [ResponseCache (NoStore =true, Duration = 0)]
     public class CatalogoController : Controller
     {
 

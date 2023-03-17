@@ -5,14 +5,13 @@ namespace Autorepuestos.Models
 {
     public class FiltroSesiones : ActionFilterAttribute
     {
-        public override void OnResultExecuting(ResultExecutingContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
             if(context.HttpContext.Session.GetInt32("IdUsuario") == null)
             {
-                context.Cancel = true;
                 context.HttpContext.Response.Redirect("/Home/Index"); //Va sin punto para que llegue al index
             }
-            base.OnResultExecuting(context);
+            base.OnActionExecuting(context);
         }
     }
 }

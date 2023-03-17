@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace Autorepuestos.Controllers
 {
-
+    [ResponseCache(NoStore = true, Duration = 0)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -33,7 +33,7 @@ namespace Autorepuestos.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            HttpContext.Session.Remove("IdUsuario");
+            HttpContext.Session.Clear();
             return View();
         }
 
@@ -132,10 +132,10 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
-        //[FiltroSesiones]
+        [FiltroSesiones]
         public IActionResult CerrarSesion() //el cerrar sesion no borra la variable de sesion
         {
-            HttpContext.Session.Remove("IdUsuario");
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
         public IActionResult Error()
