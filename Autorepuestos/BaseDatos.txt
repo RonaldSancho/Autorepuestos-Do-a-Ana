@@ -526,6 +526,7 @@ begin
     from DetalleCarrito d, Usuario u 
     where d.IdUsuario=u.IdUsuario and d.IdUsuario = IdUsuario
     Group by d.IdUsuario, u.Telefono, u.Direccion); 
+    delete from DetalleCarrito where DetalleCarrito.IdUsuario = IdUsuario;
 end$$
 
 /*FIN SP DE FACTURA*/
@@ -534,23 +535,14 @@ end$$
 /*********************************************INICIO TRIGGER****************************************************************/
 
 /****************************Inicio de Triggers CARRITO*/
-create trigger ActualizarExistenciasProductoInsert after insert on Orden for each row
-update Producto set Existencias = Existencias - new.Cantidad
-where IdProducto = new.IdProducto;
-
-/*create trigger ActualizarExistenciasProductoUpdate after update on Carrito for each row
-update Producto set Existencias = Existencias - new.Cantidad
-where IdProducto = new.IdProducto;*/
-
 create trigger ActualizarExistenciasProductoInsert after insert on DetalleCarrito for each row
 update Producto set Existencias = Existencias - new.Cantidad
 where IdProducto = new.IdProducto;
 
-select * from factura;
-select * from DetalleCarrito;
-delete from carrito;
-delete from DetalleCarrito;
-delete from factura;
+create trigger ActualizarExistenciasProductoEliminar after delete on DetalleCarrito for each row
+update Producto set Existencias = Existencias + old.Cantidad
+where IdProducto = old.IdProducto;
+
 
 /*FIN TRIGGERS CARRITO*/
 /*********************************************FIN TRIGGER****************************************************************/

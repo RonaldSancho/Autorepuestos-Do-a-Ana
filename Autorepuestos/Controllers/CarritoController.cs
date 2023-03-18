@@ -80,14 +80,5 @@ namespace Autorepuestos.Controllers
             _CarritoModel.EditarCarrito(entidad);
             return RedirectToAction("CarritoCompras", "Carrito");
         }
-
-        [HttpGet]
-        public IActionResult CrearDetalleCarrito()
-        {
-            var usuario = HttpContext.Session.GetInt32("IdUsuario");
-            _CarritoModel.CrearDetalleCarrito(usuario);
-            _facturaModel.CrearFactura(usuario);
-            return RedirectToAction("VerCatalogos", "Catalogo");
-        }
     }
 }
