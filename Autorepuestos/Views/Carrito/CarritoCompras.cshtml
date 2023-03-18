@@ -27,8 +27,8 @@
                 <td>¢@Html.DisplayFor(modelItem => item.Subtotal)</td>
                 <td><img src="@Url.Content(item.Imagen)" width="75" height="75" /></td>
                 <td>
-                    <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCarrito","Carrito", new{id = item.IdCarrito})">Editar</a>
-                    <a class="btn btn-primary" role="button" href="@Url.Action("EliminarCarrito","Carrito", new{id = item.IdCarrito})">Eliminar</a>
+                    <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCarrito","Carrito", new{id = item.IdDetalle})">Editar</a>
+                    <a class="btn btn-primary" role="button" href="@Url.Action("EliminarCarrito","Carrito", new{id = item.IdDetalle})">Eliminar</a>
                 </td>
             </tr>
         }

@@ -45,7 +45,7 @@ namespace Autorepuestos.Models
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                conexion.Execute("AgregarCarrito", new { entidad.IdProducto, entidad.Cantidad, IdUsuario }, commandType: CommandType.StoredProcedure);
+                conexion.Execute("AgregarCarrito", new { entidad.IdProducto, entidad.Cantidad, entidad.Precio, IdUsuario }, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -53,7 +53,7 @@ namespace Autorepuestos.Models
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                conexion.Execute("EditarCarrito", new { entidad.IdCarrito, entidad.Cantidad }, commandType: CommandType.StoredProcedure);
+                conexion.Execute("EditarCarrito", new { entidad.IdDetalle, entidad.Cantidad, entidad.Precio }, commandType: CommandType.StoredProcedure);
             }
         }
 

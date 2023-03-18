@@ -24,7 +24,7 @@
 
          <div>
             @Html.DisplayNameFor(m => m.Precio)
-            @Html.DisplayFor(m => m.Precio)
+            @Html.EditorFor(m => m.Precio, new{@readonly= true})
         </div>
        @* <dd>@Html.DisplayFor(m => m.Precio)</dd>*@
 
