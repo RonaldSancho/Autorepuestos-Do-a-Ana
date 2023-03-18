@@ -8,7 +8,6 @@ Nombre varchar(30) not null,
 CedulaJuridica varchar(60) not null,
 Telefono varchar(30) not null,
 Correo varchar(60) not null);
-insert into Informacion(Nombre,CedulaJuridica,Telefono,Correo) values('Info', 'dsf0262610sfsd', '748451', 'nakjsdja');
 
 Create table Rol(
 IdRol int primary key auto_increment,
@@ -19,14 +18,12 @@ Create table Usuario(
 IdUsuario int primary key auto_increment,
 NombreUsuario varchar(30) not null,
 Apellido1 varchar(20) not null,
-Apellido2 varchar(20) not null,
 IdRol int not null,
 Cedula varchar(30) not null,
 Telefono varchar(30) not null,
 Correo varchar(60) unique not null,
 Contrasena varchar(16) not null,
 foreign key(IdRol) references Rol(IdRol));
-alter table usuario drop column Apellido2;
 alter table usuario add column Direccion varchar(200);
 
 Create table Proveedor(
@@ -60,24 +57,13 @@ insert into Producto(NombreProducto,Descripcion,Precio,IdCategoria,Existencias,I
 insert into Producto(NombreProducto,Descripcion,Precio,IdCategoria,Existencias,IdProveedor,Imagen) values('Frenos','Segunda mano',40000,1,1,1,'~/template/img/frenos.jpg');
 insert into Producto(NombreProducto,Descripcion,Precio,IdCategoria,Existencias,IdProveedor,Imagen) values('Retrovisor','De fábrica',12000,1,1,1,'~/template/img/retrovisor.jpg');
 
-Create table Orden(
-IdOrden int primary key auto_increment,
-IdProducto int not null,
-Cantidad int not null,
-foreign key(IdProducto) references Producto(IdProducto));
-insert into Orden(IdProducto,Cantidad) values(1, 1);
-
 Create table Factura(
 IdFactura int primary key auto_increment,
 Fecha date not null,
-IdInformacion int not null, /*esto debido a que necesitamos la cedula juridica y otros datos de esa tabla*/
 IdUsuario int not null,
-IdOrden int not null,
-Total decimal not null,
-TotalIva decimal not null, 
-foreign key(IdInformacion) references Informacion(IdInformacion),
-foreign key(IdUsuario) references Usuario(IdUsuario),
-foreign key(IdOrden) references Orden(IdOrden));
+MontoTotal decimal not null,
+TipoPago varchar(20),
+foreign key(IdUsuario) references Usuario(IdUsuario));
 alter table Factura add column Telefono varchar(30);
 alter table Factura add column Direccion varchar(200);
 
@@ -92,8 +78,6 @@ IdUsuario int null,
 foreign key(IdProducto) references Producto(IdProducto),
 foreign key(IdProveedor) references Proveedor(IdProveedor),
 foreign key(IdUsuario) references Usuario(IdUsuario));
-insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) values(1,30,1,3000,3000,1);
-insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) values(1,50,1,1200,1200,1);
 
 Create table Errores(
 IdError int primary key auto_increment,
@@ -121,21 +105,6 @@ Accion varchar(30) not null, /*ya sea un error al iniciar sesion o que se este d
 Resultado varchar(30) not null, /*fallo de sesion o devolucion del articulo de forma exitosa*/
 foreign key(IdUsuario) references Usuario(IdUsuario));
 
-Create table Carrito(
-IdCarrito int primary key auto_increment,
-IdProducto int not null,
-Cantidad int not null default 1,
-foreign key (IdProducto) references Producto(IdProducto));
-alter table Carrito add column IdUsuario int ;
-alter table Carrito add constraint foreign key(IdUsuario) references Usuario(IdUsuario);
-ALTER TABLE Carrito DROP FOREIGN KEY carrito_ibfk_1;
-ALTER TABLE Carrito DROP FOREIGN KEY carrito_ibfk_2;
-drop table Carrito;
-
-insert into Carrito(IdCarrito,IdProducto) values(1,1);
-insert into Carrito(IdCarrito,IdProducto) values(2,1);
-
-/*nuevos cambios en la base de datos*/
 Create table DetalleCarrito(
 IdDetalle int primary key not null auto_increment,
 IdProducto int not null,
@@ -146,20 +115,13 @@ Subtotal decimal not null,
 foreign key(IdProducto) references Producto(IdProducto),
 foreign key(IdUsuario) references Usuario(IdUsuario));
 
-Create table Factura(
-IdFactura int primary key auto_increment,
-Fecha date not null,
-IdUsuario int not null,
-MontoTotal decimal not null,
-TipoPago varchar(20),
-foreign key(IdUsuario) references Usuario(IdUsuario));
+insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) values(1,30,1,3000,3000,1);
+insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) values(1,50,1,1200,1200,1);
 
-DROP TABLE Orden;
-ALTER TABLE Orden DROP FOREIGN KEY orden_ibfk_1;
-ALTER TABLE Factura DROP FOREIGN KEY factura_ibfk_3;
-ALTER TABLE Factura DROP FOREIGN KEY factura_ibfk_1;
-ALTER TABLE Factura DROP FOREIGN KEY factura_ibfk_2;
-DROP TABLE Factura;
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(1,'250M OESTE DEL PALI', 1,'Pendiente');
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(2,'250M Sur DEL MasXMenos', 1,'Realizado');
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(3,'250M ESTE DEL Colegio', 1,'Pendiente');
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(4,'250M OESTE DEL Price', 1,'Realizado');
 /*********************************************FIN TABLAS****************************************************************/
 
 /*********************************************INICIO SP****************************************************************/
@@ -432,11 +394,6 @@ begin
     AND e.IdUsuario= u.IdUsuario;
 end//
 
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(1,'250M OESTE DEL PALI', 1,'Pendiente');
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(2,'250M Sur DEL MasXMenos', 1,'Realizado');
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(3,'250M ESTE DEL Colegio', 1,'Pendiente');
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(4,'250M OESTE DEL Price', 1,'Realizado');
-
 delimiter //
 create procedure AgregarEntrega(IdProducto int,DireccionEntrega varchar(80),IdUsuario int,Estado varchar(10))
 begin
@@ -557,21 +514,8 @@ BEGIN
 end
 // ;
 
-delimiter $$
-create procedure FinalizarCompra()
-begin
-	insert into Orden(IdProducto, Cantidad) select IdProducto, Cantidad from Carrito; 
-end$$
 /* FIN SP DE CARRITO */
 
-/* INICIO SP DE DETALLECARRITO */
-delimiter $$
-create procedure CrearDetalleCarrito(IdUsuario int)
-begin
-	insert into DetalleCarrito(IdProducto, IdUsuario, Precio,Cantidad, Subtotal) (select c.IdProducto, c.IdUsuario, p.Precio, c.Cantidad, (p.Precio * c.Cantidad) 'Subtotal' from Carrito c, Producto p where c.IdProducto=p.IdProducto and c.IdUsuario = IdUsuario); 
-end$$
-
-/*FIN SP DE DETALLECARRITO*/
 
 /*INICIO SP FACTURA*/
 
