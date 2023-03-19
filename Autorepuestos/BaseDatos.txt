@@ -522,6 +522,11 @@ end
 
 
 /*INICIO SP FACTURA*/
+delimiter $$
+create procedure VerFacturas()
+begin
+	select f.IdFactura, f.Fecha, u.NombreUsuario, f.MontoTotal, f.Telefono, f.Direccion from Factura f, Usuario u where f.IdUsuario= u.IdUsuario;
+end$$
 
 delimiter $$
 create procedure CrearFactura(IdUsuario int)
@@ -531,6 +536,21 @@ begin
     where d.IdUsuario=u.IdUsuario and d.IdUsuario = IdUsuario and d.Estado=1
     Group by d.IdUsuario, u.Telefono, u.Direccion); 
     update DetalleCarrito set Estado=0 where DetalleCarrito.IdUsuario = IdUsuario;
+end$$
+
+delimiter $$
+create procedure EliminarFactura(IdFactura int)
+begin
+	Delete from Factura f where f.IdFactura= IdFactura; 
+end$$
+
+delimiter $$
+create procedure VerDetalleFactura(IdFactura int)
+begin
+	Select f.IdFactura, u.NombreUsuario, f.Fecha, f.MontoTotal,f.TipoPago,f.Telefono,f.Direccion
+    from Factura f, Usuario u
+    where f.IdUsuario=u.IdUsuario
+    and f.IdFactura = IdFactura;
 end$$
 
 /*FIN SP DE FACTURA*/
