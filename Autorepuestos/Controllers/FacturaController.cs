@@ -1,4 +1,5 @@
-﻿using Autorepuestos.Interfaces;
+﻿using Autorepuestos.Entities;
+using Autorepuestos.Interfaces;
 using Autorepuestos.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,11 +17,35 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
+        public IActionResult VerFacturas()
+        {
+            return View(_facturaModel.VerFacturas());
+        }
+
+        [HttpGet]
         public IActionResult CrearFactura()
         {
             var usuario = HttpContext.Session.GetInt32("IdUsuario");
             _facturaModel.CrearFactura(usuario);
             return RedirectToAction("VerCatalogos", "Catalogo");
         }
+
+        [HttpGet]
+        public IActionResult EliminarFactura(int id) 
+        {
+            _facturaModel.EliminarFactura(id);
+            return RedirectToAction("VerFacturas", "Factura");
+        }
+
+        [HttpGet]
+        public IActionResult VerDetalleFactura(int id)
+        {
+            var resultado = _facturaModel.VerDetalleFactura(id);
+            if (resultado != null)
+                return View(resultado);
+            else
+                return View("Error");
+        }
+
     }
 }

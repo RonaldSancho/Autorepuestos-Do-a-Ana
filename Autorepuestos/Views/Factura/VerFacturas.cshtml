@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Autorepuestos.Entities.FacturaEntities>
+@{
+    ViewBag.Title = "VerFacturas";
+}
+
+<h1>Facturas</h1>
+
+<br />
+<br />
+<table class="table">
+
+    <thead>
+        <tr>
+            <th scope="col">Código Factura</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Monto Total</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Direccion</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@Html.DisplayFor(modelItem => item.IdFactura)</th>
+                <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
+                <td>@Html.DisplayFor(modelItem => item.MontoTotal)</td>
+                <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
+                <td><a class="btn btn-primary" role="button" href="@Url.Action("VerDetalleFactura","Factura", new{id = item.IdFactura})">Ver Factura</a></td>
+                <td><a class="btn btn-primary" role="button" href="@Url.Action("EliminarFactura","Factura", new{id = item.IdFactura})">Eliminar</a></td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>

@@ -452,7 +452,9 @@ BEGIN
            c.Subtotal,
            c.IdUsuario
 	FROM DetalleCarrito c, producto p
-    where p.IdProducto= c.IdProducto;
+    where p.IdProducto= c.IdProducto
+    and c.IdUsuario = IdUsuario
+    and c.Estado=1;
 end$$
 
 DELIMITER $$
@@ -465,9 +467,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE AgregarCarrito(IdProducto int, Cantidad int, Precio decimal, IdUsuario int)
 BEGIN
-    INSERT INTO DetalleCarrito (IdProducto, Cantidad, Precio, Subtotal, IdUsuario) VALUES (IdProducto, Cantidad, Precio, (Cantidad*Precio), IdUsuario);
+    INSERT INTO DetalleCarrito (IdProducto, Cantidad, Precio, Subtotal, Estado, IdUsuario) VALUES (IdProducto, Cantidad, Precio, (Cantidad*Precio), 1, IdUsuario);
 END$$
 
+/*este queda igual*/
 DELIMITER $$
 create procedure ProductoCarrito(id int)
 begin
@@ -489,7 +492,7 @@ begin
     where c.IdDetalle = IdDetalle;
 end//
 delimiter ;
-
+	
 delimiter //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `MostrarProductoCarrito`(id int)
 BEGIN
@@ -510,7 +513,8 @@ BEGIN
 	SELECT IdDetalle, Cantidad
 	FROM DetalleCarrito 
 	where DetalleCarrito.IdProducto = id
-    and DetalleCarrito.IdUsuario= IdUsuario;
+    and DetalleCarrito.IdUsuario= IdUsuario
+    and DetalleCarrito.Estado=1;
 end
 // ;
 
@@ -524,9 +528,9 @@ create procedure CrearFactura(IdUsuario int)
 begin
 	insert into Factura(IdUsuario, Telefono, Direccion,Fecha, MontoTotal) (select d.IdUsuario, u.Telefono, u.Direccion, Now() 'Fecha', (sum(d.Subtotal)) 'MontoTotal'
     from DetalleCarrito d, Usuario u 
-    where d.IdUsuario=u.IdUsuario and d.IdUsuario = IdUsuario
+    where d.IdUsuario=u.IdUsuario and d.IdUsuario = IdUsuario and d.Estado=1
     Group by d.IdUsuario, u.Telefono, u.Direccion); 
-    delete from DetalleCarrito where DetalleCarrito.IdUsuario = IdUsuario;
+    update DetalleCarrito set Estado=0 where DetalleCarrito.IdUsuario = IdUsuario;
 end$$
 
 /*FIN SP DE FACTURA*/

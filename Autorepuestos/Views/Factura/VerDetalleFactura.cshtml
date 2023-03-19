@@ -1,0 +1,43 @@
+﻿@model Autorepuestos.Entities.FacturaEntities
+@{
+    ViewBag.Title = "DetalleFactura";
+}
+
+<h1>Detalle</h1>
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl>
+        <dt>
+            # @Html.DisplayNameFor(m => m.IdFactura)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.IdFactura)</dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.NombreUsuario)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.NombreUsuario)</dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.Fecha)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.Fecha)</dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.MontoTotal)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.MontoTotal)</dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.Telefono)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.Telefono)</dd>
+        <dt>
+            @Html.DisplayNameFor(m => m.Direccion)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.Direccion)</dd>
+    </dl>
+    <p>
+        <a class="btn btn-secondary" role="button" href="@Url.Action("VerFacturas","Factura")">Volver</a>
+    </p>
+</div>
