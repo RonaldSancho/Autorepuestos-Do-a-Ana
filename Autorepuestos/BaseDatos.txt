@@ -67,13 +67,11 @@ IdFactura int primary key auto_increment,
 Fecha date not null,
 IdUsuario int not null,
 MontoTotal decimal not null,
-TipoPago varchar(20),
 foreign key(IdUsuario) references Usuario(IdUsuario));
-alter table Factura add column Telefono varchar(30);
-alter table Factura add column Direccion varchar(200);
 ALTER TABLE Factura DROP COLUMN TipoPago;
 alter table Factura add column IdTipoPago int;
 alter table Factura add constraint LlaveTipoPago foreign key(IdTipoPago) references TipoPago(IdTipoPago);
+
 
 Create table Pedidos(
 IdPedido int primary key auto_increment,
@@ -133,18 +131,10 @@ Cantidad int not null,
 Subtotal decimal not null,
 foreign key(IdProducto) references Producto(IdProducto),
 foreign key(IdUsuario) references Usuario(IdUsuario));
+ALTER TABLE DetalleCarrito add column Estado bit;
 
-insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) values(1,30,1,3000,3000,1);
-insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) values(1,50,1,1200,1200,1);
-
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(1,'250M OESTE DEL PALI', 1,'Pendiente');
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(2,'250M Sur DEL MasXMenos', 1,'Realizado');
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(3,'250M ESTE DEL Colegio', 1,'Pendiente');
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(4,'250M OESTE DEL Price', 1,'Realizado');
-/*********************************************FIN TABLAS****************************************************************/
-
-/*********************************************INICIO SP****************************************************************/
-/* INICIO SP DE PEDIDOS */
+/*----------------------------------------------------------------------------------------------------------------*/
+/*-- procedimientos Pedidos-*/
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `VisualizarPedido`(id int)
 begin
@@ -163,10 +153,14 @@ begin
     AND A.IdProducto = C.IdProducto
     AND A.IdUsuario= U.IdUsuario
     AND A.IdPedido= id;
-    
 end$$
+DELIMITER ;
 
+call VisualizarPedido(1);
+/*----------------------------------------------------------------------------------------------------------------*/
 
+delimiter //
+drop procedure VerPedidos ;
 delimiter //
 create procedure VerPedidos()
 begin
@@ -182,21 +176,33 @@ begin
     AND A.IdProducto = C.IdProducto
     AND A.IdUsuario= U.IdUsuario;
 end//
+delimiter ;
+call VerPedidos();
 
-
+/*----------------------------------------------------------------------------------------------------------------*/
+select * from Pedidos
 delimiter //
 create procedure EliminarPedido(id int)
 begin
 	Delete from Pedidos where IdPedido = id; 
 end//
+delimiter ;
+call EliminarPedido(3);
+select * from Pedidos;
 
+/*----------------------------------------------------------------------------------------------------------------*/
 
 delimiter //
 create procedure CrearPedido(IdProducto int,Cantidad int, IdProveedor int, PrecioProducto decimal, PrecioTotal decimal, IdUsuario int)
 begin
 	Insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) values(IdProducto,Cantidad, IdProveedor, PrecioProducto, PrecioTotal, IdUsuario);
 end//
+delimiter ;
 
+call CrearPedido(340,1,1,30,1,3000,3000,2);
+call CrearPedido(1,1,30,1,3000,3000,2)
+
+/*----------------------------------------------------------------------------------------------------------------*/
 
 delimiter //
 create procedure EditarPedido(pIdPedido int, IdProducto int,Cantidad int, IdProveedor int, PrecioProducto decimal, PrecioTotal decimal, IdUsuario int)
@@ -207,7 +213,8 @@ begin
     PrecioTotal=PrecioTotal, IdUsuario=IdUsuario
     where IdPedido=pIdPedido;
 end//
-
+delimiter ;
+call EditarPedido(100,1,1,60,1,3000,3000,2);
 
 delimiter //
 create procedure ConsultaPedidoProducto()
@@ -215,7 +222,7 @@ begin
 	SELECT IdProducto ,NombreProducto
     from Producto;
 end//
-
+delimiter ;
 
 delimiter // 
 create procedure ConsultaPedidoProveedor()
@@ -223,7 +230,7 @@ begin
 	Select IdProveedor, NombreProveedor
     from Proveedor;
 end//
-
+delimiter ;
 
 delimiter // 
 create procedure ConsultaPedidoUsuario()
@@ -231,10 +238,11 @@ begin
 	Select IdUsuario, NombreUsuario
     from Usuario;
 end//
-/* FIN SP DE PEDIDOS */
+delimiter ;
 
+/*----------------------------------------------------------------------------------------------------------------*/
+/*** SP PARA USUARIOS ***/
 
-/* INICIO SP DE USUARIO */
 delimiter $$
 create procedure ValidarUsuario(in pcorreo varchar(60), in pcontrasena varchar(16) )
 begin
@@ -262,19 +270,32 @@ begin
 end
 $$
 
-delimiter $$ 
-create procedure RecuperarContrasenna(in pCorreo varchar(60)) 
-begin    
-select IdUsuario, Correo 'pCorreo', Contrasena 'pContrasena'     
-from Usuario      
-where Correo = pCorreo; 
-end $$
-
-/* FIN SP DE USUARIO */
-
-/* INICIO SP DE CATALOGO */
 delimiter $$
-create procedure VisualizarCatalogo(in IdProducto int)
+create procedure RecuperarContrasenna(in pCorreo varchar(60))
+begin
+    select IdUsuario, Correo 'pCorreo', Contrasena 'pContrasena'
+    from Usuario 
+    where Correo = pCorreo;
+end
+$$
+
+/*alter table Producto change Nombre NombreProducto varchar(30) ;
+alter table Usuario change Nombre NombreUsuario varchar(30) ;
+alter table Proveedor change Nombre NombreProveedor varchar(30) ;
+
+alter table Pedidos modify IdPedido int auto_increment;
+alter table Factura modify IdFactura int auto_increment;
+alter table Bitacora modify IdBitacora int auto_increment;
+alter table Categoria modify IdCategoria int auto_increment;
+ALTER TABLE Pedidos DROP FOREIGN KEY pedidos_ibfk_2;
+alter table Pedidos drop column IdFactura;
+ALTER TABLE Producto DROP FOREIGN KEY producto_ibfk_1;
+ALTER TABLE Producto DROP FOREIGN KEY producto_ibfk_2;
+alter table Producto add constraint llavecat foreign key(IdCategoria) references Producto(IdCategoria);*/
+
+/*parte de catalogo*/
+delimiter $$
+create procedure VisualizarCatalogo(in id int)
 begin
 select A.IdProducto,
 A.NombreProducto,
@@ -286,6 +307,7 @@ B.IdCategoria,
 A.Imagen
 from Producto A,Categoria B,Proveedor C
 where A.IdProveedor=C.IdProveedor
+and A.IdProducto = id
 and A.IdCategoria=B.IdCategoria;
 end$$
 
@@ -299,10 +321,7 @@ begin
 	end;
 $$
 
-/* FIN SP DE CATALOGO */
-
-/* INICIO SP DE PRODUCTOS */
-
+/*parte mariana*/
 delimiter $$
 CREATE PROCEDURE VerProductos()
 BEGIN
@@ -319,7 +338,6 @@ BEGIN
 
 END
 $$
-
 
 DELIMITER $$
 create procedure VisualizarProducto(id int)
@@ -346,6 +364,7 @@ BEGIN
 END
 $$
 
+
 delimiter $$
 CREATE PROCEDURE EditarProducto(in pIdProducto INT, in NombreProducto varchar(30),
 in Descripcion varchar(60), in Precio decimal(18,0),
@@ -363,7 +382,6 @@ BEGIN
 	   WHERE IdProducto = pIdProducto;
 END
 $$
-
 
 delimiter $$
 create procedure CrearProducto( in NombreProducto varchar(30),in Descripcion varchar(60),
@@ -393,10 +411,8 @@ from Proveedor;
 end
 $$
 
-/* FIN SP DE PRODUCTOS */
+/*aqui empieza la parte de entregas*/
 
-
-/* INICIO SP DE ENTREGAS */
 delimiter //
 create procedure VerEntregas()
 begin
@@ -412,12 +428,19 @@ begin
     WHERE e.IdProducto= p.IdProducto 
     AND e.IdUsuario= u.IdUsuario;
 end//
+delimiter ;
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(1,'250M OESTE DEL PALI', 1,'Pendiente');
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(2,'250M Sur DEL MasXMenos', 1,'Realizado');
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(3,'250M ESTE DEL Colegio', 1,'Pendiente');
+insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(4,'250M OESTE DEL Price', 1,'Realizado');
 
 delimiter //
 create procedure AgregarEntrega(IdProducto int,DireccionEntrega varchar(80),IdUsuario int,Estado varchar(10))
 begin
 	Insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(IdProducto,DireccionEntrega,IdUsuario,Estado);
 end//
+delimiter ;
+call AgregarEntrega(5,'250M de la escuela', 1,'Realizado');
 
 delimiter // 
 create procedure EditarEntrega(pIdEntrega int, IdProducto int,DireccionEntrega varchar(80),IdUsuario int,Estado varchar(10))
@@ -429,6 +452,7 @@ begin
     Estado=Estado
     where IdEntrega=pIdEntrega;
 end//
+delimiter ;
 
 delimiter //
 create procedure ConsultarEntrega(id int)
@@ -446,7 +470,6 @@ begin
     AND e.IdUsuario= u.IdUsuario
 	AND e.IdEntrega= id;
 end//
-
 delimiter ;
 
 delimiter //
@@ -455,8 +478,7 @@ begin
 	Delete from Entregas where IdEntrega = id; 
 end//
 delimiter ;
-/* FIN SP DE ENTREGAS */
-
+/*fin entregas sp*/
 
 /* INICIO SP DE CARRITO */
 DELIMITER $$
@@ -561,25 +583,24 @@ BEGIN
     and c.IdUsuario = IdUsuario
     and c.Estado= 1;
 end$$
-
 /* FIN SP DE CARRITO */
-
 
 /*INICIO SP FACTURA*/
 delimiter $$
 create procedure VerFacturas()
 begin
-	select f.IdFactura, f.Fecha, u.NombreUsuario, f.MontoTotal, f.Telefono, f.Direccion from Factura f, Usuario u where f.IdUsuario= u.IdUsuario;
+	select f.IdFactura, f.Fecha, u.NombreUsuario, f.MontoTotal, f.Telefono, f.Direccion, t.TipoPago
+    from Factura f, Usuario u, TipoPago t where f.IdUsuario= u.IdUsuario and f.IdTipoPago=t.IdTipoPago;
 end$$
 
 delimiter $$
-create procedure CrearFactura(IdUsuario int)
+create procedure CrearFactura(IdUsuario int, IdTipoPago int)
 begin
-	insert into Factura(IdUsuario, Telefono, Direccion,Fecha, MontoTotal) (select d.IdUsuario, u.Telefono, u.Direccion, Now() 'Fecha', (sum(d.Subtotal)) 'MontoTotal'
+	insert into Factura(IdUsuario, Telefono, Direccion,Fecha, MontoTotal,IdTipoPago) (select d.IdUsuario, u.Telefono, u.Direccion, Now() 'Fecha', (sum(d.Subtotal)) 'MontoTotal', IdTipoPago
     from DetalleCarrito d, Usuario u 
     where d.IdUsuario=u.IdUsuario and d.IdUsuario = IdUsuario and d.Estado=1
     Group by d.IdUsuario, u.Telefono, u.Direccion); 
-    update DetalleCarrito set Estado=0 where DetalleCarrito.IdUsuario = IdUsuario;
+    Delete from Carrito where Carrito.IdUsuario = IdUsuario;
 end$$
 
 delimiter $$
@@ -591,26 +612,25 @@ end$$
 delimiter $$
 create procedure VerDetalleFactura(IdFactura int)
 begin
-	Select f.IdFactura, u.NombreUsuario, f.Fecha, f.MontoTotal,f.TipoPago,f.Telefono,f.Direccion
-    from Factura f, Usuario u
+	Select f.IdFactura, u.NombreUsuario, f.Fecha, f.MontoTotal,f.Telefono,f.Direccion, t.TipoPago
+    from Factura f, Usuario u, TipoPago t
     where f.IdUsuario=u.IdUsuario
-    and f.IdFactura = IdFactura;
+    and f.IdFactura = IdFactura
+    and f.IdTipoPago=t.IdTipoPago;
+end$$
+
+delimiter $$
+create procedure ConsultarTipoPago()
+begin
+	Select IdTipoPago, TipoPago 
+    from TipoPago;
 end$$
 
 /*FIN SP DE FACTURA*/
-/*********************************************FIN SP****************************************************************/
 
-/*********************************************INICIO TRIGGER****************************************************************/
-
-/****************************Inicio de Triggers CARRITO*/
+/*Inicio de Triggers carrito*/
 create trigger ActualizarExistenciasProductoInsert after insert on DetalleCarrito for each row
 update Producto set Existencias = Existencias - new.Cantidad
 where IdProducto = new.IdProducto;
 
-create trigger ActualizarExistenciasProductoEliminar after delete on DetalleCarrito for each row
-update Producto set Existencias = Existencias + old.Cantidad
-where IdProducto = old.IdProducto;
-
-
-/*FIN TRIGGERS CARRITO*/
-/*********************************************FIN TRIGGER****************************************************************/
+/*FIN TRIGGER DE CARRITO*/
