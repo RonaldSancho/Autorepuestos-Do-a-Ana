@@ -2,6 +2,7 @@
 using Autorepuestos.Interfaces;
 using Autorepuestos.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Autorepuestos.Controllers
 {
@@ -22,13 +23,13 @@ namespace Autorepuestos.Controllers
             return View(_facturaModel.VerFacturas());
         }
 
-        [HttpGet]
-        public IActionResult CrearFactura()
-        {
-            var usuario = HttpContext.Session.GetInt32("IdUsuario");
-            _facturaModel.CrearFactura(usuario);
-            return RedirectToAction("VerCatalogos", "Catalogo");
-        }
+        //[HttpGet]
+        //public IActionResult CrearFactura()
+        //{
+        //    var usuario = HttpContext.Session.GetInt32("IdUsuario");
+        //    _facturaModel.CrearFactura(usuario);
+        //    return RedirectToAction("VerCatalogos", "Catalogo");
+        //}
 
         [HttpGet]
         public IActionResult EliminarFactura(int id) 
@@ -45,6 +46,30 @@ namespace Autorepuestos.Controllers
                 return View(resultado);
             else
                 return View("Error");
+        }
+
+        [HttpGet]
+        public IActionResult ConsultarTipoPago()
+        {
+            var result = _facturaModel.ConsultarTipoPago();
+            if (result != null)
+            {
+                var dropdownTipoPago = new List<SelectListItem>();
+                foreach (var item in result.RespuestaFacturas)
+                    dropdownTipoPago.Add(new SelectListItem { Text = item.TipoPago, Value = item.IdTipoPago.ToString() });
+
+                ViewBag.ComboTipoPago = dropdownTipoPago;
+                return View();
+            }
+            else
+                return View("Error");
+        }
+        [HttpPost]
+        public IActionResult ConsultarTipoPago(FacturaEntities entidad)
+        {
+            var usuario = HttpContext.Session.GetInt32("IdUsuario");
+            _facturaModel.CrearFactura(entidad, usuario);
+            return RedirectToAction("VerCatalogos", "Catalogo");
         }
 
     }

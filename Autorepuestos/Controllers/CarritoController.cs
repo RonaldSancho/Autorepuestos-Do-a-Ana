@@ -80,5 +80,18 @@ namespace Autorepuestos.Controllers
             _CarritoModel.EditarCarrito(entidad);
             return RedirectToAction("CarritoCompras", "Carrito");
         }
+
+        /*aqui empieza la parte del detalle como tal para verificar la compra*/
+        [HttpGet]
+        public IActionResult ConsultarDetalle()
+        {
+            var usuario = HttpContext.Session.GetInt32("IdUsuario");
+            _CarritoModel.CreandoDetalle();
+
+            var datos = _CarritoModel.ConsultarDetalle(usuario);
+            ViewBag.Total = datos.Sum(x => x.Subtotal);
+
+            return View(datos);
+        }
     }
 }

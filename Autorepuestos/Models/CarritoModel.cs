@@ -53,7 +53,7 @@ namespace Autorepuestos.Models
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                conexion.Execute("EditarCarrito", new { entidad.IdDetalle, entidad.Cantidad, entidad.Precio }, commandType: CommandType.StoredProcedure);
+                conexion.Execute("EditarCarrito", new { entidad.IdCarrito, entidad.Cantidad, entidad.Precio }, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -70,6 +70,23 @@ namespace Autorepuestos.Models
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
                 return conexion.Query<CarritoEntities>("ConsultaExisteProductoCarrito", new { id, IdUsuario}, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+
+        /*aqui empieza la parte del detalle como tal para verificar la compra*/
+        public void CreandoDetalle()
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("CreandoDetalle", new { }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public List<CarritoEntities> ConsultarDetalle(int? IdUsuario)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                return conexion.Query<CarritoEntities>("ConsultarDetalle", new { IdUsuario }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
 

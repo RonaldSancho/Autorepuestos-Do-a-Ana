@@ -15,5 +15,9 @@ namespace Autorepuestos.Interfaces
         public CatalogosEntities? ProductoCarrito(int id);
 
         public CarritoEntities? ConsultaExisteProductoCarrito(int id, int? IdUsuario);
+
+        /*aqui empieza la parte del detalle como tal para verificar la compra*/
+        public void CreandoDetalle();
+        public List<CarritoEntities> ConsultarDetalle(int? IdUsuario);
     }
 }

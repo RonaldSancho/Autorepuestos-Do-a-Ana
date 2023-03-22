@@ -57,6 +57,11 @@ insert into Producto(NombreProducto,Descripcion,Precio,IdCategoria,Existencias,I
 insert into Producto(NombreProducto,Descripcion,Precio,IdCategoria,Existencias,IdProveedor,Imagen) values('Frenos','Segunda mano',40000,1,1,1,'~/template/img/frenos.jpg');
 insert into Producto(NombreProducto,Descripcion,Precio,IdCategoria,Existencias,IdProveedor,Imagen) values('Retrovisor','De fábrica',12000,1,1,1,'~/template/img/retrovisor.jpg');
 
+Create table TipoPago(
+IdTipoPago int primary key auto_increment,
+TipoPago varchar(30) not null);
+insert into TipoPago(TipoPago) values('Efectivo'),('Tarjeta');
+
 Create table Factura(
 IdFactura int primary key auto_increment,
 Fecha date not null,
@@ -66,6 +71,9 @@ TipoPago varchar(20),
 foreign key(IdUsuario) references Usuario(IdUsuario));
 alter table Factura add column Telefono varchar(30);
 alter table Factura add column Direccion varchar(200);
+ALTER TABLE Factura DROP COLUMN TipoPago;
+alter table Factura add column IdTipoPago int;
+alter table Factura add constraint LlaveTipoPago foreign key(IdTipoPago) references TipoPago(IdTipoPago);
 
 Create table Pedidos(
 IdPedido int primary key auto_increment,
@@ -104,6 +112,17 @@ IdUsuario int not null,
 Accion varchar(30) not null, /*ya sea un error al iniciar sesion o que se este devolviendo algun articulo*/
 Resultado varchar(30) not null, /*fallo de sesion o devolucion del articulo de forma exitosa*/
 foreign key(IdUsuario) references Usuario(IdUsuario));
+
+Create table Carrito(
+IdCarrito int primary key not null auto_increment,
+IdProducto int not null,
+IdUsuario int not null,
+Precio decimal not null,
+Cantidad int not null,
+Subtotal decimal not null,
+foreign key(IdProducto) references Producto(IdProducto),
+foreign key(IdUsuario) references Usuario(IdUsuario));
+alter table Carrito add column Estado bit;
 
 Create table DetalleCarrito(
 IdDetalle int primary key not null auto_increment,
@@ -443,31 +462,32 @@ delimiter ;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarCarrito` (IdUsuario int)   
 BEGIN
-	SELECT c.IdDetalle,
+	SELECT c.IdCarrito,
 		   c.IdProducto,
            p.NombreProducto,
 		   c.Precio, 
 		   p.Imagen,
            c.Cantidad,
            c.Subtotal,
-           c.IdUsuario
-	FROM DetalleCarrito c, producto p
+           c.IdUsuario,
+           c.Estado
+	FROM Carrito c, producto p
     where p.IdProducto= c.IdProducto
     and c.IdUsuario = IdUsuario
-    and c.Estado=1;
+    and c.Estado= 1;
 end$$
 
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `EliminarCarrito` (id INT)   
 BEGIN
-	DELETE FROM DetalleCarrito
-	WHERE IdDetalle = id;
+	DELETE FROM Carrito
+	WHERE IdCarrito = id;
 END$$
 
 DELIMITER $$
 CREATE PROCEDURE AgregarCarrito(IdProducto int, Cantidad int, Precio decimal, IdUsuario int)
 BEGIN
-    INSERT INTO DetalleCarrito (IdProducto, Cantidad, Precio, Subtotal, Estado, IdUsuario) VALUES (IdProducto, Cantidad, Precio, (Cantidad*Precio), 1, IdUsuario);
+    INSERT INTO Carrito (IdProducto, Cantidad, Precio, Subtotal, IdUsuario, Estado) VALUES (IdProducto, Cantidad, Precio, (Cantidad*Precio), IdUsuario, 1);
 END$$
 
 /*este queda igual*/
@@ -484,39 +504,63 @@ begin
 end$$
 
 delimiter //
-create procedure EditarCarrito(IdDetalle int, Cantidad int, Precio int)
+create procedure EditarCarrito(IdCarrito int, Cantidad int, Precio int)
 begin
-	Update DetalleCarrito c
+	Update Carrito c
     Set c.Cantidad = Cantidad,
     c.Subtotal = (Cantidad*Precio)
-    where c.IdDetalle = IdDetalle;
+    where c.IdCarrito = IdCarrito;
 end//
 delimiter ;
 	
 delimiter //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `MostrarProductoCarrito`(id int)
 BEGIN
-	SELECT c.IdDetalle,
+	SELECT c.IdCarrito,
 		   p.NombreProducto,
            p.Existencias,
            c.Cantidad,
            c.Precio
-	FROM DetalleCarrito c, producto p
+	FROM Carrito c, producto p
 	where c.IdProducto = p.IdProducto and 
-    c.IdDetalle= id;
+    c.IdCarrito= id;
 end
 // ;
 
 delimiter //
 CREATE PROCEDURE ConsultaExisteProductoCarrito(id int, IdUsuario int)
 BEGIN
-	SELECT IdDetalle, Cantidad
-	FROM DetalleCarrito 
-	where DetalleCarrito.IdProducto = id
-    and DetalleCarrito.IdUsuario= IdUsuario
-    and DetalleCarrito.Estado=1;
+	SELECT IdCarrito, Cantidad
+	FROM Carrito 
+	where Carrito.IdProducto = id
+    and Carrito.IdUsuario= IdUsuario;
 end
 // ;
+
+/*aqui empieza la parte de la verificacion del carrito*/
+DELIMITER $$
+CREATE PROCEDURE CreandoDetalle()
+BEGIN
+    INSERT INTO DetalleCarrito (IdProducto, Cantidad, Precio, Subtotal, IdUsuario, Estado) (select IdProducto, Cantidad, Precio, (Cantidad*Precio), IdUsuario, Estado from Carrito);
+END$$
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarDetalle` (IdUsuario int)   
+BEGIN
+	SELECT c.IdDetalle,
+		   c.IdProducto,
+           p.NombreProducto,
+		   c.Precio, 
+		   p.Imagen,
+           c.Cantidad,
+           c.Subtotal,
+           c.IdUsuario,
+           c.Estado
+	FROM DetalleCarrito c, producto p
+    where p.IdProducto= c.IdProducto
+    and c.IdUsuario = IdUsuario
+    and c.Estado= 1;
+end$$
 
 /* FIN SP DE CARRITO */
 

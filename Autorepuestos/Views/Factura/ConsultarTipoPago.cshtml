@@ -1,0 +1,20 @@
+﻿@model Autorepuestos.Entities.FacturaEntities
+@{
+    ViewBag.Title = "prueba";
+}
+<h4>Elige el metodo de pago que mas prefieras</h4>
+@using (Html.BeginForm("ConsultarTipoPago", "Factura", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+{
+    <div class="col-lg-4">
+        <div class="form-group">
+            @Html.LabelFor(m => m.IdTipoPago, new{@class="form-control-label"})
+            @Html.DropDownListFor(m => m.IdTipoPago, ViewBag.ComboTipoPago as List<SelectListItem>, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-layout-footer">
+        <br />
+        <button class="btn btn-primary" role="button">Agregar</button>
+    </div>
+}
+
+
