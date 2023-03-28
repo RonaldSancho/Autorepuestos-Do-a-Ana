@@ -2,110 +2,87 @@
 @{
     ViewBag.Title = "ModificarPedido";
 }
+<div class="contenedor">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="background-color: white">
+                <div class="card-header" style="background-color: #cbcbcb; height: 50px;">
+                    <h3 class="card-title" style="color: black; font-weight: bold; font-size: 20px;">Modificar Pedido</h3>
+                </div>
+                <div class="card-body">
+                    <br />
 
+                    @using (Html.BeginForm("ModificarPedido", "Pedido", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+                    {
+                        @Html.AntiForgeryToken()
 
-<div class="container">
-    <div class="card pd-20 pd-sm-40">
-        <h6 class="card-body-title">Pedidos</h6>
-        <p class="mg-b-20 mg-sm-b-30" style="font-weight: bold;">Editar un pedido</p>
-        @using (Html.BeginForm("ModificarPedido", "Pedido", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
-        {
-            @*<div class="form-layout">
-        <div class="row mg-b-25">*@
+                        <div class="row">
 
-            @Html.HiddenFor(m => m.pIdPedido, new{@class="form-control", @style="color:grey"})
+                            <div class="col-md-6">
+                                @Html.HiddenFor(m => m.pIdPedido, new{@class="form-control", @style="color:grey"})
+                            </div>
 
+                            <div class="col-md-6">
+                            </div>
 
+                        </div>
 
-            <div class="col-lg-4">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.IdProducto, htmlAttributes: new {@class="form-control-label"})
-                    @Html.DropDownListFor(model => model.IdProducto, ViewBag.ComboProductos as List<SelectListItem>, new { @class = "form-control" })
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.IdProducto, htmlAttributes: new {@class="form-control-label"})
+                                @Html.DropDownListFor(model => model.IdProducto, ViewBag.ComboProductos as List<SelectListItem>, new { @class = "form-control" })
+
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.IdProveedor, htmlAttributes: new{@class="form-control-label"})
+                                @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control" })
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.IdUsuario, htmlAttributes: new{@class="form-control-label"})
+                                @Html.DropDownListFor(model => model.IdUsuario, ViewBag.ComboUsuarios as List<SelectListItem>, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.Cantidad, htmlAttributes: new{@class="form-control-label"})
+                                @Html.EditorFor(m => m.Cantidad)
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.PrecioProducto, htmlAttributes: new{@class="form-control-label"})
+                                @Html.EditorFor(m => m.PrecioProducto/*, new{@class="form-control", @style="color:grey"}*/)
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.PrecioTotal, htmlAttributes: new{@class="form-control-label"})
+                                @Html.EditorFor(m => m.PrecioTotal/*, new{@class="form-control", @style="color:grey"}*/)
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <button class="btn btn-primary" role="button">Modificar</button>
+                                <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarPedido","Pedido")">Cancelar</a>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="form-group mg-b-10-force">
-                    @Html.LabelFor(m => m.Cantidad, htmlAttributes: new{@class="form-control-label"})
-                    @Html.EditorFor(m => m.Cantidad)
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="form-group mg-b-10-force">
-                    @Html.LabelFor(m => m.IdProveedor, htmlAttributes: new{@class="form-control-label"})
-                    @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="form-group mg-b-10-force">
-                    @Html.LabelFor(m => m.PrecioProducto, htmlAttributes: new{@class="form-control-label"})
-                    @Html.EditorFor(m => m.PrecioProducto/*, new{@class="form-control", @style="color:grey"}*/)
-                </div>
-            </div>
-            <div class="col-lg-8">
-                <div class="form-group mg-b-10-force">
-                    @Html.LabelFor(m => m.PrecioTotal, htmlAttributes: new{@class="form-control-label"})
-                    @Html.EditorFor(m => m.PrecioTotal/*, new{@class="form-control", @style="color:grey"}*/)
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="form-group mg-b-10-force">
-                    @Html.LabelFor(m => m.IdUsuario, htmlAttributes: new{@class="form-control-label"})
-                    @Html.DropDownListFor(model => model.IdUsuario, ViewBag.ComboUsuarios as List<SelectListItem>, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="form-layout-footer">
-                <button class="btn btn-primary" @*data-bs-toggle="modal" href="#exampleModalToggle"*@ role="button">Modificar</button>
-                <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarPedido","Pedido")">Cancelar</a>
-            </div>
-
-            <!-- form-layout-footer -->
-            @*</div>*@
-            @*</div>*@
-        }
+        </div>
     </div>
 </div>
-
-
-@*<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-    <div class="modal-header">
-    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Exito</h1>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-    Pedido modificado exitosamente
-    </div>
-    </div>
-    </div>
-    </div>
-    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-    <div class="modal-header">
-    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    </div>
-    </div>
-    </div>*@
-
-@*<script src="../lib/jquery/jquery.js"></script>
-    <script src="../lib/popper.js/popper.js"></script>
-    <script src="../lib/bootstrap/bootstrap.js"></script>
-    <script src="../lib/jquery-ui/jquery-ui.js"></script>
-    <script src="../lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
-    <script src="../lib/highlightjs/highlight.pack.js"></script>
-    <script src="../lib/select2/js/select2.min.js"></script>
-
-    <script src="../js/starlight.js"></script>
-    <script>
-    $(function () {
-    'use strict';
-
-    $('.select2').select2({
-    minimumResultsForSearch: Infinity
-    });
-    })
-    </script>*@

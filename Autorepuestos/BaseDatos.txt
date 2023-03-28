@@ -512,7 +512,6 @@ BEGIN
     INSERT INTO Carrito (IdProducto, Cantidad, Precio, Subtotal, IdUsuario, Estado) VALUES (IdProducto, Cantidad, Precio, (Cantidad*Precio), IdUsuario, 1);
 END$$
 
-/*este queda igual*/
 DELIMITER $$
 create procedure ProductoCarrito(id int)
 begin
@@ -520,7 +519,8 @@ begin
     p.NombreProducto,
     p.Descripcion,
     p.Precio,
-    p.existencias
+    p.existencias,
+    p.Imagen
 	FROM producto p
     where  p.IdProducto= id;    
 end$$
@@ -542,7 +542,8 @@ BEGIN
 		   p.NombreProducto,
            p.Existencias,
            c.Cantidad,
-           c.Precio
+           c.Precio,
+           p.Imagen
 	FROM Carrito c, producto p
 	where c.IdProducto = p.IdProducto and 
     c.IdCarrito= id;

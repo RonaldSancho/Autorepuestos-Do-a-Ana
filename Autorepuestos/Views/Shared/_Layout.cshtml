@@ -45,27 +45,7 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a href="@Url.Action("MostrarProductos", "Producto")">Productos</a></li>
-                    <li><a href="@Url.Action("CarritoCompras", "Carrito")" class="active">Carrito</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li class="dropdown">
-                        @*<a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                        <ul>
-                            <li><a href="gallery.html">Nature</a></li>
-                            <li><a href="gallery.html">People</a></li>
-                            <li><a href="gallery.html">Architecture</a></li>
-                            <li><a href="gallery.html">Animals</a></li>
-                            <li><a href="gallery.html">Sports</a></li>
-                            <li><a href="gallery.html">Travel</a></li>
-                            <li class="dropdown">
-                                <a href="#"><span>Sub Menu</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                                <ul>
-                                    <li><a href="#">Sub Menu 1</a></li>
-                                    <li><a href="#">Sub Menu 2</a></li>
-                                    <li><a href="#">Sub Menu 3</a></li>
-                                </ul>
-                            </li>
-                        </ul>*@
-                    </li>
+                    <li><a href="@Url.Action("CarritoCompras", "Carrito")">Carrito</a></li>
                     <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
                     <li><a href="@Url.Action("MostrarPedido", "Pedido")">Pedido</a></li>
                     <li><a href="@Url.Action("VerFacturas", "Factura")">Facturas</a></li>
@@ -142,20 +122,17 @@
                     {
                         extend:     'excelHtml5',
                         text:       '<i class="bi bi-file-earmark-excel-fill"></i>',
-                        titleAttr:  'Exportar a Excel',
-                        className:  'btn-success'
+                        titleAttr:  'Exportar a Excel'
                     },
                     {
                         extend:     'pdfHtml5',
                         text:       '<i class="bi bi-file-earmark-pdf-fill"></i>',
-                        titleAttr:  'Exportar a PDF',
-                        className:  'btn-danger'
+                        titleAttr:  'Exportar a PDF'
                     },
                     {
                         extend:     'print',
                         text:       '<i class="bi bi-printer-fill"></i>',
-                        titleAttr:  'Imprimir',
-                        className:  'btn-danger'
+                        titleAttr:  'Imprimir'
                     },
                 ]
             });

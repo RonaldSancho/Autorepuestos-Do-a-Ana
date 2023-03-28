@@ -40,8 +40,8 @@
                     <td>
                         <a class="btn btn-primary" role="button" href="@Url.Action("ModificarPedido","Pedido", new{id = item.pIdPedido})">Actualizar</a>
                     </td>
-                    <td><a class="btn btn-primary" role="button" href="@Url.Action("EliminarPedido","Pedido", new{id = item.pIdPedido})">Eliminar</a></td>@*recordar ver lo del toggle*@
-                    <td><a class="btn btn-primary" role="button" href="@Url.Action("DetallePedido","Pedido", new{id = item.pIdPedido})">Detalle</a></td>
+                    <td><a class="btn btn-danger" role="button" href="@Url.Action("EliminarPedido","Pedido", new{id = item.pIdPedido})">Eliminar</a></td>@*recordar ver lo del toggle*@
+                    <td><a class="btn btn-info" role="button" href="@Url.Action("DetallePedido","Pedido", new{id = item.pIdPedido})">Detalle</a></td>
                 </tr>
             }
 

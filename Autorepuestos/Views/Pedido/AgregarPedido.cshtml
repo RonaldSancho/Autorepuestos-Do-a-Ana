@@ -4,60 +4,78 @@
 }
 
 
-<div class="container">
-    <div class="card pd-20 pd-sm-40">
-        <h6 class="card-body-title">Pedidos</h6>
-        <p class="mg-b-20 mg-sm-b-30" style="font-weight: bold;">Agregar un pedido</p>
-        @using (Html.BeginForm("AgregarPedido", "Pedido", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
-        {
+<div class="contenedor">
 
-            <div class="col-lg-4">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.IdProducto, new{@class="form-control-label"})
-                    @Html.DropDownListFor(model => model.IdProducto, ViewBag.ComboProductos as List<SelectListItem>, new { @class = "form-control" })
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="background-color: white">
+                <div class="card-header" style="background-color: #cbcbcb; height: 50px;">
+                    <h3 class="card-title" style="color: black; font-weight: bold; font-size: 20px;">Agregar pedido</h3>
                 </div>
-            </div>
-            <br />
+                <div class="card-body">
+                    <br />
 
-            <div class="col-lg-4">
-                <div class="form-group mg-b-10-force">
-                    @Html.LabelFor(m => m.Cantidad, new{@class="form-control-label"})
-                    @Html.TextBoxFor(m=>m.Cantidad, new{@class="form-control", @style="color:grey"})
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="form-group mg-b-10-force">
-                    @Html.LabelFor(m => m.IdProveedor, new{@class="form-control-label"})
-                    @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="form-group mg-b-10-force">
-                    @Html.LabelFor(m => m.PrecioProducto, new{@class="form-control-label"})
-                    @Html.TextBoxFor(m=>m.PrecioProducto, new{@class="form-control", @style="color:grey"})
-                </div>
-            </div>
+                    @using (Html.BeginForm("AgregarPedido", "Pedido", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+                    {
+                        @Html.AntiForgeryToken()
 
-            <div class="col-lg-4">
-                <div class="form-group mg-b-10-force">
-                    @Html.LabelFor(m => m.PrecioTotal, new{@class="form-control-label"})
-                    @Html.TextBoxFor(m=>m.PrecioTotal, new{@class="form-control", @style="color:grey"})
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.IdProducto, new{@class="form-control-label"})
+                                @Html.DropDownListFor(model => model.IdProducto, ViewBag.ComboProductos as List<SelectListItem>, new { @class = "form-control" })
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.Cantidad, new{@class="form-control-label"})
+                                @Html.TextBoxFor(m=>m.Cantidad, new{@class="form-control", @style="color:grey"})
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.IdProveedor, new{@class="form-control-label"})
+                                @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.PrecioProducto, new{@class="form-control-label"})
+                                @Html.TextBoxFor(m=>m.PrecioProducto, new{@class="form-control", @style="color:grey"})
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.PrecioTotal, new{@class="form-control-label"})
+                                @Html.TextBoxFor(m=>m.PrecioTotal, new{@class="form-control", @style="color:grey"})
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.IdUsuario, new{@class="form-control-label"})
+                                @Html.DropDownListFor(model => model.IdUsuario, ViewBag.ComboUsuarios as List<SelectListItem>, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <button class="btn btn-primary" @*data-bs-toggle="modal"*@ @*href="#exampleModalToggle"*@ role="button">Agregar</button>
+                                <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarPedido","Pedido")">Cancelar</a>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-
-            <div class="col-lg-4">
-                <div class="form-group mg-b-10-force">
-                    @Html.LabelFor(m => m.IdUsuario, new{@class="form-control-label"})
-                    @Html.DropDownListFor(model => model.IdUsuario, ViewBag.ComboUsuarios as List<SelectListItem>, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="form-layout-footer">
-                <br />
-                <button class="btn btn-primary" @*data-bs-toggle="modal"*@ @*href="#exampleModalToggle"*@ role="button">Agregar</button>
-                <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarPedido","Pedido")">Cancelar</a>
-            </div>
-            @* </div> *@
-        }
+        </div>
     </div>
 </div>
+

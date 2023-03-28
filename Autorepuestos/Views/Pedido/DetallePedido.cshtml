@@ -5,40 +5,28 @@
 
 <h1>Detalle</h1>
 <div>
-    <h4>Pedido</h4>
     <hr />
-    <dl>
-        <dt>
-            @Html.DisplayNameFor(m => m.IdProducto)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.NombreProducto)</dd>
-
-        <dt>
-            @Html.DisplayNameFor(m => m.Cantidad)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.Cantidad)</dd>
-
-        <dt>
-            @Html.DisplayNameFor(m => m.IdProveedor)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.NombreProveedor)</dd>
-
-        <dt>
-            @Html.DisplayNameFor(m => m.PrecioProducto)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.PrecioProducto)</dd>
-
-        <dt>
-            @Html.DisplayNameFor(m => m.PrecioTotal)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.PrecioTotal)</dd>
-
-        <dt>
-            @Html.DisplayNameFor(m => m.IdUsuario)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.NombreUsuario)</dd>
-    </dl>
-    <p>
-        <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarPedido","Pedido")">Volver</a>
-    </p>
+    @using (Html.BeginForm("AgregarCarrito", "Carrito", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+    {
+        <div class="d-flex justify-content-center container mt-5" style="max-width:800px">
+            <div class="card p-3 bg-white">
+                <div class="stats mt-2">
+                    <div class="d-flex justify-content-between p-price"><span>Nombre del producto:</span> &nbsp;&nbsp;&nbsp;&nbsp;<span>@Html.DisplayFor(m => m.NombreProducto, new { htmlAttributes = new { @class = "control-label col-md-6 offset-md-6" }})</span></div>
+                    <br>
+                    <div class="d-flex justify-content-between p-price"><span>Cantidad solicitada:</span><span>@Html.DisplayFor(m => m.Cantidad)</span></div>
+                    <br>
+                    <div class="d-flex justify-content-between p-price"><span>Proveedor:</span><span>@Html.DisplayFor(m => m.NombreProveedor)</span></div>
+                    <br>
+                    <div class="d-flex justify-content-between p-price"><span>Precio del producto:</span><span>₡@Html.DisplayFor(m => m.PrecioProducto)</span></div>
+                    <br>
+                    <div class="d-flex justify-content-between p-price"><span>Precio total:</span><span>₡@Html.DisplayFor(m => m.PrecioTotal)</span></div>
+                    <br>
+                    <div class="d-flex justify-content-between p-price"><span>Colaborador:</span><span>@Html.DisplayFor(m => m.NombreUsuario)</span></div>
+                </div>
+                <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                    <a class="btn btn-secondary" role="button" href="@Url.Action("VerCatalogos","Catalogo")">Volver</a>
+                </div>
+            </div>
+        </div>
+    }
 </div>

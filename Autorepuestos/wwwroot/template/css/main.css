@@ -34,14 +34,62 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+button.dt-button.buttons-excel.buttons-html5 {
+    background-color: #28a745;
+    border-radius: 5px;
+    font-size: 1.3em;
+}
+
+button.dt-button.buttons-pdf.buttons-html5 {
+    background-color: #dc3545;
+    border-radius: 5px;
+    font-size: 1.3em;
+}
+
+button.dt-button.buttons-print {
+    background-color: #17a2b8;
+    border-radius: 5px;
+    font-size: 1.3em;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    background-color: whitesmoke;
+    border: 1px solid #0D0D0D;
+}
+
+a#example_previous.paginate_button.previous {
+    color: black !important;
+}
+
+a#example_next.paginate_button.next {
+    color: black !important;
+}
+
+a.paginate_button.current{
+    background-color: var(--blanco);
+}
+
+table#example.table.table-light.table-hover.dataTable.no-footer{
+    border-radius: 10px;
+}
+
 body {
     font-family: var(--font-default);
     color: var(--color-default);
     background-color: #8691a6;
 }
 
+.contenedor {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 200px 20px 0 20px;
+    box-sizing: border-box;
+}
+
 a {
-  color: var(--azul);
+  color: var(--blanco);
   text-decoration: none;
 }
 
@@ -54,7 +102,7 @@ p-otros {
 }
 
 a:hover {
-  color: var(--blanco);
+  color: var(--negro);
   text-decoration: none;
 }
 
@@ -360,7 +408,7 @@ h6 {
   margin: 0;
   font-weight: 400;
   color: #fff;
-  font-family: var(--font-default);
+  font-family: var(--blanco);
 }
 
 .header .logo i {
@@ -431,9 +479,9 @@ h6 {
     font-family: var(--font-primary);
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--blanco);
     white-space: nowrap;
     transition: 0.3s;
   }
@@ -449,7 +497,7 @@ h6 {
   .navbar .active,
   .navbar .active:focus,
   .navbar li:hover>a {
-    color: #fff;
+    color: var(--negro);
   }
 
   .navbar .dropdown ul {
@@ -1311,10 +1359,13 @@ h6 {
 # Footer
 --------------------------------------------------------------*/
 .footer {
-  margin-top: 30px;
-  padding: 30px 0;
-  font-size: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    position: inherit;
+    bottom: 0;
+    width: 100%;
+    margin-top: 30px;
+    padding: 30px 0;
 }
 
 .footer .copyright {

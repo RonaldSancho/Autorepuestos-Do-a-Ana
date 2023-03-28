@@ -6,7 +6,7 @@
 <br />
 <br />
 <h1>Carro de compras</h1>
-<table id="example" class="table table-dark" style="width:100%">
+<table class="table table-light" style="width:100%">
     <thead>
         <tr>
             <th scope="col">Nombre</th>
@@ -27,8 +27,8 @@
                 <td>¢@Html.DisplayFor(modelItem => item.Subtotal)</td>
                 <td><img src="@Url.Content(item.Imagen)" width="75" height="75" /></td>
                 <td>
-                    <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCarrito","Carrito", new{id = item.IdCarrito})">Editar</a>
-                    <a class="btn btn-primary" role="button" href="@Url.Action("EliminarCarrito","Carrito", new{id = item.IdCarrito})">Eliminar</a>
+                    <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCarrito","Carrito", new{id = item.IdCarrito})">Modificar</a>
+                    <a class="btn btn-danger" role="button" href="@Url.Action("EliminarCarrito","Carrito", new{id = item.IdCarrito})">Eliminar</a>
                 </td>
             </tr>
         }
