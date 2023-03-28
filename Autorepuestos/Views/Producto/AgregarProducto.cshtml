@@ -25,17 +25,22 @@
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.NombreProducto, htmlAttributes: new{@class="form-control-label"})
-                                @Html.EditorFor(m => m.NombreProducto)
+                                @Html.TextBoxFor(m => m.NombreProducto)
                             </div>
 
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.Precio, htmlAttributes: new{@class="form-control-label"})
-                                @Html.EditorFor(m => m.Precio)
+                                @Html.LabelFor(m => m.Descripcion, htmlAttributes: new{@class="form-control-label"})
+                                @Html.TextBoxFor(m => m.Descripcion)
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.Precio, htmlAttributes: new{ @class="form-control-label"})
+                                @Html.TextBoxFor(m => m.Precio, htmlAttributes: new{@type = "number"})
                             </div>
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.Existencias, htmlAttributes: new{@class="form-control-label"})
-                                @Html.EditorFor(m => m.Existencias)
+                                @Html.TextBoxFor(m => m.Existencias, htmlAttributes: new{@type = "number"})
                             </div>
 
                         </div>

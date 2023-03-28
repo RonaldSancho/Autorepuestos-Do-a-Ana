@@ -8,7 +8,7 @@
 <h1>Productos</h1>
 <br />
 
-<a class="btn btn-primary" role="button" href="@Url.Action("AgregarProducto", "Producto")">Nuevo Producto</a>
+<a class="btn btn-primary" role="button" href="@Url.Action("AgregarProducto", "Producto")">Agregar Producto</a>
 
 <br />
 <br />
@@ -40,7 +40,7 @@
                     <td>@Html.DisplayFor(modelItem => item.Existencias)</td>
                     <td>@Html.DisplayFor(modelItem => item.NombreProveedor)</td>
                     <td>
-                        <a class="btn btn-primary" role="button" href="@Url.Action("ModificarProducto","Producto", new{id = item.pIdProducto})">Actualizar</a>
+                        <a class="btn btn-primary" role="button" href="@Url.Action("ModificarProducto","Producto", new{id = item.pIdProducto})">Editar</a>
                     </td>
                     <td><a class="btn btn-danger" role="button" href="@Url.Action("EliminarProducto","Producto", new{id = item.pIdProducto})">Eliminar</a></td>
 

@@ -62,15 +62,22 @@ IdTipoPago int primary key auto_increment,
 TipoPago varchar(30) not null);
 insert into TipoPago(TipoPago) values('Efectivo'),('Tarjeta');
 
-Create table Factura(
-IdFactura int primary key auto_increment,
-Fecha date not null,
-IdUsuario int not null,
-MontoTotal decimal not null,
-foreign key(IdUsuario) references Usuario(IdUsuario));
-ALTER TABLE Factura DROP COLUMN TipoPago;
-alter table Factura add column IdTipoPago int;
-alter table Factura add constraint LlaveTipoPago foreign key(IdTipoPago) references TipoPago(IdTipoPago);
+
+CREATE TABLE `factura` (
+  `IdFactura` int NOT NULL AUTO_INCREMENT,
+  `Fecha` date NOT NULL,
+  `IdUsuario` int NOT NULL,
+  `MontoTotal` decimal(10,0) NOT NULL,
+  `Telefono` varchar(30) DEFAULT NULL,
+  `Direccion` varchar(200) DEFAULT NULL,
+  `IdTipoPago` int DEFAULT NULL,
+  PRIMARY KEY (`IdFactura`),
+  KEY `IdUsuario` (`IdUsuario`),
+  KEY `LlaveTipoPago` (`IdTipoPago`),
+  CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`IdUsuario`),
+  CONSTRAINT `LlaveTipoPago` FOREIGN KEY (`IdTipoPago`) REFERENCES `tipopago` (`IdTipoPago`)
+) 
+
 
 
 Create table Pedidos(
@@ -587,22 +594,24 @@ end$$
 /* FIN SP DE CARRITO */
 
 /*INICIO SP FACTURA*/
-delimiter $$
-create procedure VerFacturas()
+
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `VerFacturas`()
 begin
 	select f.IdFactura, f.Fecha, u.NombreUsuario, f.MontoTotal, f.Telefono, f.Direccion, t.TipoPago
     from Factura f, Usuario u, TipoPago t where f.IdUsuario= u.IdUsuario and f.IdTipoPago=t.IdTipoPago;
-end$$
+end ;;
 
-delimiter $$
-create procedure CrearFactura(IdUsuario int, IdTipoPago int)
+
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CrearFactura`(IdUsuario int, IdTipoPago int)
 begin
 	insert into Factura(IdUsuario, Telefono, Direccion,Fecha, MontoTotal,IdTipoPago) (select d.IdUsuario, u.Telefono, u.Direccion, Now() 'Fecha', (sum(d.Subtotal)) 'MontoTotal', IdTipoPago
     from DetalleCarrito d, Usuario u 
     where d.IdUsuario=u.IdUsuario and d.IdUsuario = IdUsuario and d.Estado=1
     Group by d.IdUsuario, u.Telefono, u.Direccion); 
     Delete from Carrito where Carrito.IdUsuario = IdUsuario;
-end$$
+end ;;
 
 delimiter $$
 create procedure EliminarFactura(IdFactura int)
@@ -610,15 +619,16 @@ begin
 	Delete from Factura f where f.IdFactura= IdFactura; 
 end$$
 
-delimiter $$
-create procedure VerDetalleFactura(IdFactura int)
+drop procedure VerDetalleFactura
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `VerDetalleFactura`(IdFactura int)
 begin
 	Select f.IdFactura, u.NombreUsuario, f.Fecha, f.MontoTotal,f.Telefono,f.Direccion, t.TipoPago
     from Factura f, Usuario u, TipoPago t
     where f.IdUsuario=u.IdUsuario
     and f.IdFactura = IdFactura
     and f.IdTipoPago=t.IdTipoPago;
-end$$
+end ;;
 
 delimiter $$
 create procedure ConsultarTipoPago()

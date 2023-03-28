@@ -1,4 +1,4 @@
-@model IEnumerable<Autorepuestos.Entities.CarritoEntities>
+ï»¿@model IEnumerable<Autorepuestos.Entities.CarritoEntities>
 @{
     ViewBag.Title = "CarritoCompras";
 }
@@ -22,12 +22,12 @@
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
-                <td>¢@Html.DisplayFor(modelItem => item.Precio)</td>
+                <td>â‚¡@Html.DisplayFor(modelItem => item.Precio)</td>
                 <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
-                <td>¢@Html.DisplayFor(modelItem => item.Subtotal)</td>
+                <td>â‚¡@Html.DisplayFor(modelItem => item.Subtotal)</td>
                 <td><img src="@Url.Content(item.Imagen)" width="75" height="75" /></td>
                 <td>
-                    <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCarrito","Carrito", new{id = item.IdCarrito})">Modificar</a>
+                    <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCarrito","Carrito", new{id = item.IdCarrito})">Editar</a>
                     <a class="btn btn-danger" role="button" href="@Url.Action("EliminarCarrito","Carrito", new{id = item.IdCarrito})">Eliminar</a>
                 </td>
             </tr>
@@ -37,7 +37,7 @@
         <td>Monto Final</td>
         <td></td>
         <td>Total</td>
-        <td>¢ @ViewBag.Total</td>
+        <td>â‚¡@ViewBag.Total</td>
         <td></td>
         <td></td>
     </tr>
