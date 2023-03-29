@@ -262,10 +262,11 @@ $$
 
 DELIMITER $$
 CREATE PROCEDURE RegistrarUsuario(in pnombre varchar(30), in papellido1 varchar(20), in pcedula varchar(30),
-															   in ptelefono varchar(30), in pcorreo varchar(60), in pcontrasena varchar(16))
+								  in ptelefono varchar(30), in pcorreo varchar(60), in pcontrasena varchar(16),
+                                  in pdireccion varchar(200))
 BEGIN
-	insert into usuario(NombreUsuario, Apellido1, IdRol, Cedula, Telefono, Correo, Contrasena) values ( pnombre, papellido1, 1, pcedula, ptelefono,
-																										pcorreo, pcontrasena);
+	insert into usuario(NombreUsuario, Apellido1, IdRol, Cedula, Telefono, Correo, Contrasena, Direccion) 
+    values ( pnombre, papellido1, 1, pcedula, ptelefono,pcorreo, pcontrasena, pdireccion);
 END$$
 
 delimiter $$

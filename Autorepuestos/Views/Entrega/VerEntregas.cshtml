@@ -9,32 +9,32 @@
 <a class="btn btn-primary" role="button" href="@Url.Action("AgregarEntrega", "Entrega")">Agregar Entrega</a>
 <br />
 <br />
-<div class="row gy-4 justify-content-center">
-    @foreach (var item in Model)
-    {
-        <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-                <div class="card">
-                    <div class="card-body text-center mx-auto">
-                        <div class='cvp'>
-                            <h5 class="card-title font-weight-bold">Codigo Entrega #@Html.DisplayFor(modelItem => item.pIdEntrega)</h5>
-                            <p class="card-text">Producto a Entregar: @Html.DisplayFor(modelItem => item.NombreProducto)</p>
-                            <p class="card-text">Direccion: @Html.DisplayFor(modelItem => item.DireccionEntrega)</p>
-                            <p class="card-text">Telefono: @Html.DisplayFor(modelItem => item.Telefono)</p>
-                            <p class="card-text">Cedula Cliente: @Html.DisplayFor(modelItem => item.Cedula)</p>
-                            <p class="card-text">Estado: @Html.DisplayFor(modelItem => item.Estado)</p><!--Ver si se puede pasar esto a un checkbox-->
-                            <a class="btn btn-primary" @*data-bs-toggle="modal"*@ href="@Url.Action("EditarEntrega", "Entrega", new{id= item.pIdEntrega})" role="button">Editar</a>
-                            <a class="btn btn-danger" role="button" href="@Url.Action("EliminarEntrega","Entrega", new{id = item.pIdEntrega})">Eliminar</a>
+<div class="contenedor">
+    <div class="row gy-4 justify-content-center">
+        @foreach (var item in Model)
+        {
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="gallery-item h-100">
+                    <div class="card">
+                        <div class="card-body text-center mx-auto">
+                            <div class='cvp'>
+                                <h5 class="card-title font-weight-bold">Codigo Entrega #@Html.DisplayFor(modelItem => item.pIdEntrega)</h5>
+                                <p class="card-text">Producto a Entregar: @Html.DisplayFor(modelItem => item.NombreProducto)</p>
+                                <p class="card-text">Direccion: @Html.DisplayFor(modelItem => item.DireccionEntrega)</p>
+                                <p class="card-text">Telefono: @Html.DisplayFor(modelItem => item.Telefono)</p>
+                                <p class="card-text">Cedula Cliente: @Html.DisplayFor(modelItem => item.Cedula)</p>
+                                <p class="card-text">Estado: @Html.DisplayFor(modelItem => item.Estado)</p><!--Ver si se puede pasar esto a un checkbox-->
+                                <a class="btn btn-primary" @*data-bs-toggle="modal"*@ href="@Url.Action("EditarEntrega", "Entrega", new{id= item.pIdEntrega})" role="button">Editar</a>
+                                <a class="btn btn-danger" role="button" href="@Url.Action("EliminarEntrega","Entrega", new{id = item.pIdEntrega})">Eliminar</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -72,4 +72,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@

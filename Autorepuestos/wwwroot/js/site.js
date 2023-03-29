@@ -73,6 +73,12 @@ function Recuperar() {
     });
 }
 
+
+$('.carousel').carousel({
+    interval: 2000 // Cambiar el número de milisegundos para ajustar el tiempo de espera entre cada imagen
+})
+
+
 //function showAlert() {
 //    Swal.fire({
 //        position: 'top-end',

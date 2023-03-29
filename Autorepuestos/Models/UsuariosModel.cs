@@ -41,7 +41,8 @@ namespace Autorepuestos.Models
                             usuario.pCedula,
                             usuario.pTelefono,
                             usuario.pCorreo,
-                            usuario.pContrasena
+                            usuario.pContrasena,
+                            usuario.pDireccion
                         },
                               commandType: System.Data.CommandType.StoredProcedure);
             }

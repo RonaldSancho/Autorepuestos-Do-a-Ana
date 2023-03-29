@@ -2,64 +2,75 @@
 @{
     ViewBag.Title = "MostrarPedido";
 }
-<br />
-<br />
-<br />
-<h1>Pedidos</h1>
-<br />
-<a class="btn btn-primary" role="button" href="@Url.Action("AgregarPedido", "Pedido")">Agregar Pedido</a>
-<br />
-<br />
-<div class="table-responsive">
-    <table id="example" class="table table-light table-hover" style="width:100%">
-        <thead>
-            <tr>
-                <th scope="col">Código Pedido</th>
-                <th scope="col">Producto</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Proveedor</th>
-                <th scope="col">Precio Producto</th>
-                <th scope="col">Precio Total</th>
-                <th scope="col">Colaborador</th>
-                <th scope="col">Opciones</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <th scope="row">@Html.DisplayFor(modelItem => item.pIdPedido)</th>
-                    <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
-                    <td>@Html.DisplayFor(modelItem => item.NombreProveedor)</td>
-                    <td>₡@Html.DisplayFor(modelItem => item.PrecioProducto)</td>
-                    <td>₡@Html.DisplayFor(modelItem => item.PrecioTotal)</td>
-                    <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
-                    <td>
-                        <a class="btn btn-primary" role="button" href="@Url.Action("ModificarPedido","Pedido", new{id = item.pIdPedido})">Editar</a>
-                    </td>
-                    <td><a class="btn btn-danger" role="button" href="@Url.Action("EliminarPedido","Pedido", new{id = item.pIdPedido})">Eliminar</a></td>@*recordar ver lo del toggle*@
-                    <td><a class="btn btn-info" role="button" href="@Url.Action("DetallePedido","Pedido", new{id = item.pIdPedido})">Detalle</a></td>
-                </tr>
-            }
 
-            @*<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalToggleLabel"></h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="contenedor">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="background-color: white">
+                <div class="card-header" style="background-color: #cbcbcb; height: 50px;">
+                    <h3 class="titulo-card-estilo">Tabla de Pedidos</h3>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-primary" role="button" href="@Url.Action("AgregarPedido", "Pedido")">Agregar Pedido</a>
+                    <br />
+                    <br />
+                    <div class="table-responsive">
+                        <table id="example" class="table table-light table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Código Pedido</th>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Proveedor</th>
+                                    <th scope="col">Precio Producto</th>
+                                    <th scope="col">Precio Total</th>
+                                    <th scope="col">Colaborador</th>
+                                    <th scope="col">Opciones</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@Html.DisplayFor(modelItem => item.pIdPedido)</th>
+                                        <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NombreProveedor)</td>
+                                        <td>₡@Html.DisplayFor(modelItem => item.PrecioProducto)</td>
+                                        <td>₡@Html.DisplayFor(modelItem => item.PrecioTotal)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
+                                        <td>
+                                            <a class="btn btn-primary" role="button" href="@Url.Action("ModificarPedido","Pedido", new{id = item.pIdPedido})">Editar</a>
+                                        </td>
+                                        <td><a class="btn btn-danger" role="button" href="@Url.Action("EliminarPedido","Pedido", new{id = item.pIdPedido})">Eliminar</a></td>@*recordar ver lo del toggle*@
+                                        <td><a class="btn btn-info" role="button" href="@Url.Action("DetallePedido","Pedido", new{id = item.pIdPedido})">Detalle</a></td>
+                                    </tr>
+                                }
+
+                                @*<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalToggleLabel"></h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                Pedido eliminado
+                                </div>
+                                </div>
+                                </div>
+                                </div>*@
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-            Pedido eliminado
-            </div>
-            </div>
-            </div>
-            </div>*@
-        </tbody>
-    </table>
+        </div>
+    </div>
 </div>
+
+
 
 

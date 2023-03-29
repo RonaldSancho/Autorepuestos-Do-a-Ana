@@ -84,13 +84,19 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    padding: 200px 20px 0 20px;
+    padding: 150px 20px 0 20px;
     box-sizing: border-box;
 }
 
+.titulo-card-estilo{
+    color: var(--negro);
+    font-weight: bold;
+    font-size: 20px;
+}
+
 a {
-  color: var(--blanco);
-  text-decoration: none;
+    color: var(--blanco);
+    text-decoration: none;
 }
 
 p{

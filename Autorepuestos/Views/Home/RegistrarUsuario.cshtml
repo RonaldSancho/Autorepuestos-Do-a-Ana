@@ -57,6 +57,13 @@
                         @Html.ValidationMessageFor(m => m.pContrasena, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.pDireccion, new {@class="form-control", @placeholder="Dirección"})
+                        @Html.ValidationMessageFor(m => m.pDireccion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
 
             <div class="form-layout-footer">
