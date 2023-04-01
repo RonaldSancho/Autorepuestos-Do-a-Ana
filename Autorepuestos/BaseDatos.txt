@@ -103,11 +103,10 @@ foreign key(IdUsuario) references Usuario(IdUsuario));
 
 Create table Entregas(
 IdEntrega int primary key auto_increment,
-IdProducto int not null,
+Productos varchar(500) not null,
 DireccionEntrega varchar(80) not null,
 IdUsuario int not null, /*apartir de este dato se debe de jalar la cedula y el telefono*/
-Estado varchar(10) not null, /*Pendiente o Realizado*/
-foreign key(IdProducto) references Producto(IdProducto), 
+Estado varchar(50) not null, /*Pendiente o Realizado*/
 foreign key(IdUsuario) references Usuario(IdUsuario));
 
 Create table Bitacora(
@@ -425,36 +424,33 @@ delimiter //
 create procedure VerEntregas()
 begin
 	SELECT e.IdEntrega 'pIdEntrega',
-		   p.NombreProducto,
+		   e.Productos,
            e.DireccionEntrega,
 		   u.Telefono,
            u.Cedula,
            e.Estado,
-           u.IdUsuario,
-           p.IdProducto
-	FROM entregas e, Producto p, usuario u
-    WHERE e.IdProducto= p.IdProducto 
-    AND e.IdUsuario= u.IdUsuario;
+           u.IdUsuario
+           
+	FROM entregas e, usuario u
+    WHERE e.IdUsuario= u.IdUsuario;
 end//
 delimiter ;
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(1,'250M OESTE DEL PALI', 1,'Pendiente');
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(2,'250M Sur DEL MasXMenos', 1,'Realizado');
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(3,'250M ESTE DEL Colegio', 1,'Pendiente');
-insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(4,'250M OESTE DEL Price', 1,'Realizado');
+insert into Entregas(Productos,DireccionEntrega,IdUsuario,Estado) values('Bateria','250M OESTE DEL PALI', 1,'Pendiente');
+
 
 delimiter //
-create procedure AgregarEntrega(IdProducto int,DireccionEntrega varchar(80),IdUsuario int,Estado varchar(10))
+create procedure AgregarEntrega(Productos varchar(500),DireccionEntrega varchar(80),IdUsuario int)
 begin
-	Insert into Entregas(IdProducto,DireccionEntrega,IdUsuario,Estado) values(IdProducto,DireccionEntrega,IdUsuario,Estado);
+	Insert into Entregas(Productos,DireccionEntrega,IdUsuario,Estado) values(Productos,DireccionEntrega,IdUsuario,'Pendiente');
 end//
 delimiter ;
-call AgregarEntrega(5,'250M de la escuela', 1,'Realizado');
+
 
 delimiter // 
-create procedure EditarEntrega(pIdEntrega int, IdProducto int,DireccionEntrega varchar(80),IdUsuario int,Estado varchar(10))
+create procedure EditarEntrega(pIdEntrega int, Productos varchar(500),DireccionEntrega varchar(80),IdUsuario int,Estado varchar(50))
 begin
 	Update Entregas
-    Set IdProducto=IdProducto,
+    Set Productos=Productos,
     DireccionEntrega= DireccionEntrega,
     IdUsuario=IdUsuario,
     Estado=Estado
@@ -466,16 +462,14 @@ delimiter //
 create procedure ConsultarEntrega(id int)
 begin
 	select e.IdEntrega 'pIdEntrega',
-		   p.NombreProducto,
+           e.Productos,
            e.DireccionEntrega,
 		   u.Telefono,
            u.Cedula,
            e.Estado,
-           u.IdUsuario,
-           p.IdProducto
+           u.IdUsuario
 	FROM entregas e, Producto p, usuario u
-    WHERE e.IdProducto= p.IdProducto 
-    AND e.IdUsuario= u.IdUsuario
+    WHERE e.IdUsuario= u.IdUsuario
 	AND e.IdEntrega= id;
 end//
 delimiter ;

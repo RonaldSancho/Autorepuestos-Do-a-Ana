@@ -25,15 +25,15 @@ namespace Autorepuestos.Controllers
         [HttpGet]
         public ActionResult AgregarEntrega()
         {
-            var result1 = _EntregasModel.ConsultaEntregaProducto();
+            //var result1 = _EntregasModel.ConsultaEntregaProducto();
             var result2 = _EntregasModel.ConsultaEntregaUsuario();
-            if (result1 != null && result2 != null)
+            if (/*result1 != null &&*/ result2 != null)
             {
                 var dropdownProductos = new List<SelectListItem>();
                 var dropdownUsuarios = new List<SelectListItem>();
 
-                foreach (var item in result1.RespuestaEntregas)
-                    dropdownProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
+                //foreach (var item in result1.RespuestaEntregas)
+                //    dropdownProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
 
                 foreach (var item in result2.RespuestaEntregas)
                     dropdownUsuarios.Add(new SelectListItem { Text = item.NombreUsuario, Value = item.IdUsuario.ToString() });
@@ -56,20 +56,20 @@ namespace Autorepuestos.Controllers
         [HttpGet]
         public ActionResult EditarEntrega(int id)
         {
-            var result1 = _EntregasModel.ConsultaEntregaProducto();
+            //var result1 = _EntregasModel.ConsultaEntregaProducto();
             var result2 = _EntregasModel.ConsultaEntregaUsuario();
-            if (result1 != null && result2 != null)
+            if (/*result1 != null && */result2 != null)
             {
-                var dropdownProductos = new List<SelectListItem>();
+                //var dropdownProductos = new List<SelectListItem>();
                 var dropdownUsuarios = new List<SelectListItem>();
 
-                foreach (var item in result1.RespuestaEntregas)
-                    dropdownProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
+                //foreach (var item in result1.RespuestaEntregas)
+                //    dropdownProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
 
                 foreach (var item in result2.RespuestaEntregas)
                     dropdownUsuarios.Add(new SelectListItem { Text = item.NombreUsuario, Value = item.IdUsuario.ToString() });
 
-                ViewBag.ComboProducto = dropdownProductos;
+                //ViewBag.ComboProducto = dropdownProductos;
                 ViewBag.ComboUsuario = dropdownUsuarios;
 
                 var consulta = _EntregasModel.ConsultarEntrega(id);
