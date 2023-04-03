@@ -35,8 +35,8 @@ namespace Autorepuestos.Controllers
                 }
                 else
                 {
-                    ViewBag.mensaje = "Valide sus credenciales por favor.";
-                    return RedirectToAction("Index","Home");
+                    TempData["MostrarMensajeError"] = true;
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch(Exception ex)

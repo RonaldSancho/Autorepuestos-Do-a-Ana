@@ -73,6 +73,14 @@ function Recuperar() {
     });
 }
 
+function mostrarMensajeError() {
+    Swal.fire({
+        title: 'Error de inicio de sesión',
+        text: 'Valide sus credenciales por favor',
+        icon: 'error',
+        confirmButtonText: 'OK'
+    });
+}
 
 $('.carousel').carousel({
     interval: 2000 // Cambiar el número de milisegundos para ajustar el tiempo de espera entre cada imagen
