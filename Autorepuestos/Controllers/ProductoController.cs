@@ -3,6 +3,7 @@ using Autorepuestos.Interfaces;
 using Autorepuestos.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Principal;
 
 namespace Autorepuestos.Controllers
 {
@@ -10,11 +11,13 @@ namespace Autorepuestos.Controllers
     {
         private readonly ILogger<ProductoController> _logger;
         private readonly IProductosModel _ProductosModel;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductoController(ILogger<ProductoController> logger, IProductosModel productos)
+        public ProductoController(ILogger<ProductoController> logger, IProductosModel productos,IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
             _ProductosModel = productos;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -54,8 +57,23 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public ActionResult AgregarProducto(ProductosEntities producto)
         {
+            
+            if (producto.ImagenDatos != null)
+            {
+                string folder = "/template/img/";
+                folder +=  producto.ImagenDatos.FileName;
+                producto.Imagen = "~" + folder;
 
-            _ProductosModel.CrearProducto(producto);
+                string serverFolder = _webHostEnvironment.WebRootPath+ folder;
+                producto.ImagenDatos.CopyTo(new FileStream(serverFolder,FileMode.Create));
+                _ProductosModel.CrearProducto(producto);
+            }
+            else
+            {
+                _ProductosModel.CrearProducto(producto);
+            }
+            
+            
             return RedirectToAction("MostrarProductos");
         }
 
@@ -104,8 +122,21 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public ActionResult ModificarProducto(ProductosEntities producto)
         {
+            if (producto.ImagenDatos != null)
+            {
+                string folder = "/template/img/";
+                folder += producto.ImagenDatos.FileName;
+                producto.ImagenN = "~" + folder;
+
+                string serverFolder = _webHostEnvironment.WebRootPath + folder;
+                producto.ImagenDatos.CopyTo(new FileStream(serverFolder, FileMode.Create));
+                _ProductosModel.EditarProducto(producto);
+            }
+            else
+            {
+                _ProductosModel.EditarProducto(producto);
+            }
             //este llamara a la interfaz
-            _ProductosModel.EditarProducto(producto);
             return RedirectToAction("MostrarProductos");
 
         }

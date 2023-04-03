@@ -25,7 +25,8 @@ namespace Autorepuestos.Models
                     producto.Precio,
                     producto.IdCategoria,
                     producto.Existencias,
-                    producto.IdProveedor
+                    producto.IdProveedor,
+                    producto.Imagen
                 },
                 commandType: CommandType.StoredProcedure);
             }
@@ -35,6 +36,8 @@ namespace Autorepuestos.Models
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
+                if (producto.ImagenN == null)
+                    producto.ImagenN = "";
                 conexion.Execute("EditarProducto", new
                 {
                     producto.pIdProducto,
@@ -43,7 +46,8 @@ namespace Autorepuestos.Models
                     producto.Precio,
                     producto.IdCategoria,
                     producto.Existencias,
-                    producto.IdProveedor
+                    producto.IdProveedor,
+                    producto.ImagenN
                 },
                 commandType: CommandType.StoredProcedure);
             }

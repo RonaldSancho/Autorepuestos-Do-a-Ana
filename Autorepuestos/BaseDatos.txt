@@ -373,31 +373,33 @@ $$
 
 
 delimiter $$
-CREATE PROCEDURE EditarProducto(in pIdProducto INT, in NombreProducto varchar(30),
+CREATE PROCEDURE `EditarProducto`(in pIdProducto INT, in NombreProducto varchar(30),
 in Descripcion varchar(60), in Precio decimal(18,0),
-in IdCategoria INT, in Existencias INT, in IdProveedor INT)
+in IdCategoria INT, in Existencias INT, in IdProveedor INT,in ImagenN varchar(100))
 BEGIN
 	   UPDATE Producto
 	   SET 
+		   
 	       NombreProducto = NombreProducto,
 		   Descripcion = Descripcion,
 	       Precio = Precio,
 		   IdCategoria = IdCategoria,
 	       Existencias = Existencias,
-	       IdProveedor = IdProveedor
+	       IdProveedor = IdProveedor,
+           Imagen=case when ImagenN='' then Imagen else ImagenN end
 	 
 	   WHERE IdProducto = pIdProducto;
 END
 $$
 
 delimiter $$
-create procedure CrearProducto( in NombreProducto varchar(30),in Descripcion varchar(60),
+CREATE PROCEDURE `CrearProducto`( in NombreProducto varchar(30),in Descripcion varchar(60),
 in Precio decimal(18,0), in IdCategoria INT, in Existencias INT,
-in IdProveedor INT)
+in IdProveedor INT,Imagen varchar(100))
 begin
 	Insert into Producto (NombreProducto, Descripcion, Precio,IdCategoria,
-Existencias,IdProveedor)
-	values(NombreProducto,Descripcion, Precio, IdCategoria, Existencias, IdProveedor);
+Existencias,IdProveedor,Imagen)
+	values(NombreProducto,Descripcion, Precio, IdCategoria, Existencias, IdProveedor,Imagen);
 end
 $$
 
