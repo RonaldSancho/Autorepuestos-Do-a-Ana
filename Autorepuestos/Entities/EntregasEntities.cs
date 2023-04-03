@@ -5,15 +5,24 @@ namespace Autorepuestos.Entities
     public class EntregasEntities
     {
         public int pIdEntrega { get; set; }
-        [DisplayName("Producto")]
-        public int IdProducto { get; set; }
-        [DisplayName("Producto")]
-        public string NombreProducto { get; set; } = string.Empty;
+
+        //[DisplayName("Producto")]
+        //public int IdProducto { get; set; }
+
+        //[DisplayName("Producto")]
+        //public string NombreProducto { get; set; } = string.Empty;
+
+
+        [DisplayName("Productos a Entregar")]
+        public string Productos { get; set; } = string.Empty;
+
         [DisplayName("Dirección")]
         public string DireccionEntrega { get; set; } = string.Empty;
+        
         [DisplayName("Cliente")]
         public int IdUsuario { get; set; }
         public string NombreUsuario { get; set; } = string.Empty;
+       
         [DisplayName("Estado Entrega")]
         public string Estado { get; set; } = string.Empty;
         public string Telefono { get; set; } = string.Empty;

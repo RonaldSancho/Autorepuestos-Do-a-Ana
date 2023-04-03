@@ -21,7 +21,7 @@ namespace Autorepuestos.Models
             {
                 conexion.Execute("AgregarEntrega", new
                 {
-                    entrega.IdProducto,
+                    entrega.Productos,
                     entrega.DireccionEntrega,
                     entrega.IdUsuario,
                     entrega.Estado
@@ -30,28 +30,28 @@ namespace Autorepuestos.Models
             }
         }
 
-        public RespuestaEntrega ConsultaEntregaProducto()
-        {
-            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-            {
-                var resultado = conexion.Query("ConsultaPedidoProducto", new { }, commandType: CommandType.StoredProcedure).ToList();//reutilizo un procedimiento almacenado, es por eso el nombre..
-                RespuestaEntrega respuesta= new RespuestaEntrega();
-                List<EntregasEntities> datos = new List<EntregasEntities>();
-                if (resultado.Count > 0)
-                {
-                    foreach (var item in resultado)
-                    {
-                        datos.Add(new EntregasEntities
-                        {
-                            IdProducto = item.IdProducto,
-                            NombreProducto = item.NombreProducto,
-                        });
-                    }
-                    respuesta.RespuestaEntregas = datos;
-                }
-                return respuesta;
-            }
-        }
+        //public RespuestaEntrega ConsultaEntregaProducto()
+        //{
+        //    using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+        //    {
+        //        var resultado = conexion.Query("ConsultaPedidoProducto", new { }, commandType: CommandType.StoredProcedure).ToList();//reutilizo un procedimiento almacenado, es por eso el nombre..
+        //        RespuestaEntrega respuesta= new RespuestaEntrega();
+        //        List<EntregasEntities> datos = new List<EntregasEntities>();
+        //        if (resultado.Count > 0)
+        //        {
+        //            foreach (var item in resultado)
+        //            {
+        //                datos.Add(new EntregasEntities
+        //                {
+        //                    IdProducto = item.IdProducto,
+        //                    NombreProducto = item.NombreProducto,
+        //                });
+        //            }
+        //            respuesta.RespuestaEntregas = datos;
+        //        }
+        //        return respuesta;
+        //    }
+        //}
 
         public RespuestaEntrega ConsultaEntregaUsuario()
         {
@@ -84,7 +84,7 @@ namespace Autorepuestos.Models
                 conexion.Execute("EditarEntrega", new
                 {
                     entrega.pIdEntrega,
-                    entrega.IdProducto,
+                    entrega.Productos,
                     entrega.DireccionEntrega,
                     entrega.IdUsuario,
                     entrega.Estado

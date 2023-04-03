@@ -10,7 +10,7 @@ namespace Autorepuestos.Interfaces
         public void Editar(EntregasEntities entrega);
         public void EliminarEntrega(int id);
         public EntregasEntities? ConsultarEntrega(int id);
-        public RespuestaEntrega ConsultaEntregaProducto();
+        //public RespuestaEntrega ConsultaEntregaProducto();
         public RespuestaEntrega ConsultaEntregaUsuario();
     }
 }

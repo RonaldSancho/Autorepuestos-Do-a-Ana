@@ -17,6 +17,9 @@ namespace Autorepuestos.Entities
         public int Existencias { get; set; }
         [DisplayName("Proveedor")]
         public int IdProveedor { get; set; }
+        public string Imagen { get; set; } = string.Empty;
+        public string ImagenN { get; set; } = string.Empty;
+        public IFormFile ImagenDatos { get; set; } 
         public string NombreCategoria { get; set; } = string.Empty;
         public string NombreProveedor { get; set; } = string.Empty; public class RespuestaProducto
         {
