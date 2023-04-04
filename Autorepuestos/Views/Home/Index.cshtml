@@ -39,9 +39,9 @@
 @section scripts {
     <script src="~/js/site.js"></script>
     <script>
-        @if (TempData.ContainsKey("MostrarMensajeError") && (bool)TempData["MostrarMensajeError"])
+        @if (TempData.ContainsKey("MensajeCredenciales") && (bool)TempData["MensajeCredenciales"])
         {
-            @:mostrarMensajeError();
+            @:MensajeCredenciales();
         }
     </script>
 }

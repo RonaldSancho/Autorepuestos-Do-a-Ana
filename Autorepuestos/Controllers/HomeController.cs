@@ -51,7 +51,8 @@ namespace Autorepuestos.Controllers
                 try
                 {
                     _UsuariosModel.RegitrarUsuario(usuario);
-                    return View("Index");
+                    TempData["MensajeUsuarioCreado"] = true;
+                    return RedirectToAction("RegistrarUsuario", "Home");
                 }
                 catch (Exception ex)
                 {

@@ -35,7 +35,7 @@ namespace Autorepuestos.Controllers
                 }
                 else
                 {
-                    TempData["MostrarMensajeError"] = true;
+                    TempData["MensajeCredenciales"] = true;
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -55,34 +55,5 @@ namespace Autorepuestos.Controllers
             return View(_CatalogosModel.VerCatalogos(catalogo));
         }
 
-        //ESCRIBIR ANTES DE ESTA LÍNEA//
-
-        //[HttpGet]
-        //public ActionResult VerCatalogos()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public ActionResult Index(UsuariosEntities usuario)
-        //{
-
-        //    if (_UsuariosModel.ValidarUsuarios(usuario) != null)
-        //        return View();
-        //    else
-        //        return View("Index");
-        //}
-
-        //[HttpPost]
-        //public ActionResult VerCatalogos(CatalogosEntities catalogo)
-        //{
-        //    return View(_CatalogosModel.VerCatalogos(catalogo));
-        //}
-
-        //[HttpGet]
-        //public ActionResult VerCatalogos()
-        //{
-        //    return View(_CatalogosModel.VerCatalogos(new CatalogosEntities()));
-        //}
     }
 }

@@ -73,12 +73,30 @@ function Recuperar() {
     });
 }
 
-function mostrarMensajeError() {
+function MensajeCredenciales() {
     Swal.fire({
         title: 'Error de inicio de sesión',
-        text: 'Valide sus credenciales por favor',
+        text: 'Credenciales incorrectas',
         icon: 'error',
         confirmButtonText: 'OK'
+    });
+}
+
+function MensajeUsuarioCreado() {
+    Swal.fire({
+        title: 'Cuenta creada exitosamente',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+    });
+}
+
+function MensajeContrasennaEnviada() {
+    Swal.fire({
+        title: 'Cuenta creada exitosamente',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
     });
 }
 
