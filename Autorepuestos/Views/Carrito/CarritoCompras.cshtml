@@ -21,6 +21,7 @@
         @foreach (var item in Model)
         {
             <tr>
+                 @Html.HiddenFor(modelItem => item.IdProducto)
                 <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
                 <td>₡@Html.DisplayFor(modelItem => item.Precio)</td>
                 <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>

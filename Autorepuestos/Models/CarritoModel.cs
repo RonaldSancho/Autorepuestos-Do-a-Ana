@@ -53,7 +53,7 @@ namespace Autorepuestos.Models
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                conexion.Execute("EditarCarrito", new { entidad.IdCarrito, entidad.Cantidad, entidad.Precio }, commandType: CommandType.StoredProcedure);
+                conexion.Execute("EditarCarrito", new { entidad.IdCarrito, entidad.IdProducto, entidad.Cantidad, entidad.Precio }, commandType: CommandType.StoredProcedure);
             }
         }
 

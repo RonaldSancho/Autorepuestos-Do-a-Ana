@@ -10,6 +10,7 @@
 <div>
     @using (Html.BeginForm("ModificarCarrito", "Carrito", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
     {
+        @Html.HiddenFor(m => m.IdProducto)
         @Html.HiddenFor(m => m.IdCarrito, new{@class="form-control", @style="color:grey"})
         @Html.HiddenFor(m => m.Precio)
         <div class="d-flex justify-content-center container mt-5">
