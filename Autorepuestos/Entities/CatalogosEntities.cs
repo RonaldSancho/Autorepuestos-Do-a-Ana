@@ -13,8 +13,7 @@ namespace Autorepuestos.Entities
         [DisplayName("Producto")]
         public string NombreProducto { get; set; } = string.Empty;
         public string Descripcion { get; set; } = string.Empty;
-
-        public int Cantidad { get; set; }
+        public int Cantidad { get; set; } = 1;
         public int IdUsuario { get; set; }
     }
 

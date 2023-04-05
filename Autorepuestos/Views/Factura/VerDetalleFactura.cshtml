@@ -47,9 +47,17 @@
         </dt>
         <dd>@Html.DisplayFor(m => m.TipoPago)</dd>
         <dt>
+            @Html.DisplayNameFor(m => m.TipoRetiro)
+        </dt>
+        <dd>@Html.DisplayFor(m => m.TipoRetiro)</dd>
+        <dt>
             @Html.DisplayNameFor(m => m.Detalle)
         </dt>
         <dd class="line-breaks">@Html.DisplayFor(m => m.Detalle)</dd>
+        @*<dt>
+            @Html.DisplayNameFor(m => m.EstadoFactura)
+        </dt>
+        <dd class="line-breaks">@Html.DisplayFor(m => m.EstadoFactura)</dd>*@
     </dl>
     <p>
         <a class="btn btn-secondary" role="button" href="@Url.Action("VerFacturas","Factura")">Volver</a>

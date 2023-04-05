@@ -10,6 +10,10 @@
             @Html.LabelFor(m => m.IdTipoPago, new{@class="form-control-label"})
             @Html.DropDownListFor(m => m.IdTipoPago, ViewBag.ComboTipoPago as List<SelectListItem>, new { @class = "form-control" })
         </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.IdTipoRetiro, new{@class="form-control-label"})
+            @Html.DropDownListFor(m => m.IdTipoRetiro, ViewBag.ComboTipoRetiro as List<SelectListItem>, new { @class = "form-control" })
+        </div>
     </div>
     <div class="form-layout-footer">
         <br />

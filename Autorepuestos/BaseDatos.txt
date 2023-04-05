@@ -62,6 +62,10 @@ IdTipoPago int primary key auto_increment,
 TipoPago varchar(30) not null);
 insert into TipoPago(TipoPago) values('Efectivo'),('Tarjeta');
 
+Create table TipodeRetiro(
+IdTipoRetiro int primary key auto_increment,
+TipoRetiro varchar(30) not null);
+insert into TipoPago(TipoPago) values('En Tienda'),('Envio');
 
 CREATE TABLE `factura` (
   `IdFactura` int NOT NULL AUTO_INCREMENT,
@@ -78,7 +82,9 @@ CREATE TABLE `factura` (
   CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`IdUsuario`),
   CONSTRAINT `LlaveTipoPago` FOREIGN KEY (`IdTipoPago`) REFERENCES `tipopago` (`IdTipoPago`)
 ) 
-
+alter table Factura add column IdTipoRetiro int;
+alter table Factura add constraint LlaveTipoRetiro foreign key(IdTipoRetiro) references TipodeRetiro(IdTipoRetiro);
+alter table Factura add column EstadoFactura bit;
 
 
 Create table Pedidos(
@@ -599,15 +605,16 @@ end$$
 delimiter $$
 CREATE  PROCEDURE `VerFacturas`()
 begin
-	select f.IdFactura, f.Fecha, u.NombreUsuario, f.MontoTotal, f.Telefono, f.Direccion, t.TipoPago, f.Detalle
-    from Factura f, Usuario u, TipoPago t where f.IdUsuario= u.IdUsuario and f.IdTipoPago=t.IdTipoPago;
+	select f.IdFactura, f.Fecha, u.NombreUsuario, f.MontoTotal, f.Telefono, f.Direccion, t.TipoPago, r.TipoRetiro, f.Detalle, f.EstadoFactura
+    from Factura f, Usuario u, TipoPago t, TipodeRetiro r
+    where f.IdUsuario= u.IdUsuario and f.IdTipoPago=t.IdTipoPago
+    and f.IdTipoRetiro=r.IdTipoRetiro;
 end $$
 
-
 delimiter $$
-CREATE PROCEDURE `CrearFactura`(IdUsuario int, IdTipoPago int)
+CREATE PROCEDURE `CrearFactura`(IdUsuario int, IdTipoPago int, IdTipoRetiro  int)
 begin
-	insert into Factura(IdUsuario, Telefono, Direccion,Fecha, MontoTotal,IdTipoPago,Detalle) (select d.IdUsuario, u.Telefono, u.Direccion, Now() 'Fecha', (sum(d.Subtotal)) 'MontoTotal', IdTipoPago,
+	insert into Factura(IdUsuario, Telefono, Direccion,Fecha, MontoTotal,IdTipoPago,IdTipoRetiro,EstadoFactura,Detalle) (select d.IdUsuario, u.Telefono, u.Direccion, Now() 'Fecha', (sum(d.Subtotal)) 'MontoTotal', IdTipoPago, IdTipoRetiro, 0,
     (SELECT GROUP_CONCAT('Código: ', d.IdProducto,'| Producto: ', p.NombreProducto, 
     '| Precio: ',d.Precio,'| Cantidad: ',d.Cantidad SEPARATOR ' ,\n') as nombres_concatenados)
     from DetalleCarrito d, Usuario u, Producto p
@@ -627,11 +634,12 @@ end$$
 delimiter $$
 CREATE PROCEDURE `VerDetalleFactura`(IdFactura int)
 begin
-	Select f.IdFactura, u.NombreUsuario, f.Fecha, f.MontoTotal,f.Telefono,f.Direccion, t.TipoPago, f.Detalle
-    from Factura f, Usuario u, TipoPago t
+	Select f.IdFactura, u.NombreUsuario, f.Fecha, f.MontoTotal,f.Telefono,f.Direccion, t.TipoPago, r.TipoRetiro, f.Detalle, f.EstadoFactura
+    from Factura f, Usuario u, TipoPago t, TipodeRetiro r
     where f.IdUsuario=u.IdUsuario
     and f.IdFactura = IdFactura
-    and f.IdTipoPago=t.IdTipoPago;
+    and f.IdTipoPago=t.IdTipoPago
+    and f.IdTipoRetiro=r.IdTipoRetiro;
 end $$
 
 delimiter $$
@@ -639,6 +647,20 @@ create procedure ConsultarTipoPago()
 begin
 	Select IdTipoPago, TipoPago 
     from TipoPago;
+end$$
+
+delimiter $$
+create procedure ConsultarTipoRetiro()
+begin
+	Select IdTipoRetiro, TipoRetiro 
+    from TipodeRetiro;
+end$$
+
+delimiter $$
+create procedure CambiarEstadoFactura(IdFactura int)
+begin
+	Update Factura set EstadoFactura=(CASE WHEN EstadoFactura = 1 THEN 0 ELSE 1 END)
+    where Factura.IdFactura=IdFactura;
 end$$
 
 /*FIN SP DE FACTURA*/

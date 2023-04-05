@@ -9,6 +9,8 @@ namespace Autorepuestos.Interfaces
         public List<FacturaEntities> VerFacturas();
         public FacturaEntities? VerDetalleFactura(int IdFactura);
         public RespuestaFactura ConsultarTipoPago();
+        public RespuestaFactura ConsultarTipoRetiro();
         public void CrearFactura(FacturaEntities entidad, int? IdUsuario);
+        public void CambiarEstadoFactura(int IdFactura);
     }
 }

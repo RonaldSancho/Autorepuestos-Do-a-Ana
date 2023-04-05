@@ -57,11 +57,33 @@ namespace Autorepuestos.Models
                 return respuesta;
             }
         }
+        public RespuestaFactura ConsultarTipoRetiro()
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                var resultado = conexion.Query("ConsultarTipoRetiro", new { }, commandType: CommandType.StoredProcedure).ToList();
+                RespuestaFactura respuesta = new RespuestaFactura();
+                List<FacturaEntities> datos = new List<FacturaEntities>();
+                if (resultado.Count > 0)
+                {
+                    foreach (var item in resultado)
+                    {
+                        datos.Add(new FacturaEntities
+                        {
+                            IdTipoRetiro = item.IdTipoRetiro,
+                            TipoRetiro = item.TipoRetiro,
+                        });
+                    }
+                    respuesta.RespuestaFacturas = datos;
+                }
+                return respuesta;
+            }
+        }
         public void CrearFactura(FacturaEntities entidad, int? IdUsuario)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                conexion.Execute("CrearFactura", new {entidad.IdTipoPago, IdUsuario }, commandType: CommandType.StoredProcedure);
+                conexion.Execute("CrearFactura", new {entidad.IdTipoPago, entidad.IdTipoRetiro, IdUsuario }, commandType: CommandType.StoredProcedure);
             }
         }
         public List<FacturaEntities> VerFacturas()
@@ -70,6 +92,15 @@ namespace Autorepuestos.Models
             {
                 return conexion.Query<FacturaEntities>("VerFacturas", new { }, commandType: CommandType.StoredProcedure).ToList();
             }
+        }
+
+        public void CambiarEstadoFactura(int IdFactura)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("CambiarEstadoFactura", new { IdFactura }, commandType: CommandType.StoredProcedure);
+            }
+
         }
     }
 }

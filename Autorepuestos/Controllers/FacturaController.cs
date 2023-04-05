@@ -52,13 +52,18 @@ namespace Autorepuestos.Controllers
         public IActionResult ConsultarTipoPago()
         {
             var result = _facturaModel.ConsultarTipoPago();
-            if (result != null)
+            var result2 = _facturaModel.ConsultarTipoRetiro();
+            if (result != null && result2 != null)
             {
                 var dropdownTipoPago = new List<SelectListItem>();
+                var dropdownTipoRetiro = new List<SelectListItem>();
                 foreach (var item in result.RespuestaFacturas)
                     dropdownTipoPago.Add(new SelectListItem { Text = item.TipoPago, Value = item.IdTipoPago.ToString() });
+                foreach (var item in result2.RespuestaFacturas)
+                    dropdownTipoRetiro.Add(new SelectListItem { Text = item.TipoRetiro, Value = item.IdTipoRetiro.ToString() });
 
                 ViewBag.ComboTipoPago = dropdownTipoPago;
+                ViewBag.ComboTipoRetiro = dropdownTipoRetiro;
                 return View();
             }
             else
@@ -70,6 +75,13 @@ namespace Autorepuestos.Controllers
             var usuario = HttpContext.Session.GetInt32("IdUsuario");
             _facturaModel.CrearFactura(entidad, usuario);
             return RedirectToAction("VerCatalogos", "Catalogo");
+        }
+
+        [HttpGet]
+        public IActionResult CambiarEstadoFactura(int id)
+        {
+            _facturaModel.CambiarEstadoFactura(id);
+            return RedirectToAction("VerFacturas", "Factura");
         }
 
     }
