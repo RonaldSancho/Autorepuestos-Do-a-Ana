@@ -23,6 +23,11 @@ namespace Autorepuestos.Entities
         public int IdTipoPago { get; set; }
         [DisplayName("Tipo de Pago")]
         public string TipoPago { get; set; } = string.Empty;
+
+        [DisplayName("Detalle Compra")]
+
+        public string Detalle { get; set; } = string.Empty;
+
         public class RespuestaFactura
         {
             public int cod { get; set; }

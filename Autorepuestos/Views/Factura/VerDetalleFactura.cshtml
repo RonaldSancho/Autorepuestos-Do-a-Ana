@@ -4,6 +4,12 @@
 }
 
 <h1>Detalle</h1>
+
+<style>
+    .line-breaks {
+        white-space: pre-line;
+    }
+</style>
 <div>
     <h4>Pedido</h4>
     <hr />
@@ -40,6 +46,10 @@
             @Html.DisplayNameFor(m => m.TipoPago)
         </dt>
         <dd>@Html.DisplayFor(m => m.TipoPago)</dd>
+        <dt>
+            @Html.DisplayNameFor(m => m.Detalle)
+        </dt>
+        <dd class="line-breaks">@Html.DisplayFor(m => m.Detalle)</dd>
     </dl>
     <p>
         <a class="btn btn-secondary" role="button" href="@Url.Action("VerFacturas","Factura")">Volver</a>

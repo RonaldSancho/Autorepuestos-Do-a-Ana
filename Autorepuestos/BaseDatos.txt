@@ -71,6 +71,7 @@ CREATE TABLE `factura` (
   `Telefono` varchar(30) DEFAULT NULL,
   `Direccion` varchar(200) DEFAULT NULL,
   `IdTipoPago` int DEFAULT NULL,
+  `Detalle` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`IdFactura`),
   KEY `IdUsuario` (`IdUsuario`),
   KEY `LlaveTipoPago` (`IdTipoPago`),
@@ -595,23 +596,27 @@ end$$
 
 /*INICIO SP FACTURA*/
 
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `VerFacturas`()
+delimiter $$
+CREATE  PROCEDURE `VerFacturas`()
 begin
-	select f.IdFactura, f.Fecha, u.NombreUsuario, f.MontoTotal, f.Telefono, f.Direccion, t.TipoPago
+	select f.IdFactura, f.Fecha, u.NombreUsuario, f.MontoTotal, f.Telefono, f.Direccion, t.TipoPago, f.Detalle
     from Factura f, Usuario u, TipoPago t where f.IdUsuario= u.IdUsuario and f.IdTipoPago=t.IdTipoPago;
-end ;;
+end $$
 
 
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CrearFactura`(IdUsuario int, IdTipoPago int)
+delimiter $$
+CREATE PROCEDURE `CrearFactura`(IdUsuario int, IdTipoPago int)
 begin
-	insert into Factura(IdUsuario, Telefono, Direccion,Fecha, MontoTotal,IdTipoPago) (select d.IdUsuario, u.Telefono, u.Direccion, Now() 'Fecha', (sum(d.Subtotal)) 'MontoTotal', IdTipoPago
-    from DetalleCarrito d, Usuario u 
-    where d.IdUsuario=u.IdUsuario and d.IdUsuario = IdUsuario and d.Estado=1
+	insert into Factura(IdUsuario, Telefono, Direccion,Fecha, MontoTotal,IdTipoPago,Detalle) (select d.IdUsuario, u.Telefono, u.Direccion, Now() 'Fecha', (sum(d.Subtotal)) 'MontoTotal', IdTipoPago,
+    (SELECT GROUP_CONCAT('Código: ', d.IdProducto,'| Producto: ', p.NombreProducto, 
+    '| Precio: ',d.Precio,'| Cantidad: ',d.Cantidad SEPARATOR ' ,\n') as nombres_concatenados)
+    from DetalleCarrito d, Usuario u, Producto p
+    where d.IdUsuario=u.IdUsuario and d.IdUsuario = IdUsuario and d.Estado=1 and
+    d.IdProducto = p.IdProducto
     Group by d.IdUsuario, u.Telefono, u.Direccion); 
     Delete from Carrito where Carrito.IdUsuario = IdUsuario;
-end ;;
+    Delete from DetalleCarrito where DetalleCarrito.IdUsuario = IdUsuario;
+end $$
 
 delimiter $$
 create procedure EliminarFactura(IdFactura int)
@@ -619,16 +624,15 @@ begin
 	Delete from Factura f where f.IdFactura= IdFactura; 
 end$$
 
-drop procedure VerDetalleFactura
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `VerDetalleFactura`(IdFactura int)
+delimiter $$
+CREATE PROCEDURE `VerDetalleFactura`(IdFactura int)
 begin
-	Select f.IdFactura, u.NombreUsuario, f.Fecha, f.MontoTotal,f.Telefono,f.Direccion, t.TipoPago
+	Select f.IdFactura, u.NombreUsuario, f.Fecha, f.MontoTotal,f.Telefono,f.Direccion, t.TipoPago, f.Detalle
     from Factura f, Usuario u, TipoPago t
     where f.IdUsuario=u.IdUsuario
     and f.IdFactura = IdFactura
     and f.IdTipoPago=t.IdTipoPago;
-end ;;
+end $$
 
 delimiter $$
 create procedure ConsultarTipoPago()

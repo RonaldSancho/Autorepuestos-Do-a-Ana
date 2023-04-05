@@ -7,6 +7,12 @@
 
 <br />
 <br />
+
+<style>
+    .line-breaks {
+        white-space: pre-line;
+    }
+</style>
 <table class="table table-light">
 
     <thead>
@@ -18,9 +24,9 @@
             <th scope="col">Telefono</th>
             <th scope="col">Direccion</th>
             <th scope="col">Tipo de Pago</th>
+            <th scope="col">Detalle Compra</th>
             <th scope="col"></th>
             <th scope="col"></th>
-
 
 
         </tr>
@@ -36,6 +42,7 @@
                 <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
                 <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
                 <td>@Html.DisplayFor(modelItem => item.TipoPago)</td>
+                <td class="line-breaks">@Html.DisplayFor(modelItem => item.Detalle)</td>
                 <td><a class="btn btn-primary" role="button" href="@Url.Action("VerDetalleFactura","Factura", new{id = item.IdFactura})">Ver Factura</a></td>
                 <td><a class="btn btn-primary" role="button" href="@Url.Action("EliminarFactura","Factura", new{id = item.IdFactura})">Eliminar</a></td>
 
