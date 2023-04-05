@@ -65,7 +65,7 @@ insert into TipoPago(TipoPago) values('Efectivo'),('Tarjeta');
 Create table TipodeRetiro(
 IdTipoRetiro int primary key auto_increment,
 TipoRetiro varchar(30) not null);
-insert into TipoPago(TipoPago) values('En Tienda'),('Envio');
+insert into TipodeRetiro(TipoRetiro) values('En Tienda'),('Envio');
 
 CREATE TABLE `factura` (
   `IdFactura` int NOT NULL AUTO_INCREMENT,
@@ -81,7 +81,7 @@ CREATE TABLE `factura` (
   KEY `LlaveTipoPago` (`IdTipoPago`),
   CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`IdUsuario`) REFERENCES `usuario` (`IdUsuario`),
   CONSTRAINT `LlaveTipoPago` FOREIGN KEY (`IdTipoPago`) REFERENCES `tipopago` (`IdTipoPago`)
-) 
+) ;
 alter table Factura add column IdTipoRetiro int;
 alter table Factura add constraint LlaveTipoRetiro foreign key(IdTipoRetiro) references TipodeRetiro(IdTipoRetiro);
 alter table Factura add column EstadoFactura bit;
@@ -292,6 +292,50 @@ begin
     where Correo = pCorreo;
 end
 $$
+
+delimiter $$
+create procedure ConsultarRol()
+begin 
+select IdRol, NombreRol
+from Rol;
+end
+$$
+
+
+drop procedure ConsultarRol
+update Rol set nombreRol="Cliente" where IdRol=1;
+insert into rol(NombreRol) values('Trabajador'),('Admin')
+delimiter $$
+create procedure CorreoExistente(in pcorreo varchar(60))
+begin
+    select IdUsuario, Correo, Contrasena
+    from Usuario 
+    where Correo = pcorreo;
+end
+$$
+delimiter $$
+create procedure VerUsuarios()
+begin
+	select IdUsuario,concat(NombreUsuario,' ',Apellido1) as NombreCompletoUsuario,nombreRol ,Telefono'pTelefono',Correo'pCorreo' from Usuario,Rol where usuario.idRol=Rol.IdRol;
+	end;
+$$
+
+
+
+delimiter //
+create procedure ModificarUsuario(IdUsuario int, pIdRol int,pNombre varchar(30), pApellido1 varchar(20), pCedula varchar(30), pTelefono varchar(30), pDireccion varchar(200))
+begin
+	Update Usuario
+    Set 
+    IdRol=pIdRol,
+    nombreUsuario=pNombre,
+    Apellido1=pApellido1,
+    Cedula=pCedula,
+    telefono=pTelefono,
+    Direccion=pDireccion
+    where Usuario.IdUsuario=IdUsuario;
+end//
+
 
 /*alter table Producto change Nombre NombreProducto varchar(30) ;
 alter table Usuario change Nombre NombreUsuario varchar(30) ;

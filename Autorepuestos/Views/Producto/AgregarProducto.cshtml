@@ -24,27 +24,18 @@
                         <div class="row">
 
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.NombreProducto, htmlAttributes: new{@class="form-control-label"})
-                                @Html.TextBoxFor(m => m.NombreProducto)
+                                @Html.LabelFor(m => m.NombreProducto, htmlAttributes: new{@class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.NombreProducto ,htmlAttributes: new{@type = "text ",@class = "form-control col-md-4"})
                             </div>
 
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.Descripcion, htmlAttributes: new{@class="form-control-label"})
-                                @Html.TextBoxFor(m => m.Descripcion)
+                                @Html.LabelFor(m => m.Descripcion, htmlAttributes: new{@class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.Descripcion, htmlAttributes: new{@type = "text ",@class = "form-control col-md-4"})
                             </div>
 
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.Precio, htmlAttributes: new{ @class="form-control-label"})
-                                @Html.TextBoxFor(m => m.Precio, htmlAttributes: new{@type = "number"})
-                            </div>
-
-                            <div class="col-md-4">
-                                @Html.LabelFor(m => m.Existencias, htmlAttributes: new{@class="form-control-label"})
-                                @Html.TextBoxFor(m => m.Existencias, htmlAttributes: new{@type = "number"})
-                            </div>
-                            <div class="col-md-4">
-                                @Html.LabelFor(m => m.ImagenDatos, htmlAttributes: new{@class="form-control-label"})
-                                @Html.TextBoxFor(m => m.ImagenDatos, htmlAttributes: new{@type = "file",@accept=".png,.jpg,.jpeg"})
+                                @Html.LabelFor(m => m.Precio, htmlAttributes: new{ @class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.Precio, htmlAttributes: new{@type = "number ",@class = "form-control col-md-4"})
                             </div>
 
                         </div>
@@ -53,18 +44,32 @@
                         <br />
                         <br />
                         <br />
-                        <br />
 
                         <div class="row">
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.IdProveedor, htmlAttributes: new{@class="form-control-label"})
-                                @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control" })
+                                @Html.LabelFor(m => m.IdProveedor, htmlAttributes: new{@class="form-control-label col-md-4"})
+                                @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control col-md-4" })
                             </div>
-
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.IdCategoria, htmlAttributes: new {@class="form-control-label"})
-                                @Html.DropDownListFor(model => model.IdCategoria, ViewBag.ComboCategorias as List<SelectListItem>, new { @class = "form-control" })
+                                @Html.LabelFor(m => m.IdCategoria, htmlAttributes: new {@class="form-control-label col-md-4"})
+                                @Html.DropDownListFor(model => model.IdCategoria, ViewBag.ComboCategorias as List<SelectListItem>, new { @class = "form-control col-md-4" })
+                            </div>
+                            <div class=" col-md-4">
+                                @Html.LabelFor(m => m.Existencias, htmlAttributes: new{@class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.Existencias, htmlAttributes: new{@type = "number ",@class = "form-control col-md-4"})
+                            </div>
+                        </div>
 
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                        <div class="row">
+                            
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.ImagenDatos, htmlAttributes: new{@class="form-control-label col-md-4 "})
+                                @Html.TextBoxFor(m => m.ImagenDatos, htmlAttributes: new{@class = "form-control col-md-4",@type = "file",@accept=".png,.jpg,.jpeg"})
                             </div>
                         </div>
 

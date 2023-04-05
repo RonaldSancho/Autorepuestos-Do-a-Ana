@@ -21,7 +21,8 @@ namespace Autorepuestos.Entities
         public string ImagenN { get; set; } = string.Empty;
         public IFormFile ImagenDatos { get; set; } 
         public string NombreCategoria { get; set; } = string.Empty;
-        public string NombreProveedor { get; set; } = string.Empty; public class RespuestaProducto
+        public string NombreProveedor { get; set; } = string.Empty; 
+        public class RespuestaProducto
         {
             public int Codigo { get; set; }
             public string Mensaje { get; set; } = string.Empty;

@@ -27,7 +27,8 @@ namespace Autorepuestos.Controllers
         {
             var usuario = HttpContext.Session.GetInt32("IdUsuario");
             var datos = _CarritoModel.ConsultarCarrito(carro, usuario);
-            ViewBag.Total = datos.Sum(x => x.Subtotal);
+            
+            ViewBag.Total = datos.Sum(x =>x.Subtotal); 
 
             return View(datos);
         }
@@ -93,5 +94,6 @@ namespace Autorepuestos.Controllers
 
             return View(datos);
         }
+        
     }
 }

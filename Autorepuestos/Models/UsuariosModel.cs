@@ -7,6 +7,9 @@ using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 using System.Net.Mail;
 using System.Net;
+using static Autorepuestos.Entities.UsuariosEntities;
+using System.Data;
+using static Autorepuestos.Entities.ProductosEntities;
 
 namespace Autorepuestos.Models
 {
@@ -77,5 +80,64 @@ namespace Autorepuestos.Models
                 }
             }
         }
+
+        public void ModificarUsuario(UsuariosEntities usuario)
+
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("ModificarUsuario", new
+                {
+                    usuario.IdUsuario,
+                    usuario.pIdRol,
+                    usuario.pNombre,
+                    usuario.pApellido1,
+                    usuario.pCedula,
+                    
+                    usuario.pTelefono,
+                    usuario.pDireccion
+                },
+                commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public UsuariosEntities? VerUsuario(int id)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                return conexion.Query<UsuariosEntities>("VerUsuario", new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+
+        public List<UsuariosEntities> VerUsuarios(UsuariosEntities usuario)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                return conexion.Query<UsuariosEntities>("VerUsuarios", new { }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public RespuestaUsuario ConsultarRol()
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                var resultado = conexion.Query("ConsultarRol", new { }, commandType: CommandType.StoredProcedure).ToList();
+                RespuestaUsuario respuesta = new RespuestaUsuario();
+                List<UsuariosEntities> datos = new List<UsuariosEntities>(); if (resultado.Count > 0)
+                {
+                    foreach (var item in resultado)
+                    {
+                        datos.Add(new UsuariosEntities
+                        {
+                            pIdRol = item.IdRol,
+                            NombreRol = item.NombreRol,
+                        });
+                    }
+                    respuesta.RespuestaUsuarios = datos;
+                }
+                return respuesta;
+            }
+        }
+
     }
 }

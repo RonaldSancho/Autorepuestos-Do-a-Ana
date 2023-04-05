@@ -1,4 +1,6 @@
 ﻿using Autorepuestos.Entities;
+using static Autorepuestos.Entities.ProductosEntities;
+using static Autorepuestos.Entities.UsuariosEntities;
 
 namespace Autorepuestos.Interfaces
 {
@@ -12,6 +14,10 @@ namespace Autorepuestos.Interfaces
 
         public UsuariosEntities? RecuperarContrasenna(UsuariosEntities usuario);
 
+        public void ModificarUsuario(UsuariosEntities usuario);
+        public UsuariosEntities? VerUsuario(int id);
+        public List<UsuariosEntities> VerUsuarios(UsuariosEntities usuario);
+        public RespuestaUsuario ConsultarRol();
         //public UsuariosEntities? RecuperarContrasenna(UsuariosEntities usuario);
         //public void EnviarCorreo(string CorreoElectronico, string Contrasenna);
 
