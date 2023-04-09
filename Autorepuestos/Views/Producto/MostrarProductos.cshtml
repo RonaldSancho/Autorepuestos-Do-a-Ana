@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Autorepuestos.Entities.ProductosEntities>
 @{
     ViewBag.Title = "MostrarProductos";
+    var rol = Context.Session.GetInt32("IdRol");
 }
 
 <div class="contenedor">
@@ -11,7 +12,10 @@
                     <h3 class="titulo-card-estilo">Tabla de Productos</h3>
                 </div>
                 <div class="card-body">
-                    <a class="btn btn-primary" role="button" href="@Url.Action("AgregarProducto", "Producto")">Agregar Producto</a>
+                    @if (rol == 3)
+                    {
+                        <a class="btn btn-primary" role="button" href="@Url.Action("AgregarProducto", "Producto")">Agregar Producto</a>
+                    }
                     <br />
                     <br />
                     <div class="table-responsive">
@@ -41,11 +45,16 @@
                                         <td>@Html.DisplayFor(modelItem => item.NombreCategoria)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Existencias)</td>
                                         <td>@Html.DisplayFor(modelItem => item.NombreProveedor)</td>
-                                        <td>
-                                            <a class="btn btn-primary" role="button" href="@Url.Action("ModificarProducto","Producto", new{id = item.pIdProducto})">Editar</a>
-                                        </td>
-                                        <td><a class="btn btn-danger" role="button" href="@Url.Action("EliminarProducto","Producto", new{id = item.pIdProducto})">Eliminar</a></td>
-
+                                        @if(rol == 3){
+                                            <td>
+                                                <a class="btn btn-primary" role="button" href="@Url.Action("ModificarProducto","Producto", new{id = item.pIdProducto})">Editar</a>
+                                            </td>
+                                            <td><a class="btn btn-danger" role="button" href="@Url.Action("EliminarProducto","Producto", new{id = item.pIdProducto})">Eliminar</a></td>
+                                        }
+                                        @if(rol== 2){
+                                            <td></td>
+                                            <td></td>
+                                        }
                                     </tr>
                                 }
 

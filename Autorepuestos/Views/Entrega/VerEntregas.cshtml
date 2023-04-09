@@ -1,12 +1,16 @@
 ﻿@model IEnumerable<Autorepuestos.Entities.EntregasEntities>
 @{
     ViewData["Title"] = "VerEntregas";
+    var rol = Context.Session.GetInt32("IdRol");
 }
 <br />
 <br />
 <br />
 <h2>Entregas</h2>
-<a class="btn btn-primary" role="button" href="@Url.Action("AgregarEntrega", "Entrega")">Agregar Entrega</a>
+@if(rol != 4)
+{
+    <a class="btn btn-primary" role="button" href="@Url.Action("AgregarEntrega", "Entrega")">Agregar Entrega</a>
+}
 <br />
 <br />
 <div class="contenedor">
@@ -24,8 +28,16 @@
                                 <p class="card-text">Telefono: @Html.DisplayFor(modelItem => item.Telefono)</p>
                                 <p class="card-text">Cedula Cliente: @Html.DisplayFor(modelItem => item.Cedula)</p>
                                 <p class="card-text">Estado: @Html.DisplayFor(modelItem => item.Estado)</p><!--Ver si se puede pasar esto a un checkbox-->
-                                <a class="btn btn-primary" @*data-bs-toggle="modal"*@ href="@Url.Action("EditarEntrega", "Entrega", new{id= item.pIdEntrega})" role="button">Editar</a>
-                                <a class="btn btn-danger" role="button" href="@Url.Action("EliminarEntrega","Entrega", new{id = item.pIdEntrega})">Eliminar</a>
+                                @if(rol == 4)
+                                {
+                                    <a class="btn btn-primary" @*data-bs-toggle="modal"*@ href="@Url.Action("EditarEntregaRepartidor", "Entrega", new{id= item.pIdEntrega})" role="button">Editar</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary" @*data-bs-toggle="modal"*@ href="@Url.Action("EditarEntrega", "Entrega", new{id= item.pIdEntrega})" role="button">Editar</a>
+                                    <a class="btn btn-danger" role="button" href="@Url.Action("EliminarEntrega","Entrega", new{id = item.pIdEntrega})">Eliminar</a>
+                                
+                                }
                             </div>
                         </div>
                     </div>
@@ -34,42 +46,3 @@
         }
     </div>
 </div>
-@*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <img src="~/template/img/bateria.jpg" class="card-img-top" alt="...">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label" style="font-weight: bold;">Especificaciones</label>
-                        <div class="modal-body">
-                            Modelo: Racing Max <br>
-                            Marca: America<br>
-                            Precio: $2000<br>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5>Mensaje</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Producto agregado exitosamente
-            </div>
-        </div>
-    </div>
-</div>*@

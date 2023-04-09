@@ -97,5 +97,42 @@ namespace Autorepuestos.Controllers
             return RedirectToAction("VerEntregas", "Entrega");
 
         }
+
+        [HttpGet]
+        public ActionResult EditarEntregaRepartidor(int id)
+        {
+
+            var result2 = _EntregasModel.ConsultaEntregaUsuario();
+            if (result2 != null)
+            {
+                var dropdownEstado = new List<SelectListItem>();
+
+                dropdownEstado.Add(new SelectListItem { Text = "Pendiente", Value = "Pendiente" });
+                dropdownEstado.Add(new SelectListItem { Text = "Entregado", Value = "Entregado" });
+
+                var dropdownUsuarios = new List<SelectListItem>();
+                foreach (var item in result2.RespuestaEntregas)
+                    dropdownUsuarios.Add(new SelectListItem { Text = item.NombreUsuario, Value = item.IdUsuario.ToString() });
+
+                ViewBag.ComboEstado = dropdownEstado;
+                ViewBag.ComboUsuario = dropdownUsuarios;
+
+                var consulta = _EntregasModel.ConsultarEntrega(id);
+                if (consulta != null)
+                {
+                    return View(consulta);
+                }
+                return View();
+            }
+            else
+                return View("Error");
+        }
+
+        [HttpPost]
+        public ActionResult EditarEntregaRepartidor(EntregasEntities entrega)
+        {
+            _EntregasModel.EditarEntregaRepartidor(entrega);
+            return RedirectToAction("VerEntregas", "Entrega");
+        }
     }
 }

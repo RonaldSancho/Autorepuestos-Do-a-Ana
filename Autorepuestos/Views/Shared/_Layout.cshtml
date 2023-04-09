@@ -51,6 +51,14 @@
                         <li><a href="@Url.Action("CarritoCompras", "Carrito")">Carrito</a></li>
                         <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
                     }
+                    @if(rol == 2){
+                    <li><a href="@Url.Action("MostrarProductos", "Producto")">Productos</a></li>
+                    <li><a href="@Url.Action("CarritoCompras", "Carrito")">Carrito</a></li>
+                    <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
+                    <li><a href="@Url.Action("MostrarPedido", "Pedido")">Pedido</a></li>
+                    <li><a href="@Url.Action("VerFacturas", "Factura")">Facturas</a></li>
+                    <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
+                    }
                     @if (rol == 3)
                     {
                         <li><a href="@Url.Action("MostrarProductos", "Producto")">Productos</a></li>
@@ -59,6 +67,11 @@
                         <li><a href="@Url.Action("MostrarPedido", "Pedido")">Pedido</a></li>
                         <li><a href="@Url.Action("VerFacturas", "Factura")">Facturas</a></li>
                         <li><a href="@Url.Action("VerUsuarios", "Usuario")">Usuarios</a></li>
+                        <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
+                    }
+                    @if (rol == 4)
+                    {
+                        <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
                         <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
                     }
                  </ul>

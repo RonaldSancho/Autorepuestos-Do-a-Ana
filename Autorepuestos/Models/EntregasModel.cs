@@ -86,7 +86,18 @@ namespace Autorepuestos.Models
                     entrega.pIdEntrega,
                     entrega.Productos,
                     entrega.DireccionEntrega,
-                    entrega.IdUsuario,
+                    entrega.Estado
+                },
+                 commandType: CommandType.StoredProcedure);
+            }
+        }
+        public void EditarEntregaRepartidor(EntregasEntities entrega)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("EditarEntregaRepartidor", new
+                {
+                    entrega.pIdEntrega,
                     entrega.Estado
                 },
                  commandType: CommandType.StoredProcedure);

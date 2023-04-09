@@ -27,6 +27,7 @@ namespace Autorepuestos.Entities
         public string Estado { get; set; } = string.Empty;
         public string Telefono { get; set; } = string.Empty;
         public string Cedula { get; set; } = string.Empty;
+        public string pNombre { get; set; } = string.Empty;
 
         public class RespuestaEntrega
         {

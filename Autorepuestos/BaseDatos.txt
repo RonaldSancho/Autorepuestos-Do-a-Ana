@@ -13,6 +13,7 @@ Create table Rol(
 IdRol int primary key auto_increment,
 NombreRol varchar(20));
 insert into Rol(NombreRol) values('Administrador');
+insert into Rol(NombreRol) values('Repartidor');
 
 Create table Usuario(
 IdUsuario int primary key auto_increment,
@@ -483,13 +484,10 @@ begin
            u.Cedula,
            e.Estado,
            u.IdUsuario
-           
 	FROM entregas e, usuario u
     WHERE e.IdUsuario= u.IdUsuario;
 end//
 delimiter ;
-insert into Entregas(Productos,DireccionEntrega,IdUsuario,Estado) values('Bateria','250M OESTE DEL PALI', 1,'Pendiente');
-
 
 delimiter //
 create procedure AgregarEntrega(Productos varchar(500),DireccionEntrega varchar(80),IdUsuario int)
@@ -498,25 +496,33 @@ begin
 end//
 delimiter ;
 
-
 delimiter // 
-create procedure EditarEntrega(pIdEntrega int, Productos varchar(500),DireccionEntrega varchar(80),IdUsuario int,Estado varchar(50))
+create procedure EditarEntrega(pIdEntrega int, Productos varchar(500),DireccionEntrega varchar(80),Estado varchar(50))
 begin
 	Update Entregas
     Set Productos=Productos,
     DireccionEntrega= DireccionEntrega,
-    IdUsuario=IdUsuario,
     Estado=Estado
     where IdEntrega=pIdEntrega;
 end//
 delimiter ;
 
+delimiter // 
+create procedure EditarEntregaRepartidor(pIdEntrega int, Estado varchar(50))
+begin
+	Update Entregas
+    Set Estado=Estado
+    where IdEntrega=pIdEntrega;
+end//
+delimiter ;
+select * from Entregas
 delimiter //
 create procedure ConsultarEntrega(id int)
 begin
 	select e.IdEntrega 'pIdEntrega',
            e.Productos,
            e.DireccionEntrega,
+           u.NombreUsuario 'pNombre',
 		   u.Telefono,
            u.Cedula,
            e.Estado,

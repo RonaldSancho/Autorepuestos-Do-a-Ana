@@ -8,6 +8,7 @@ namespace Autorepuestos.Interfaces
         public List<EntregasEntities> VerEntregas(EntregasEntities entrega);
         public void AgregarEntrega(EntregasEntities entrega);
         public void Editar(EntregasEntities entrega);
+        public void EditarEntregaRepartidor(EntregasEntities entrega);
         public void EliminarEntrega(int id);
         public EntregasEntities? ConsultarEntrega(int id);
         //public RespuestaEntrega ConsultaEntregaProducto();
