@@ -88,7 +88,7 @@ namespace Autorepuestos.Controllers
         {
             try
             {
-                return View("Index");
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
