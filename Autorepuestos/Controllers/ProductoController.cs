@@ -11,24 +11,26 @@ namespace Autorepuestos.Controllers
     {
         private readonly ILogger<ProductoController> _logger;
         private readonly IProductosModel _ProductosModel;
+        private readonly IPedidosModel _PedidosModel;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductoController(ILogger<ProductoController> logger, IProductosModel productos,IWebHostEnvironment webHostEnvironment)
+        public ProductoController(ILogger<ProductoController> logger, IProductosModel productos, IPedidosModel pedidosModel,IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
             _ProductosModel = productos;
+            _PedidosModel = pedidosModel;
             _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
-        public ActionResult MostrarProductos(ProductosEntities producto)
+        public IActionResult MostrarProductos(ProductosEntities producto)
         {
             return View(_ProductosModel.VerProductos(producto));
         }
 
 
         [HttpGet]
-        public ActionResult AgregarProducto()
+        public IActionResult AgregarProducto()
         {
             var resultado1 = _ProductosModel.ConsultaProductoCategoria();
             var resultado2 = _ProductosModel.ConsultaProductoProveedor();
@@ -55,7 +57,7 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpPost]
-        public ActionResult AgregarProducto(ProductosEntities producto)
+        public IActionResult AgregarProducto(ProductosEntities producto)
         {
             
             if (producto.ImagenDatos != null)
@@ -78,7 +80,7 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
-        public ActionResult EliminarProducto(int id)
+        public IActionResult EliminarProducto(int id)
         {
             _ProductosModel.EliminarProducto(id);
             return RedirectToAction("MostrarProductos");
@@ -87,7 +89,7 @@ namespace Autorepuestos.Controllers
 
 
         [HttpGet]
-        public ActionResult ModificarProducto(int id)
+        public IActionResult ModificarProducto(int id)
         {
             var resultado1 = _ProductosModel.ConsultaProductoCategoria();
             var resultado2 = _ProductosModel.ConsultaProductoProveedor();
@@ -120,7 +122,7 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModificarProducto(ProductosEntities producto)
+        public IActionResult ModificarProducto(ProductosEntities producto)
         {
             if (producto.ImagenDatos != null)
             {
@@ -140,6 +142,43 @@ namespace Autorepuestos.Controllers
             return RedirectToAction("MostrarProductos");
 
         }
+
+        [HttpGet]
+        public IActionResult DevolucionProducto()
+        {
+            try
+            {
+                var resultado = _PedidosModel.ConsultaPedidoProducto();
+                if (resultado != null)
+                {
+                    var opcionesProductos = new List<SelectListItem>();
+
+                    foreach (var item in resultado.RespuestaPedidos)
+                        opcionesProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
+                    ViewBag.ComboProductos = opcionesProductos;
+                }
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View("Error");   
+            }
+        }
+        [HttpPost]
+        public IActionResult DevolucionProducto(ProductosEntities entidad)
+        {
+            try
+            {
+                _ProductosModel.DevolucionProducto(entidad);
+                return RedirectToAction("MostrarProductos", "Producto");
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
+
+
 
     }
 }

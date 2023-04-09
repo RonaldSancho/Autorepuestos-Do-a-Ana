@@ -1,0 +1,43 @@
+﻿@model Autorepuestos.Entities.ProductosEntities
+@{
+    ViewBag.Title = "Devolucion Producto";
+}
+
+<div class="contenedor">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="background-color: white">
+                <div class="card-header" style="background-color: #cbcbcb; height: 50px;">
+                    <h3 class="titulo-card-estilo">Devolucion de Producto</h3>
+                </div>
+                <div class="card-body">
+                    <br />
+
+                    @using (Html.BeginForm("DevolucionProducto", "Producto", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "form-layout row mg-b-25" }))
+                    {
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.pIdProducto, htmlAttributes: new{@class="form-control-label col-md-4"})
+                                @Html.DropDownListFor(model => model.pIdProducto, ViewBag.ComboProductos as List<SelectListItem>, new { @class = "form-control col-md-4" })
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.Cantidad, htmlAttributes: new{@class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.Cantidad, htmlAttributes: new{@type ="number" ,@class = "form-control col-md-4"})
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <button class="btn btn-primary" role="button">Procesar</button>
+                                <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarProductos","Producto")">Cancelar</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

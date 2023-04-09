@@ -380,7 +380,7 @@ begin
 	end;
 $$
 
-/*parte mariana*/
+/*********************************************INICIO SP PRODUCTOS****************************************************************/
 delimiter $$
 CREATE PROCEDURE VerProductos()
 BEGIN
@@ -472,8 +472,17 @@ from Proveedor;
 end
 $$
 
-/*aqui empieza la parte de entregas*/
+delimiter $$
+create procedure DevolucionProducto(pIdProducto int, Cantidad int)
+begin
+	Update Producto P set Existencias= Existencias + Cantidad
+    where P.IdProducto= pIdProducto;
+end
+$$
 
+/*********************************************FIN SP PRODUCTOS******************************************************************/
+
+/*********************************************INICIO SP ENTREGAS****************************************************************/
 delimiter //
 create procedure VerEntregas()
 begin

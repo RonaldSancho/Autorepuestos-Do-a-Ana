@@ -119,5 +119,12 @@ namespace Autorepuestos.Models
                 return respuesta;
             }
         }
+        public void DevolucionProducto(ProductosEntities entidad)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("DevolucionProducto", new { entidad.pIdProducto, entidad.Cantidad }, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }

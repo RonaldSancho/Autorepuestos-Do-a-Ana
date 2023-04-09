@@ -16,6 +16,10 @@
                     {
                         <a class="btn btn-primary" role="button" href="@Url.Action("AgregarProducto", "Producto")">Agregar Producto</a>
                     }
+                    @if(rol == 3 || rol== 2)
+                    {
+                        <a class="btn btn-primary" role="button" href="@Url.Action("DevolucionProducto", "Producto")">Devolucion Productos</a>
+                    }
                     <br />
                     <br />
                     <div class="table-responsive">
