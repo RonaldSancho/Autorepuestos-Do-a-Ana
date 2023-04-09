@@ -31,6 +31,7 @@ namespace Autorepuestos.Controllers
                 if (resultado != null)
                 {
                     HttpContext.Session.SetInt32("IdUsuario", resultado.IdUsuario);
+                    HttpContext.Session.SetInt32("IdRol", resultado.pIdRol);
                     return RedirectToAction("VerCatalogos", "Catalogo");
                 }
                 else

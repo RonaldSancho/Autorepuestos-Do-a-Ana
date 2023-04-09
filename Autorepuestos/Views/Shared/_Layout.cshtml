@@ -31,7 +31,9 @@
 </head>
 
 <body>
-
+    @{
+        var rol = Context.Session.GetInt32("IdRol");
+    }
     <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="container-fluid d-flex align-items-center justify-content-between">
 
@@ -44,14 +46,22 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a href="@Url.Action("MostrarProductos", "Producto")">Productos</a></li>
-                    <li><a href="@Url.Action("CarritoCompras", "Carrito")">Carrito</a></li>
-                    <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
-                    <li><a href="@Url.Action("MostrarPedido", "Pedido")">Pedido</a></li>
-                    <li><a href="@Url.Action("VerFacturas", "Factura")">Facturas</a></li>
-                    <li><a href="@Url.Action("VerUsuarios", "Usuario")">Usuarios</a></li>
-                    <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
-                </ul>
+                    @if(rol == 1)
+                    {
+                        <li><a href="@Url.Action("CarritoCompras", "Carrito")">Carrito</a></li>
+                        <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
+                    }
+                    @if (rol == 3)
+                    {
+                        <li><a href="@Url.Action("MostrarProductos", "Producto")">Productos</a></li>
+                        <li><a href="@Url.Action("CarritoCompras", "Carrito")">Carrito</a></li>
+                        <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
+                        <li><a href="@Url.Action("MostrarPedido", "Pedido")">Pedido</a></li>
+                        <li><a href="@Url.Action("VerFacturas", "Factura")">Facturas</a></li>
+                        <li><a href="@Url.Action("VerUsuarios", "Usuario")">Usuarios</a></li>
+                        <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
+                    }
+                 </ul>
             </nav><!-- .navbar -->
 
             <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>

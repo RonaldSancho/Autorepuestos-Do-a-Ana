@@ -259,7 +259,7 @@ delimiter ;
 delimiter $$
 create procedure ValidarUsuario(in pcorreo varchar(60), in pcontrasena varchar(16) )
 begin
-    select IdUsuario, Correo
+    select IdUsuario, Correo, IdRol 'pIdRol'
     from Usuario 
     where Correo = pcorreo
     and Contrasena = pcontrasena;
