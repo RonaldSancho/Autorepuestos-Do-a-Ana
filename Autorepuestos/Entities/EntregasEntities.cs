@@ -31,6 +31,7 @@ namespace Autorepuestos.Entities
 
         [DisplayName("Cédula")]
         public string Cedula { get; set; } = string.Empty;
+        [DisplayName("Cliente")]
         public string pNombre { get; set; } = string.Empty;
 
         public class RespuestaEntrega
