@@ -25,12 +25,19 @@
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.Cantidad, htmlAttributes: new{@class="form-control-label col-md-4"})
                                 @Html.TextBoxFor(m => m.Cantidad, htmlAttributes: new{@type ="number" ,@class = "form-control col-md-4"})
+                                
                             </div>
-
+                            
                         </div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
 
                         <div class="row">
+                           
                             <div class="col-md-8">
+                           
                                 <button class="btn btn-primary" role="button">Procesar</button>
                                 <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarProductos","Producto")">Cancelar</a>
                             </div>

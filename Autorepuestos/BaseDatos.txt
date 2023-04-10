@@ -577,12 +577,12 @@ BEGIN
 END$$
 
 DELIMITER $$
-CREATE PROCEDURE AgregarCarrito(IdProducto int, Cantidad int, Precio decimal, IdUsuario int)
+CREATE PROCEDURE `AgregarCarrito`(IdProducto int, Cantidad int, Precio decimal, IdUsuario int)
 BEGIN
-    IF (select Existencias from Producto where IdProducto = Producto.IdProducto and Existencias >= Cantidad) then
+    IF Cantidad > 0 and (select Existencias from Producto where IdProducto = Producto.IdProducto and Existencias >= Cantidad) then
     INSERT INTO Carrito (IdProducto, Cantidad, Precio, Subtotal, IdUsuario, Estado) VALUES (IdProducto, Cantidad, Precio, (Cantidad*Precio), IdUsuario, 1);
     end if;
-END$$
+END $$
 
 DELIMITER $$
 create procedure ProductoCarrito(id int)
@@ -600,7 +600,7 @@ end$$
 DELIMITER $$
 CREATE PROCEDURE `EditarCarrito`(IdCarrito int, IdProducto int , Cantidad int, Precio int)
 begin
- IF (select Existencias from Producto where IdProducto = Producto.IdProducto and Existencias >= Cantidad) then
+ IF Cantidad > 0 and (select Existencias from Producto where IdProducto = Producto.IdProducto and Existencias >= Cantidad) then
 	Update Carrito c
     Set c.Cantidad = Cantidad,
     c.Subtotal = (Cantidad*Precio)
@@ -608,10 +608,10 @@ begin
     end if;
 end $$
 	
-delimiter //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `MostrarProductoCarrito`(id int)
+CREATE PROCEDURE `MostrarProductoCarrito`(id int)
 BEGIN
 	SELECT c.IdCarrito,
+           p.IdProducto,
 		   p.NombreProducto,
            p.Existencias,
            c.Cantidad,
@@ -621,7 +621,6 @@ BEGIN
 	where c.IdProducto = p.IdProducto and 
     c.IdCarrito= id;
 end
-// ;
 
 delimiter //
 CREATE PROCEDURE ConsultaExisteProductoCarrito(id int, IdUsuario int)

@@ -25,7 +25,11 @@ namespace Autorepuestos.Entities
        
         [DisplayName("Estado Entrega")]
         public string Estado { get; set; } = string.Empty;
+
+        [DisplayName("Teléfono")]
         public string Telefono { get; set; } = string.Empty;
+
+        [DisplayName("Cédula")]
         public string Cedula { get; set; } = string.Empty;
         public string pNombre { get; set; } = string.Empty;
 

@@ -20,6 +20,7 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>@Html.DisplayFor(modelItem => item.IdProducto)</td>
                 <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
                 <td>¢@Html.DisplayFor(modelItem => item.Precio)</td>
                 <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
