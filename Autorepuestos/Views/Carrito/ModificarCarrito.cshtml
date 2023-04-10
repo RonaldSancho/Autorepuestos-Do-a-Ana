@@ -30,7 +30,7 @@
                     <div class="d-flex justify-content-between p-price"><span>Cantidad deseada:</span><span>@Html.EditorFor(m=>m.Cantidad, new { htmlAttributes = new { @class = "control-label col-md-6 offset-md-6" }})</span></div>
                 </div>
                 <div class="d-flex justify-content-between total font-weight-bold mt-4">
-                    <button class="btn btn-primary" role="button">Modificar</button>
+                    <button class="btn btn-primary" role="button" onclick="MensajeModificacionProducto()">Modificar</button>
                     <a class="btn btn-secondary" role="button" href="@Url.Action("CarritoCompras","Carrito")">Cancelar</a>
                 </div>
             </div>
@@ -38,5 +38,5 @@
     }
 </div>
         
-
+<script src="~/js/site.js"></script>
 

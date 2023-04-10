@@ -29,7 +29,7 @@
                 <td><img src="@Url.Content(item.Imagen)" width="75" height="75" /></td>
                 <td>
                     <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCarrito","Carrito", new{id = item.IdCarrito})">Editar</a>
-                    <a class="btn btn-danger" role="button" onclick="confirmarEliminacion(@item.IdCarrito)">Eliminar</a>
+                    <a class="btn btn-danger" role="button" onclick="MensajeconfirmarEliminacionCarrito(@item.IdCarrito)">Eliminar</a>
                 </td>
             </tr>
         }

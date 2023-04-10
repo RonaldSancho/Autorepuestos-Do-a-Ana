@@ -101,7 +101,7 @@ function MensajeProductoAgregado() {
     });
 }
 
-function confirmarEliminacion(id) {
+function MensajeconfirmarEliminacionCarrito(id) {
     Swal.fire({
         title: '¿Estás seguro?',
         text: 'Esta acción eliminará el producto del carrito de compras.',
@@ -117,6 +117,120 @@ function confirmarEliminacion(id) {
         }
     });
 }
+
+function MensajeModificacionProducto() {
+    Swal.fire({
+        title: 'Producto modificado exitosamente',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+    });
+}
+
+function MensajeconfirmarEliminacionAdmin(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción eliminará el producto del sistema.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/Producto/EliminarProducto?id=' + id;
+        }
+    });
+}
+
+function MensajeEntregaAgregada() {
+    Swal.fire({
+        title: 'Entrega agregada exitosamente',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+    });
+}
+
+function MensajeconfirmarEliminacionEntrega(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción eliminará la entrega del sistema.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/Entrega/EliminarEntrega?id=' + id;
+        }
+    });
+}
+
+function MensajeModificacionEntrega() {
+    Swal.fire({
+        title: 'Entrega modificada exitosamente',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+    });
+}
+
+function MensajePedidoAgregado() {
+    Swal.fire({
+        title: 'Pedido agregado exitosamente',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+    });
+}
+
+function MensajeModificacionPedido() {
+    Swal.fire({
+        title: 'Pedido modificado exitosamente',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+    });
+}
+
+function MensajeconfirmarEliminacionPedido(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción eliminará el pedido del sistema.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/Pedido/EliminarPedido?id=' + id;
+        }
+    });
+}
+
+function MensajeconfirmarEliminacionFactura(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción eliminará la factura del sistema.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/Factura/EliminarFactura?id=' + id;
+        }
+    });
+}
+
 
 
 //@section Scripts {
@@ -146,54 +260,3 @@ function confirmarEliminacion(id) {
 //$('.carousel').carousel({
 //    interval: 2000 // Cambiar el número de milisegundos para ajustar el tiempo de espera entre cada imagen
 //})
-
-
-//function showAlert() {
-//    Swal.fire({
-//        position: 'top-end',
-//        icon: 'success',
-//        title: 'Your work has been saved',
-//        showConfirmButton: false,
-//        timer: 1500
-//    });
-//}
-
-//function RegistrarUsuario() {
-//    let pNombre = $("#pNombre").val();
-//    let pApellido1 = $("#pApellido1").val();
-//    let pCedula = $("#pCedula").val();
-//    let pTelefono = $("#pTelefono").val();
-//    let pCorreo = $("#pCorreo").val();
-//    let pContrasena = $("#pContrasena").val();
-
-//    $.ajax({
-//        url: '/Home/RegistrarUsuario',
-//        data: {
-//            "pNombre": pNombre,
-//            "pApellido1": pApellido1,
-//            "pCedula": pCedula,
-//            "pTelefono": pTelefono,
-//            "pCorreo": pCorreo,
-//            "pContrasena": pContrasena
-//        },
-//        type: 'POST',
-//        dataType: 'json',
-//        success: function (res) {
-//            Swal.fire({
-//                position: 'top-end',
-//                icon: 'success',
-//                title: 'Your work has been saved',
-//                showConfirmButton: false,
-//                timer: 1500
-//            });
-//        },
-//        error: function (xhr, status, error) {
-
-//            Swal.fire({
-//                icon: 'error',
-//                title: 'Error',
-//                text: 'Ocurrió un error al registrar al cliente. Por favor, intente nuevamente más tarde.',
-//            });
-//        }
-//    });
-//}

@@ -49,7 +49,7 @@
                 <td class="line-breaks">@Html.DisplayFor(modelItem => item.Detalle)</td>
                 <td class="line-breaks">@(item.EstadoFactura ? "Procesada" : "Pendiente")</td>
                 <td><a class="btn btn-primary" role="button" href="@Url.Action("VerDetalleFactura","Factura", new{id = item.IdFactura})">Ver Factura</a></td>
-                <td><a class="btn btn-primary" role="button" href="@Url.Action("EliminarFactura","Factura", new{id = item.IdFactura})">Eliminar</a></td>
+                <td><a class="btn btn-primary" role="button" onclick="MensajeconfirmarEliminacionFactura(@item.IdFactura)">Eliminar</a></td>
                 <td><a class="btn btn-primary" role="button" href="@Url.Action("CambiarEstadoFactura","Factura", new{id = item.IdFactura})">Cambiar Estado</a></td>
 
             </tr>
@@ -58,3 +58,5 @@
 
     </tbody>
 </table>
+
+<script src="~/js/site.js"></script>
