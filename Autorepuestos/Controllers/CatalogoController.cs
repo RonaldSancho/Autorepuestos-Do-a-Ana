@@ -55,6 +55,18 @@ namespace Autorepuestos.Controllers
         {
             return View(_CatalogosModel.VerCatalogos(catalogo));
         }
+        [HttpGet]
+        public ActionResult VerProductoCatalogo(int id)
+        {
+            
+                var consulta = _CatalogosModel.VerProductoCatalogo(id);
+                if (consulta != null)
+                    return View(consulta);
+                return View();
+            
+        }
+
+        
 
     }
 }

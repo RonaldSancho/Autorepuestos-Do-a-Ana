@@ -102,5 +102,17 @@ namespace Autorepuestos.Models
             }
 
         }
+
+        public FacturaEntities? EnviarCorreoConfirmacion(FacturaEntities entidad )
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                var resultado = conexion.Query<FacturaEntities>
+                    ("EnviarCorreoConfirmacion", new { entidad.IdUsuario,entidad.IdTipoPago,entidad.IdTipoRetiro }, 
+                    commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
+
+                return resultado;
+            }
+        }
     }
 }

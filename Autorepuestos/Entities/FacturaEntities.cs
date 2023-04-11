@@ -33,7 +33,7 @@ namespace Autorepuestos.Entities
         public string Detalle { get; set; } = string.Empty;
         [DisplayName("Estado Factura")]
         public bool EstadoFactura { get; set; }
-
+        public string Correo { get; set; } = string.Empty;
         public class RespuestaFactura
         {
             public int cod { get; set; }

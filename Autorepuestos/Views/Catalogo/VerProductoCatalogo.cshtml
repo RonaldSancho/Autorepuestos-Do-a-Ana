@@ -1,66 +1,44 @@
 ﻿@model Autorepuestos.Entities.CatalogosEntities
-
 @{
-    ViewData["Title"] = "VerProductoCatalogo";
+    ViewBag.Title = "DetalleProducto";
 }
-
-<h1>VerProductoCatalogo</h1>
+<hr />
+<hr />
+<hr />
+<hr />
+<h1>Detalle Producto</h1>
 
 <div>
-    <h4>CatalogosEntities</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdProducto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdProducto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Precio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Precio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdCategoria)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdCategoria)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Existencias)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Existencias)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdProveedor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdProveedor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Imagen)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Imagen)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreProducto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreProducto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-    </dl>
+
+    @Html.HiddenFor(m => m.IdProducto)
+    <div class="d-flex justify-content-center container mt-5">
+        <div class="card p-3 bg-white">
+            <div class="about-product text-center mt-2">
+                <img class='mx-auto img-thumbnail'
+                     src="@Url.Content(Model.Imagen)" alt="Descripción de la imagen"
+                     title="Descripción adicional de la imagen"
+                     width="350" height="500" />
+                <div>
+                    <h4 class="card-title font-weight-bold">@Html.DisplayFor(m => m.NombreProducto)</h4>
+                    <h6 class="card-title font-weight-bold">@Html.DisplayFor(m => m.Descripcion)</h6>
+                </div>
+            </div>
+            <div class="stats mt-2">
+                <div class="d-flex justify-content-between"><span>Existencias disponibles:</span><span>@Html.DisplayFor(m => m.Existencias)</span></div>
+                <br>
+                <div class="d-flex justify-content-between">
+                    <span>Precio:</span>
+                    <span>
+                        ₡@Html.TextBoxFor(m => m.Precio, new { @readonly = true, style = "border: none; text-align: right; width: 50px;" })
+                    </span>
+                </div>
+                <br>
+
+            </div>
+
+        </div>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<script src="~/js/site.js"></script>

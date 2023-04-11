@@ -721,6 +721,26 @@ begin
     where Factura.IdFactura=IdFactura;
 end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EnviarCorreoConfirmacion`(IdUsuario int,IdTipoPago int,IdTipoRetiro int )
+BEGIN
+declare maximoIdFactura int;
+set maximoIdFactura =( SELECT 
+    MAX(IdFactura)
+FROM
+    factura where Factura.IdUsuario=IdUsuario);
+
+SELECT 
+    IdFactura, Fecha, MontoTotal, Correo
+FROM
+    Factura,
+    Usuario
+WHERE
+    Factura.IdUsuario = IdUsuario
+        AND Factura.IdTipoPago = IdTipoPago
+        AND Factura.IdTipoRetiro = IdTipoRetiro
+        AND factura.IdFactura = maximoIdFactura;
+END
+
 /*FIN SP DE FACTURA*/
 
 /*Inicio de Triggers carrito*/
