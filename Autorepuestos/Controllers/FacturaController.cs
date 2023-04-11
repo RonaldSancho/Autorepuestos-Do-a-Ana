@@ -132,10 +132,12 @@ namespace Autorepuestos.Controllers
             email.Subject = titulo;
             email.Body = new TextPart(TextFormat.Html)
             { Text = "<h1 style=\"text-align: center;\">Tú compra ha sido exitosa</h1><br>\r\n    " +
-            "<h3>Número de Factura:<b style=\"color:#02C7FC\">"+ resultado.IdFactura + "</b> </h3><br>\r\n" +
-            "<h3>Fecha de Compra:" + resultado.Fecha + " </h3><br>\r\n " +
-            "<h3>Monto Total:" + resultado.MontoTotal + " </h3><br>\r\n   " +
-            " <footer style=\"text-align: center;\">Recuerde que si desea descargar la factura, dirijase a la pagina en la sección de facturas y seleccione la factura deseada </footer>" };
+            "<h3>Número de Factura :<b style=\"color:#02C7FC\">"+ resultado.IdFactura + "</b> .</h3><br>\r\n" +
+            "<h3>Fecha de Compra :" + resultado.Fecha + " .</h3><br>\r\n " +
+            "<h3>Detalle de la factura :" + resultado.Detalle + " .</h3><br>\r\n   " +
+            "<h3>Monto Total :" + resultado.MontoTotal + " .</h3><br>\r\n   " +
+            " <footer style=\"text-align: center;\">Recuerde que si desea descargar la factura, diríjase a la página en la sección de facturas y seleccione la factura que desea descargar.</footer>"
+            };
 
             using var smtp = new SmtpClient();
             smtp.Connect(Host, int.Parse(Puerto), false);

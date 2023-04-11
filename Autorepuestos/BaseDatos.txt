@@ -730,12 +730,13 @@ FROM
     factura where Factura.IdUsuario=IdUsuario);
 
 SELECT 
-    IdFactura, Fecha, MontoTotal, Correo
+    IdFactura, Fecha, MontoTotal, Correo, Detalle
 FROM
     Factura,
     Usuario
 WHERE
     Factura.IdUsuario = IdUsuario
+        AND Usuario.IdUsuario = IdUsuario
         AND Factura.IdTipoPago = IdTipoPago
         AND Factura.IdTipoRetiro = IdTipoRetiro
         AND factura.IdFactura = maximoIdFactura;
