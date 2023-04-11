@@ -743,6 +743,17 @@ END
 
 /*FIN SP DE FACTURA*/
 
+/*********************************************INICIO SP ERRORES**************************************************************************/
+
+DELIMITER $$
+CREATE PROCEDURE `RegistrarErrores`(Mensaje varchar(80), Origen varchar(60), IdUsuario int)
+begin
+	INSERT INTO Errores(Fecha, Mensaje, Origen, IdUsuario)
+	VALUES(GETDATE(), Mensaje, Origen, IdUsuario);
+end$$
+
+/*********************************************FIN SP ERRORES**************************************************************************/
+
 /*Inicio de Triggers carrito*/
 create trigger ActualizarExistenciasProductoInsert after insert on DetalleCarrito for each row
 update Producto set Existencias = Existencias - new.Cantidad
