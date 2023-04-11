@@ -14,12 +14,15 @@ namespace Autorepuestos.Controllers
         private readonly ILogger<CatalogoController> _logger;
         private readonly ICatalogosModel _CatalogosModel;
         private readonly IUsuariosModel _UsuariosModel;
+        private readonly IErroresModel _ErroresModel;
 
-        public CatalogoController(ILogger<CatalogoController> logger, ICatalogosModel catalogoModel, IUsuariosModel usuariosModel)
+        public CatalogoController(ILogger<CatalogoController> logger, ICatalogosModel catalogoModel, 
+            IUsuariosModel usuariosModel, IErroresModel erroresModel)
         {
             _logger = logger;
             _CatalogosModel = catalogoModel;
             _UsuariosModel = usuariosModel;
+            _ErroresModel = erroresModel;
         }
 
         [HttpPost]
@@ -40,13 +43,11 @@ namespace Autorepuestos.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                ViewBag.mensaje = "Se presentó un inconveniente con el sistema.";
-                return RedirectToAction("Index","Home");
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
             }
-
-            
         }
 
         [HttpGet]
@@ -58,15 +59,28 @@ namespace Autorepuestos.Controllers
         [HttpGet]
         public ActionResult VerProductoCatalogo(int id)
         {
-            
+            try
+            {
                 var consulta = _CatalogosModel.VerProductoCatalogo(id);
                 if (consulta != null)
                     return View(consulta);
                 return View();
-            
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
         }
 
-        
+        private void RegistrarErrores(Exception ex, ControllerContext contexto)
+        {
+            ErroresEntities errores = new ErroresEntities();
+            errores.Origen = contexto.ActionDescriptor.ControllerName + "-" + contexto.ActionDescriptor.ActionName;
+            errores.Mensaje = ex.Message;
+            errores.IdUsuario = int.Parse(HttpContext.Session.GetString("IdUsuario"));
+            _ErroresModel.RegistrarErrores(errores);
+        }
 
     }
 }

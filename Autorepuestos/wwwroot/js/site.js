@@ -94,7 +94,7 @@ function MensajeUsuarioCreado() {
 
 function MensajeProductoAgregado() {
     Swal.fire({
-        title: 'Producto agregado exitosamente',
+        title: 'Producto editado exitosamente',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
@@ -120,7 +120,7 @@ function MensajeconfirmarEliminacionCarrito(id) {
 
 function MensajeModificacionProducto() {
     Swal.fire({
-        title: 'Producto modificado exitosamente',
+        title: 'Producto editado exitosamente',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
@@ -146,7 +146,7 @@ function MensajeconfirmarEliminacionAdmin(id) {
 
 function MensajeEntregaAgregada() {
     Swal.fire({
-        title: 'Entrega agregada exitosamente',
+        title: 'Entrega editada exitosamente',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
@@ -172,7 +172,7 @@ function MensajeconfirmarEliminacionEntrega(id) {
 
 function MensajeModificacionEntrega() {
     Swal.fire({
-        title: 'Entrega modificada exitosamente',
+        title: 'Entrega editada exitosamente',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
@@ -181,7 +181,7 @@ function MensajeModificacionEntrega() {
 
 function MensajePedidoAgregado() {
     Swal.fire({
-        title: 'Pedido agregado exitosamente',
+        title: 'Pedido editado exitosamente',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
@@ -190,7 +190,7 @@ function MensajePedidoAgregado() {
 
 function MensajeModificacionPedido() {
     Swal.fire({
-        title: 'Pedido modificado exitosamente',
+        title: 'Pedido editado exitosamente',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
@@ -231,6 +231,14 @@ function MensajeconfirmarEliminacionFactura(id) {
     });
 }
 
+function MensajeModificacionUsuario() {
+    Swal.fire({
+        title: 'Usuario editado exitosamente',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+    });
+}
 
 
 //@section Scripts {

@@ -32,14 +32,14 @@
 
                 <div class="col-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.pCedula, new {@class="form-control", @placeholder="Cédula sin guiones"})
+                        @Html.TextBoxFor(m => m.pCedula, new {@class="form-control", @placeholder="Cédula sin guiones", @type="number"})
                         @Html.ValidationMessageFor(m => m.pCedula, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="col-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.pTelefono, new {@class="form-control", @placeholder="Número de teléfono"})
+                        @Html.TextBoxFor(m => m.pTelefono, new {@class="form-control", @placeholder="Número de teléfono", @type="number"})
                         @Html.ValidationMessageFor(m => m.pTelefono, "", new { @class = "text-danger" })
                     </div>
                 </div>

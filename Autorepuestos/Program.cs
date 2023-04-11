@@ -14,6 +14,7 @@ builder.Services.AddScoped<IEntregasModel, EntregasModel>();
 builder.Services.AddScoped<ICarritoModel, CarritoModel>();
 builder.Services.AddScoped<IProductosModel, ProductosModel>();
 builder.Services.AddScoped<IFacturaModel, FacturaModel>();
+builder.Services.AddScoped<IErroresModel, ErroresModel>();
 
 var app = builder.Build();
 

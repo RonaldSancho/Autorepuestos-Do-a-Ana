@@ -2,47 +2,60 @@
 @{
     ViewBag.Title = "CarritoCompras";
 }
-<br />
-<br />
-<br />
-<h1>Carro de compras</h1>
-<table class="table table-light" style="width:100%">
-    <thead>
-        <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Subtotal</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                 @Html.HiddenFor(modelItem => item.IdProducto)
-                <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
-                <td>₡@Html.DisplayFor(modelItem => item.Precio)</td>
-                <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
-                <td>₡@Html.DisplayFor(modelItem => item.Subtotal)</td>
-                <td><img src="@Url.Content(item.Imagen)" width="75" height="75" /></td>
-                <td>
-                    <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCarrito","Carrito", new{id = item.IdCarrito})">Editar</a>
-                    <a class="btn btn-danger" role="button" onclick="MensajeconfirmarEliminacionCarrito(@item.IdCarrito)">Eliminar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-    <tr>
-        <td>Monto Final</td>
-        <td></td>
-        <td>Total</td>
-        <td>₡@ViewBag.Total</td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
-<a href="@Url.Action("ConsultarDetalle", "Carrito")" class="btn btn-primary">Finalizar Compra</a>
 
+<div class="contenedor">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="background-color: white">
+                <div class="card-header" style="background-color: #cbcbcb; height: 50px;">
+                    <h3 class="titulo-card-estilo">Carrito de compras</h3>
+                </div>
+                <div class="card-body">
+                    <br />
+                    <br />
+                    <div class="table-responsive">
+                        <table id="carrito" class="table table-light" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Subtotal</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                         @Html.HiddenFor(modelItem => item.IdProducto)
+                                        <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
+                                        <td>₡@Html.DisplayFor(modelItem => item.Precio)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
+                                        <td>₡@Html.DisplayFor(modelItem => item.Subtotal)</td>
+                                        <td><img src="@Url.Content(item.Imagen)" width="75" height="75" /></td>
+                                        <td>
+                                            <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCarrito","Carrito", new{id = item.IdCarrito})">Editar</a>
+                                            <a class="btn btn-danger" role="button" onclick="MensajeconfirmarEliminacionCarrito(@item.IdCarrito)">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tr>
+                                <td>Monto Final</td>
+                                <td></td>
+                                <td>Total</td>
+                                <td>₡@ViewBag.Total</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <a href="@Url.Action("ConsultarDetalle", "Carrito")" class="btn btn-primary">Finalizar Compra</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="~/js/site.js"></script>

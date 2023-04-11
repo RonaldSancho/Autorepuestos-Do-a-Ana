@@ -13,87 +13,152 @@ namespace Autorepuestos.Controllers
         private readonly ILogger<CarritoController> _logger;
         private readonly ICarritoModel _CarritoModel;
         private readonly IFacturaModel _facturaModel;
+        private readonly IErroresModel _ErroresModel;
 
-        public CarritoController(ILogger<CarritoController> logger, ICarritoModel carritoModel, IFacturaModel facturaModel)
+        public CarritoController(ILogger<CarritoController> logger, ICarritoModel carritoModel, 
+            IFacturaModel facturaModel, IErroresModel errores)
         {
             _logger = logger;
             _CarritoModel = carritoModel;
             _facturaModel = facturaModel;
+            _ErroresModel = errores;
         }
 
         [HttpGet]
         public ActionResult CarritoCompras(CarritoEntities carro)
-
         {
-            var usuario = HttpContext.Session.GetInt32("IdUsuario");
-            var datos = _CarritoModel.ConsultarCarrito(carro, usuario);
-            
-            ViewBag.Total = datos.Sum(x =>x.Subtotal); 
+            try
+            {
+                var usuario = HttpContext.Session.GetInt32("IdUsuario");
+                var datos = _CarritoModel.ConsultarCarrito(carro, usuario);
 
-            return View(datos);
+                ViewBag.Total = datos.Sum(x => x.Subtotal);
+
+                return View(datos);
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
         }
 
         [HttpGet]
         public ActionResult EliminarCarrito(int id)
         {
-            _CarritoModel.EliminarCarrito(id);
-            return RedirectToAction("CarritoCompras", "Carrito");
+            try
+            {
+                _CarritoModel.EliminarCarrito(id);
+                return RedirectToAction("CarritoCompras", "Carrito");
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
         }
 
         [HttpGet]
         public ActionResult ProductoCarrito(int id)
         {
-            var resultado = _CarritoModel.ProductoCarrito(id);
-            if (resultado != null)
-                return View(resultado);
-            else
+            try
+            {
+                var resultado = _CarritoModel.ProductoCarrito(id);
+                if (resultado != null)
+                    return View(resultado);
+                else
+                    return View("Error");
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
                 return View("Error");
-
+            }
         }
 
         [HttpPost]
         public ActionResult AgregarCarrito(CatalogosEntities entidad)
         {
-            var usuario = HttpContext.Session.GetInt32("IdUsuario");
-            var resultado = _CarritoModel.ConsultaExisteProductoCarrito(entidad.IdProducto, usuario);
-            if (resultado != null)
-                return RedirectToAction("VerCatalogos", "Catalogo");
-            else
+            try
             {
-                _CarritoModel.AgregarCarrito(entidad, usuario);
-                return RedirectToAction("VerCatalogos", "Catalogo");
+                var usuario = HttpContext.Session.GetInt32("IdUsuario");
+                var resultado = _CarritoModel.ConsultaExisteProductoCarrito(entidad.IdProducto, usuario);
+                if (resultado != null)
+                    return RedirectToAction("VerCatalogos", "Catalogo");
+                else
+                {
+                    _CarritoModel.AgregarCarrito(entidad, usuario);
+                    return RedirectToAction("VerCatalogos", "Catalogo");
+                }
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
             }
         }
 
         [HttpGet]
         public IActionResult ModificarCarrito(int id)
         {
-            var resultado = _CarritoModel.MostrarProductoCarrito(id);
-            if (resultado != null)
-                return View(resultado);
-            else
+            try {
+                var resultado = _CarritoModel.MostrarProductoCarrito(id);
+                if (resultado != null)
+                    return View(resultado);
+                else
+                    return View("Error");
+
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
                 return View("Error");
+            }
         }
 
         [HttpPost]
         public IActionResult ModificarCarrito(CarritoEntities entidad)
         {
-            _CarritoModel.EditarCarrito(entidad);
-            return RedirectToAction("CarritoCompras", "Carrito");
+            try
+            {
+                _CarritoModel.EditarCarrito(entidad);
+                return RedirectToAction("CarritoCompras", "Carrito");
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
         }
 
         /*aqui empieza la parte del detalle como tal para verificar la compra*/
         [HttpGet]
         public IActionResult ConsultarDetalle()
         {
-            var usuario = HttpContext.Session.GetInt32("IdUsuario");
-            _CarritoModel.CreandoDetalle();
+            try
+            {
+                var usuario = HttpContext.Session.GetInt32("IdUsuario");
+                _CarritoModel.CreandoDetalle();
 
-            var datos = _CarritoModel.ConsultarDetalle(usuario);
-            ViewBag.Total = datos.Sum(x => x.Subtotal);
+                var datos = _CarritoModel.ConsultarDetalle(usuario);
+                ViewBag.Total = datos.Sum(x => x.Subtotal);
 
-            return View(datos);
+                return View(datos);
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
         }
-        
+
+        private void RegistrarErrores(Exception ex, ControllerContext contexto)
+        {
+            ErroresEntities errores = new ErroresEntities();
+            errores.Origen = contexto.ActionDescriptor.ControllerName + "-" + contexto.ActionDescriptor.ActionName;
+            errores.Mensaje = ex.Message;
+            errores.IdUsuario = int.Parse(HttpContext.Session.GetString("IdUsuario"));
+            _ErroresModel.RegistrarErrores(errores);
+        }
     }
 }

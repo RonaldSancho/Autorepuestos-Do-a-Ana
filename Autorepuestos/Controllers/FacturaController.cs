@@ -16,17 +16,28 @@ namespace Autorepuestos.Controllers
         private readonly IFacturaModel _facturaModel;
         private readonly ILogger<FacturaController> _logger;
         private readonly IConfiguration _configuration;
-        public FacturaController(IFacturaModel facturaModel, ILogger<FacturaController> logger, IConfiguration configuration)
+        private readonly IErroresModel _ErroresModel;
+        public FacturaController(IFacturaModel facturaModel, ILogger<FacturaController> logger, 
+            IConfiguration configuration, IErroresModel erroresModel)
         {
             _facturaModel = facturaModel;
             _logger = logger;
             _configuration = configuration;
+            _ErroresModel = erroresModel;
         }
 
         [HttpGet]
         public IActionResult VerFacturas()
         {
-            return View(_facturaModel.VerFacturas());
+            try
+            {
+                return View(_facturaModel.VerFacturas());
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
         }
 
         //[HttpGet]
@@ -40,41 +51,66 @@ namespace Autorepuestos.Controllers
         [HttpGet]
         public IActionResult EliminarFactura(int id) 
         {
-            _facturaModel.EliminarFactura(id);
-            return RedirectToAction("VerFacturas", "Factura");
+            try
+            {
+                _facturaModel.EliminarFactura(id);
+                return RedirectToAction("VerFacturas", "Factura");
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
         }
 
         [HttpGet]
         public IActionResult VerDetalleFactura(int id)
         {
-            var resultado = _facturaModel.VerDetalleFactura(id);
-            if (resultado != null)
-                return View(resultado);
-            else
+            try
+            {
+                var resultado = _facturaModel.VerDetalleFactura(id);
+                if (resultado != null)
+                    return View(resultado);
+                else
+                    return View("Error");
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
                 return View("Error");
+            }
         }
 
         [HttpGet]
         public IActionResult ConsultarTipoPago()
         {
-            var result = _facturaModel.ConsultarTipoPago();
-            var result2 = _facturaModel.ConsultarTipoRetiro();
-            if (result != null && result2 != null)
+            try
             {
-                var dropdownTipoPago = new List<SelectListItem>();
-                var dropdownTipoRetiro = new List<SelectListItem>();
-                foreach (var item in result.RespuestaFacturas)
-                    dropdownTipoPago.Add(new SelectListItem { Text = item.TipoPago, Value = item.IdTipoPago.ToString() });
-                foreach (var item in result2.RespuestaFacturas)
-                    dropdownTipoRetiro.Add(new SelectListItem { Text = item.TipoRetiro, Value = item.IdTipoRetiro.ToString() });
+                var result = _facturaModel.ConsultarTipoPago();
+                var result2 = _facturaModel.ConsultarTipoRetiro();
+                if (result != null && result2 != null)
+                {
+                    var dropdownTipoPago = new List<SelectListItem>();
+                    var dropdownTipoRetiro = new List<SelectListItem>();
+                    foreach (var item in result.RespuestaFacturas)
+                        dropdownTipoPago.Add(new SelectListItem { Text = item.TipoPago, Value = item.IdTipoPago.ToString() });
+                    foreach (var item in result2.RespuestaFacturas)
+                        dropdownTipoRetiro.Add(new SelectListItem { Text = item.TipoRetiro, Value = item.IdTipoRetiro.ToString() });
 
-                ViewBag.ComboTipoPago = dropdownTipoPago;
-                ViewBag.ComboTipoRetiro = dropdownTipoRetiro;
-                return View();
+                    ViewBag.ComboTipoPago = dropdownTipoPago;
+                    ViewBag.ComboTipoRetiro = dropdownTipoRetiro;
+                    return View();
+                }
+                else
+                    return View("Error");
             }
-            else
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
                 return View("Error");
+            }
         }
+
         [HttpPost]
         public IActionResult ConsultarTipoPago(FacturaEntities entidad)
         {
@@ -113,9 +149,25 @@ namespace Autorepuestos.Controllers
         [HttpGet]
         public IActionResult CambiarEstadoFactura(int id)
         {
-            _facturaModel.CambiarEstadoFactura(id);
-            return RedirectToAction("VerFacturas", "Factura");
+            try
+            {
+                _facturaModel.CambiarEstadoFactura(id);
+                return RedirectToAction("VerFacturas", "Factura");
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
         }
 
+        private void RegistrarErrores(Exception ex, ControllerContext contexto)
+        {
+            ErroresEntities errores = new ErroresEntities();
+            errores.Origen = contexto.ActionDescriptor.ControllerName + "-" + contexto.ActionDescriptor.ActionName;
+            errores.Mensaje = ex.Message;
+            errores.IdUsuario = int.Parse(HttpContext.Session.GetString("IdUsuario"));
+            _ErroresModel.RegistrarErrores(errores);
+        }
     }
 }

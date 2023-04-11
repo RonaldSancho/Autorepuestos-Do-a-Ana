@@ -18,9 +18,10 @@ namespace Autorepuestos.Controllers
         private readonly ICatalogosModel _CatalogosModel;
         private readonly IEntregasModel _EntregasModel;
         private readonly IConfiguration _configuration;
+        private readonly IErroresModel _ErroresModel;
 
         public HomeController(ILogger<HomeController> logger, IUsuariosModel usuariosModel, IPedidosModel pedidosModel, 
-            ICatalogosModel catalogoModel, IEntregasModel entregasModel, IConfiguration configuration)
+            ICatalogosModel catalogoModel, IEntregasModel entregasModel, IConfiguration configuration, IErroresModel erroresModel)
         {
             _logger = logger;
             _UsuariosModel = usuariosModel;
@@ -28,6 +29,7 @@ namespace Autorepuestos.Controllers
             _CatalogosModel = catalogoModel;
             _EntregasModel = entregasModel;
             _configuration = configuration;
+            _ErroresModel = erroresModel;
         }
 
         [HttpGet]
@@ -56,8 +58,8 @@ namespace Autorepuestos.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.mensaje = "Se presentó un inconveniente con el sistema.";
-                    return View();
+                    RegistrarErrores(ex, ControllerContext);
+                    return View("ErrorLogin");
                 }
             }
             return View();
@@ -76,10 +78,10 @@ namespace Autorepuestos.Controllers
             {
                 return View();
             }
-            catch
+            catch (Exception ex)
             {
-                ViewBag.mensaje = "Correo no registrado";
-                return View("Index");
+                RegistrarErrores(ex, ControllerContext);
+                return View("ErrorLogin");
             }
         }
 
@@ -90,10 +92,10 @@ namespace Autorepuestos.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            catch
+            catch (Exception ex)
             {
-                ViewBag.mensaje = "Correo no registrado";
-                return View("Index");
+                RegistrarErrores(ex, ControllerContext);
+                return View("ErrorLogin");
             }
         }
 
@@ -136,12 +138,29 @@ namespace Autorepuestos.Controllers
         [FiltroSesiones]
         public IActionResult CerrarSesion() //el cerrar sesion no borra la variable de sesion
         {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                HttpContext.Session.Clear();
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("ErrorLogin");
+            }
         }
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private void RegistrarErrores(Exception ex, ControllerContext contexto)
+        {
+            ErroresEntities errores = new ErroresEntities();
+            errores.Origen = contexto.ActionDescriptor.ControllerName + "-" + contexto.ActionDescriptor.ActionName;
+            errores.Mensaje = ex.Message;
+            errores.IdUsuario = int.Parse(HttpContext.Session.GetString("IdUsuario"));
+            _ErroresModel.RegistrarErrores(errores);
         }
     }
 }
