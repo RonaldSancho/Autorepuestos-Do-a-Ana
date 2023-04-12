@@ -83,7 +83,6 @@ body {
     display: block;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     padding: 150px 20px 0 20px;
     box-sizing: border-box;
 }

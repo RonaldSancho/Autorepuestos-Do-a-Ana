@@ -94,7 +94,7 @@ function MensajeUsuarioCreado() {
 
 function MensajeProductoAgregado() {
     Swal.fire({
-        title: 'Producto editado exitosamente',
+        title: 'Producto agregado exitosamente',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
