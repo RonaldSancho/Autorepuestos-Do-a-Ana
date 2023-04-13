@@ -3,60 +3,67 @@
     ViewBag.Title = "VerFacturas";
 }
 
-<h1>Facturas</h1>
+<div class="contenedor">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="background-color: white">
+                <div class="card-header" style="background-color: #cbcbcb; height: 50px;">
+                    <h3 class="titulo-card-estilo">Tabla de Facturas</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example" class="table table-light table-hover" style="width:100%">
 
-<br />
-<br />
-
-<style>
-    .line-breaks {
-        white-space: pre-line;
-    }
-</style>
-<table class="table table-light">
-
-    <thead>
-        <tr>
-            <th scope="col">Código Factura</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Usuario</th>
-            <th scope="col">Monto Total</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Direccion</th>
-            <th scope="col">Tipo de Pago</th>
-            <th scope="col">Tipo de Retiro</th>
-            <th scope="col">Detalle Compra</th>
-            <th scope="col">Estado Factura</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <th scope="row">@Html.DisplayFor(modelItem => item.IdFactura)</th>
-                <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
-                <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
-                <td>@Html.DisplayFor(modelItem => item.MontoTotal)</td>
-                <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
-                <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
-                <td>@Html.DisplayFor(modelItem => item.TipoPago)</td>
-                <td>@Html.DisplayFor(modelItem => item.TipoRetiro)</td>
-                <td class="line-breaks">@Html.DisplayFor(modelItem => item.Detalle)</td>
-                <td class="line-breaks">@(item.EstadoFactura ? "Procesada" : "Pendiente")</td>
-                <td><a class="btn btn-primary" role="button" href="@Url.Action("VerDetalleFactura","Factura", new{id = item.IdFactura})">Ver Factura</a></td>
-                <td><a class="btn btn-primary" role="button" onclick="MensajeconfirmarEliminacionFactura(@item.IdFactura)">Eliminar</a></td>
-                <td><a class="btn btn-primary" role="button" href="@Url.Action("CambiarEstadoFactura","Factura", new{id = item.IdFactura})">Cambiar Estado</a></td>
-
-            </tr>
-        }
+                            <thead>
+                                <tr>
+                                    <th scope="col">Código Factura</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Monto Total</th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Direccion</th>
+                                    <th scope="col">Tipo de Pago</th>
+                                    <th scope="col">Tipo de Retiro</th>
+@*                                    <th scope="col">Detalle Compra</th>*@
+                                    <th scope="col">Estado Factura</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
 
 
-    </tbody>
-</table>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@Html.DisplayFor(modelItem => item.IdFactura)</th>
+                                        <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.MontoTotal)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TipoPago)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TipoRetiro)</td>
+@*                                        <td class="line-breaks">@Html.DisplayFor(modelItem => item.Detalle)</td>*@
+                                        <td class="line-breaks">@(item.EstadoFactura ? "Procesada" : "Pendiente")</td>
+                                        <td><a class="btn btn-primary" role="button" href="@Url.Action("VerDetalleFactura","Factura", new{id = item.IdFactura})">Ver Factura</a></td>
+                                        <td><a class="btn btn-primary" role="button" onclick="MensajeconfirmarEliminacionFactura(@item.IdFactura)">Eliminar</a></td>
+                                        <td><a class="btn btn-primary" role="button" href="@Url.Action("CambiarEstadoFactura","Factura", new{id = item.IdFactura})">Cambiar Estado</a></td>
+
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <script src="~/js/site.js"></script>

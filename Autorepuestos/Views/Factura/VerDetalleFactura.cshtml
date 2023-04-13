@@ -3,63 +3,112 @@
     ViewBag.Title = "DetalleFactura";
 }
 
-<h1>Detalle</h1>
+<div class="contenedor">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="invoice-container">
+                        <div class="invoice-header">
+                            <div style="text-align: center;">
+                                <h2 class="text-dark">Número de factura:  #@Html.DisplayFor(m => m.IdFactura)</h2>
+                            </div>
+                            <!-- Row start -->
+@*                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="custom-actions-btns mb-5">
+                                        <a href="#" class="btn btn-primary">
+                                            <i class="icon-download"></i> Download
+                                        </a>
+                                        <a href="#" class="btn btn-secondary">
+                                            <i class="icon-printer"></i> Print
+                                        </a> PONER BOTONES ACÁ
+                                    </div>
+                                </div>
+                            </div>*@
+                            <!-- Row end -->
+                            <!-- Row start -->
+                            <div class="row gutters">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="receipt-left">
+                                        <img class="img-responsive" alt="iamgurdeeposahan" src="/template/imagen/Logo.png" style="width: 150px; border-radius: 43px;">
+                                    </div>
+                                    <br />
+                                    <address class="text-right" style="color: black">
+                                        Av. Central, Hatillo 3, San José.<br>
+                                        2252-0404<br>
+                                        autorepuestosda@outlook.com
+                                    </address>
+                                </div>
+                            </div>
+                            <!-- Row end -->
+                            <!-- Row start -->
+                            <div class="row gutters">
+                                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                                    <div class="invoice-details">
+                                        <address>
+                                            Datos del cliente
+                                            <div><strong>Nombre del cliente:</strong> @Html.DisplayFor(m => m.NombreUsuario)</div>
+                                            <div><strong>Teléfono del cliente:</strong> @Html.DisplayFor(m => m.Telefono)</div>
+                                            <div><strong>Dirección del cliente:</strong> @Html.DisplayFor(m => m.Direccion)</div>
+                                        </address>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                                    <div class="invoice-details">
+                                        <address>
+                                            Datos de la factura
+                                            <div><strong>Fecha de creación:</strong> @Html.DisplayFor(m => m.Fecha)</div>
+                                            <div><strong>Tipo de pago:</strong> @Html.DisplayFor(m => m.TipoPago)</div>
+                                            <div><strong>Tipo de retiro:</strong> @Html.DisplayFor(m => m.TipoRetiro)</div>
+                                        </address>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Row end -->
 
-<style>
-    .line-breaks {
-        white-space: pre-line;
-    }
-</style>
-<div>
-    <h4>Pedido</h4>
-    <hr />
-    <dl>
-        <dt>
-            # @Html.DisplayNameFor(m => m.IdFactura)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.IdFactura)</dd>
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(m => m.NombreUsuario)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.NombreUsuario)</dd>
+                        <div class="invoice-body">
 
-        <dt>
-            @Html.DisplayNameFor(m => m.Fecha)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.Fecha)</dd>
+                            <!-- Row start -->
+                            <div class="row gutters">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-light custom-table m-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-dark">Detalle de compra</th>
+                                                    <th class="text-dark">Monto total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <h6 class="text-dark"><strong>@Html.DisplayFor(m => m.Detalle)</strong></h6>
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="text-dark"><strong>₡@Html.DisplayFor(m => m.MontoTotal)</strong></h6>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Row end -->
 
-        <dt>
-            @Html.DisplayNameFor(m => m.MontoTotal)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.MontoTotal)</dd>
-
-        <dt>
-            @Html.DisplayNameFor(m => m.Telefono)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.Telefono)</dd>
-        <dt>
-            @Html.DisplayNameFor(m => m.Direccion)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.Direccion)</dd>
-        <dt>
-            @Html.DisplayNameFor(m => m.TipoPago)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.TipoPago)</dd>
-        <dt>
-            @Html.DisplayNameFor(m => m.TipoRetiro)
-        </dt>
-        <dd>@Html.DisplayFor(m => m.TipoRetiro)</dd>
-        <dt>
-            @Html.DisplayNameFor(m => m.Detalle)
-        </dt>
-        <dd class="line-breaks">@Html.DisplayFor(m => m.Detalle)</dd>
-        @*<dt>
-            @Html.DisplayNameFor(m => m.EstadoFactura)
-        </dt>
-        <dd class="line-breaks">@Html.DisplayFor(m => m.EstadoFactura)</dd>*@
-    </dl>
-    <p>
-        <a class="btn btn-secondary" role="button" href="@Url.Action("VerFacturas","Factura")">Volver</a>
-    </p>
+                        </div>
+                        <br />
+                        <div class="invoice-footer">
+                            Gracias por preferir Autorepuestos Doña Ana.
+                        </div>
+                        <p>
+                            <a class="btn btn-secondary" role="button" href="@Url.Action("VerFacturas","Factura")">Volver</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
