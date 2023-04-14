@@ -85,7 +85,18 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <h6 class="text-dark"><strong>@Html.DisplayFor(m => m.Detalle)</strong></h6>
+                                                        <h6 class="text-dark">
+                                                            <strong>
+                                                            @*@Html.DisplayFor(m => m.Detalle)*@
+
+                                                            @foreach (var item in Model.Detalle.Replace(",","").Split(" ! "))
+                                                                {
+                                                                    @item <br/>
+                                                                }
+
+                                                            </strong>
+                                                         </h6>
+
                                                     </td>
                                                     <td>
                                                         <h6 class="text-dark"><strong>₡@Html.DisplayFor(m => m.MontoTotal)</strong></h6>
