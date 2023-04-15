@@ -56,6 +56,7 @@ namespace Autorepuestos.Controllers
         {
             return View(_CatalogosModel.VerCatalogos(catalogo));
         }
+
         [HttpGet]
         public ActionResult VerProductoCatalogo(int id)
         {

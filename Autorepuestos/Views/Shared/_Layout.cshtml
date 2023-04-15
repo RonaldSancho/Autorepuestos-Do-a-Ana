@@ -46,6 +46,8 @@
                 <ul>
                     @if(rol == 1)
                     {
+@*                        <input type="text" id="search-input" class="form-control" placeholder="Buscar productos...">*@
+                        <li><a href="@Url.Action("SobreNosotros", "Home")">Sobre Nosotros</a></li>
                         <li><a href="@Url.Action("CarritoCompras", "Carrito")">Carrito</a></li>
                         <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
                     }
@@ -222,3 +224,5 @@
 </body>
 
 </html>
+
+@*<script src="~/js/buscador.js"></script>*@

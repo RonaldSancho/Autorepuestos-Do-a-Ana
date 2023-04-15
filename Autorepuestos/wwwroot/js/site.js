@@ -1,4 +1,8 @@
-﻿function CorreoExistente() {
+﻿/*--------------------------------------------------------------
+Ajax
+--------------------------------------------------------------*/
+
+function CorreoExistente() {
     let pcorreo = $("#pCorreo").val();
     $("#RegistrarUsuario").prop("disabled", true);
 
@@ -74,6 +78,9 @@ function Recuperar() {
     });
 }
 
+/*--------------------------------------------------------------
+Mensajes de login
+--------------------------------------------------------------*/
 function MensajeCredenciales() {
     Swal.fire({
         title: 'Error de inicio de sesión',
@@ -91,6 +98,10 @@ function MensajeUsuarioCreado() {
         timer: 1500
     });
 }
+
+/*--------------------------------------------------------------
+Mensajes de productos
+--------------------------------------------------------------*/
 
 function MensajeProductoAgregado() {
     Swal.fire({
@@ -144,6 +155,10 @@ function MensajeconfirmarEliminacionAdmin(id) {
     });
 }
 
+/*--------------------------------------------------------------
+Mensajes de entregas
+--------------------------------------------------------------*/
+
 function MensajeEntregaAgregada() {
     Swal.fire({
         title: 'Entrega editada exitosamente',
@@ -178,6 +193,10 @@ function MensajeModificacionEntrega() {
         timer: 1500
     });
 }
+
+/*--------------------------------------------------------------
+Mensajes de pedidos
+--------------------------------------------------------------*/
 
 function MensajePedidoAgregado() {
     Swal.fire({
@@ -214,6 +233,10 @@ function MensajeconfirmarEliminacionPedido(id) {
     });
 }
 
+/*--------------------------------------------------------------
+Mensajes de facturas
+--------------------------------------------------------------*/
+
 function MensajeconfirmarEliminacionFactura(id) {
     Swal.fire({
         title: '¿Estás seguro?',
@@ -231,6 +254,10 @@ function MensajeconfirmarEliminacionFactura(id) {
     });
 }
 
+/*--------------------------------------------------------------
+Mensajes de usuarios
+--------------------------------------------------------------*/
+
 function MensajeModificacionUsuario() {
     Swal.fire({
         title: 'Usuario editado exitosamente',
@@ -239,32 +266,3 @@ function MensajeModificacionUsuario() {
         timer: 1500
     });
 }
-
-
-//@section Scripts {
-//    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-//    <script>
-//        $(function () {
-//            $('form').submit(function (event) {
-//                event.preventDefault();
-//                Swal.fire({
-//                    title: '¿Estás seguro?',
-//                    text: '¿Quieres agregar este producto al carrito?',
-//                    icon: 'question',
-//                    showCancelButton: true,
-//                    confirmButtonColor: '#3085d6',
-//                    cancelButtonColor: '#d33',
-//                    confirmButtonText: 'Agregar al carrito'
-//                }).then((result) => {
-//                    if (result.isConfirmed) {
-//                        $(this).unbind('submit').submit();
-//                    }
-//                });
-//            });
-//        });
-//    </script>
-//}
-
-//$('.carousel').carousel({
-//    interval: 2000 // Cambiar el número de milisegundos para ajustar el tiempo de espera entre cada imagen
-//})

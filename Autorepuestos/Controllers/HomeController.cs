@@ -135,6 +135,13 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
+        public IActionResult SobreNosotros()
+        {
+            HttpContext.Session.Clear();
+            return View();
+        }
+
+        [HttpGet]
         [FiltroSesiones]
         public IActionResult CerrarSesion() //el cerrar sesion no borra la variable de sesion
         {

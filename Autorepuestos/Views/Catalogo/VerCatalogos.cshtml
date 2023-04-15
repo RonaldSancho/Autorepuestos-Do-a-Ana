@@ -5,27 +5,22 @@
 <br />
 <br />
 <br />
-<br />
-<br />
-
 
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="/template/imagen/prop1.png" class="d-block w-100" width="1250" height="700">
+            <img src="/template/imagen/prop1.png" class="d-block w-100">
         </div>
         <div class="carousel-item">
-            <img src="/template/imagen/prop2.png" class="d-block w-100" width="1250" height="700">
+            <img src="/template/imagen/prop2.png" class="d-block w-100">
         </div>
         <div class="carousel-item">
-            <img src="/template/imagen/prop3.png" class="d-block w-100" width="1250" height="700">
+            <img src="/template/imagen/prop3.png" class="d-block w-100">
         </div>
     </div>
 </div>
+<h2 class="TituloProductos text-light">Lo más destacado</h2>
 <br />
-<br />
-
-
 
 <div class="row gy-4 justify-content-center">
     @foreach (var item in Model)
@@ -56,99 +51,3 @@
 </div>
 
 <script src="~/js/site.js"></script>
-
-@*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <img src="~/template/img/bateria.jpg" class="card-img-top" alt="...">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label" style="font-weight: bold;">Especificaciones</label>
-                        <div class="modal-body">
-                            Modelo: Racing Max <br>
-                            Marca: America<br>
-                            Precio: $2000<br>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5>Mensaje</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Producto agregado exitosamente
-            </div>
-        </div>
-    </div>
-</div>*@
-
-@*<script>
-    function AgregarCantidad() {
-        $.ajax({
-            type: 'POST',
-            url: '/Carrito/CarritoCompras',
-            data: {
-                "id": $("#id").val()
-            },
-            dataType: 'json',
-            success: function (data) {
-                window.location.href = "/Carrito/CarritoCompras";
-            },
-            error: function (xhr) {
-                alert(xhr.responseText);
-            }
-        });
-    }
-</script>
-
-
-@section modals
-    {
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cantidad</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-
-
-                    <p>Desea eliminar el Servicio?</p>
-
-                    <input value="Cantidad" type="number"/>
-
-                    @Html.Hidden("id", "")
-
-
-
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-primary" value="Agregar" onclick="AgregarCantidad();" />
-                </div>
-            </div>
-        </div>
-    </div>
-}*@
-
-
-
-
