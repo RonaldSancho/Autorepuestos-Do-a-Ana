@@ -5,11 +5,9 @@ using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
-using System.Net.Mail;
-using System.Net;
 using static Autorepuestos.Entities.UsuariosEntities;
 using System.Data;
-using static Autorepuestos.Entities.ProductosEntities;
+
 
 namespace Autorepuestos.Models
 {
@@ -86,6 +84,8 @@ namespace Autorepuestos.Models
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
+                if (usuario.pContrasena == null)
+                    usuario.pContrasena = "";
                 conexion.Execute("ModificarUsuario", new
                 {
                     usuario.IdUsuario,
@@ -93,9 +93,10 @@ namespace Autorepuestos.Models
                     usuario.pNombre,
                     usuario.pApellido1,
                     usuario.pCedula,
-                    
                     usuario.pTelefono,
-                    usuario.pDireccion
+                    usuario.pDireccion,
+                    usuario.pCorreo,
+                    usuario.pContrasena
                 },
                 commandType: CommandType.StoredProcedure);
             }
@@ -136,7 +137,17 @@ namespace Autorepuestos.Models
                     respuesta.RespuestaUsuarios = datos;
                 }
                 return respuesta;
+            
             }
+        }
+
+        public void CambiarEstadoUsuario(int IdUsuario)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("CambiarEstadoUsuario", new { IdUsuario }, commandType: CommandType.StoredProcedure);
+            }
+
         }
 
     }

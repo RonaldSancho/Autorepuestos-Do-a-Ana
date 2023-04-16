@@ -205,27 +205,26 @@ call EliminarPedido(3);
 select * from Pedidos;
 
 /*----------------------------------------------------------------------------------------------------------------*/
-
-delimiter //
-create procedure CrearPedido(IdProducto int,Cantidad int, IdProveedor int, PrecioProducto decimal, PrecioTotal decimal, IdUsuario int)
+delimiter$$
+CREATE PROCEDURE `CrearPedido`(IdProducto int,Cantidad int, IdProveedor int, PrecioProducto decimal, PrecioTotal decimal, IdUsuario int)
 begin
-	Insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) values(IdProducto,Cantidad, IdProveedor, PrecioProducto, PrecioTotal, IdUsuario);
-end//
-delimiter ;
-
+	Insert into Pedidos(IdProducto,Cantidad,IdProveedor,PrecioProducto,PrecioTotal,IdUsuario) 
+    values(IdProducto,Cantidad, IdProveedor, PrecioProducto, (Cantidad*PrecioProducto), IdUsuario);
+end$$
 call CrearPedido(340,1,1,30,1,3000,3000,2);
 call CrearPedido(1,1,30,1,3000,3000,2)
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
 delimiter //
-create procedure EditarPedido(pIdPedido int, IdProducto int,Cantidad int, IdProveedor int, PrecioProducto decimal, PrecioTotal decimal, IdUsuario int)
+CREATE PROCEDURE `EditarPedido`(pIdPedido int, IdProducto int,Cantidad int, IdProveedor int, PrecioProducto decimal, PrecioTotal decimal, IdUsuario int)
 begin
 	Update Pedidos
     Set IdProducto=IdProducto,
     Cantidad=Cantidad, IdProveedor=IdProveedor, PrecioProducto=PrecioProducto, 
-    PrecioTotal=PrecioTotal, IdUsuario=IdUsuario
+    PrecioTotal=(Cantidad*PrecioProducto), IdUsuario=IdUsuario
     where IdPedido=pIdPedido;
+end
 end//
 delimiter ;
 call EditarPedido(100,1,1,60,1,3000,3000,2);
@@ -268,12 +267,12 @@ end
 $$
 
 DELIMITER $$
-CREATE PROCEDURE RegistrarUsuario(in pnombre varchar(30), in papellido1 varchar(20), in pcedula varchar(30),
+CREATE PROCEDURE `RegistrarUsuario`(in pnombre varchar(30), in papellido1 varchar(20), in pcedula varchar(30),
 								  in ptelefono varchar(30), in pcorreo varchar(60), in pcontrasena varchar(16),
                                   in pdireccion varchar(200))
 BEGIN
-	insert into usuario(NombreUsuario, Apellido1, IdRol, Cedula, Telefono, Correo, Contrasena, Direccion) 
-    values ( pnombre, papellido1, 1, pcedula, ptelefono,pcorreo, pcontrasena, pdireccion);
+	insert into usuario(NombreUsuario, Apellido1, IdRol, Cedula, Telefono, Correo, Contrasena, Direccion,Estado) 
+    values ( pnombre, papellido1, 1, pcedula, ptelefono,pcorreo, pcontrasena, pdireccion,1);
 END$$
 
 delimiter $$
@@ -320,11 +319,25 @@ begin
 	select IdUsuario,concat(NombreUsuario,' ',Apellido1) as NombreCompletoUsuario,nombreRol ,Telefono'pTelefono',Correo'pCorreo' from Usuario,Rol where usuario.idRol=Rol.IdRol;
 	end;
 $$
-
+delimiter$$
+CREATE  PROCEDURE `VerUsuario`(in id int)
+begin
+select 
+IdUsuario,
+nombreUsuario 'pNombre',
+Apellido1'pApellido1',
+cedula'pCedula',
+idRol'pIdRol',
+telefono'pTelefono',
+direccion'pDireccion',
+correo'pCorreo'
+from Usuario
+where id=IdUsuario  ;
+end$$
 
 
 delimiter //
-create procedure ModificarUsuario(IdUsuario int, pIdRol int,pNombre varchar(30), pApellido1 varchar(20), pCedula varchar(30), pTelefono varchar(30), pDireccion varchar(200))
+CREATE  PROCEDURE `ModificarUsuario`(IdUsuario int, pIdRol int,pNombre varchar(30), pApellido1 varchar(20), pCedula varchar(30), pTelefono varchar(30), pDireccion varchar(200),pCorreo varchar (60),pContrasena varchar(16))
 begin
 	Update Usuario
     Set 
@@ -333,9 +346,18 @@ begin
     Apellido1=pApellido1,
     Cedula=pCedula,
     telefono=pTelefono,
-    Direccion=pDireccion
+    Direccion=pDireccion,
+    Correo=pCorreo,
+	Contrasena=case when pContrasena='' then Contrasena else pContrasena end
     where Usuario.IdUsuario=IdUsuario;
 end//
+alter table usuario add estado tinyint;
+delimiter $$
+CREATE PROCEDURE `CambiarEstadoUsuario`(IdUsuario int)
+begin
+	Update Usuario set Estado=(CASE WHEN Estado = 1 THEN 0 ELSE 1 END)
+    where Usuario.IdUsuario=IdUsuario;
+end$$
 
 
 /*alter table Producto change Nombre NombreProducto varchar(30) ;
@@ -526,16 +548,16 @@ end//
 delimiter ;
 select * from Entregas
 delimiter //
-create procedure ConsultarEntrega(id int)
+CREATE PROCEDURE `ConsultarEntrega`(id int)
 begin
 	select e.IdEntrega 'pIdEntrega',
            e.Productos,
            e.DireccionEntrega,
-           u.NombreUsuario 'pNombre',
 		   u.Telefono,
            u.Cedula,
            e.Estado,
-           u.IdUsuario
+           u.IdUsuario,
+           u.NombreUsuario 'pNombre'
 	FROM entregas e, Producto p, usuario u
     WHERE e.IdUsuario= u.IdUsuario
 	AND e.IdEntrega= id;

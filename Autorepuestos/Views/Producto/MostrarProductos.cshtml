@@ -14,11 +14,11 @@
                 <div class="card-body">
                     @if (rol == 3)
                     {
-                        <a class="btn btn-primary" role="button" href="@Url.Action("AgregarProducto", "Producto")">Agregar Producto</a>
+                        <a class="btn btn-success" role="button" href="@Url.Action("AgregarProducto", "Producto")">Agregar Producto</a>
                     }
                     @if(rol == 3 || rol== 2)
                     {
-                        <a class="btn btn-primary" role="button" href="@Url.Action("DevolucionProducto", "Producto")">Devolución Productos</a>
+                        <a class="btn text-light " style="background-color:#EE510D" role="button" href="@Url.Action("DevolucionProducto", "Producto")">Devolución Productos</a>
                     }
                     <br />
                     <br />

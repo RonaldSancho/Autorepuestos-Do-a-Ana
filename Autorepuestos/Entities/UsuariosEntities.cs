@@ -28,7 +28,7 @@ namespace Autorepuestos.Entities
         [DataType(DataType.EmailAddress)]
         [EmailAddress(ErrorMessage = "Digíte un correo válido")]
         public string pCorreo { get; set; } = string.Empty;
-
+        [DisplayName("Contraseña")]
         [Required(ErrorMessage = "La contraseña es requerida")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$",
         ErrorMessage = "La contraseña debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial")]
@@ -43,6 +43,7 @@ namespace Autorepuestos.Entities
         public string NombreCompletoUsuario { get; set; } = string.Empty;
         [DisplayName("Rol")]
         public string NombreRol { get; set; } = string.Empty;
+        public bool Estado { get; set; } 
         public class RespuestaUsuario
         {
             public int Codigo { get; set; }

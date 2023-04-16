@@ -33,6 +33,7 @@
 <body>
     @{
         var rol = Context.Session.GetInt32("IdRol");
+        var usuario = Context.Session.GetInt32("IdUsuario");
     }
     <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="container-fluid d-flex align-items-center justify-content-between">
@@ -46,8 +47,9 @@
                 <ul>
                     @if(rol == 1)
                     {
-@*                        <input type="text" id="search-input" class="form-control" placeholder="Buscar productos...">*@
+@*                       <input type="text" id="search-input" class="form-control" placeholder="Buscar productos...">*@
                         <li><a href="@Url.Action("SobreNosotros", "Home")">Sobre Nosotros</a></li>
+                        <li><a href="@Url.Action("ModificarUsuarioUno","Usuario", new{id = usuario})">Usuario</a></li>
                         <li><a href="@Url.Action("CarritoCompras", "Carrito")">Carrito</a></li>
                         <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
                     }
@@ -57,6 +59,7 @@
                     <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
                     <li><a href="@Url.Action("MostrarPedido", "Pedido")">Pedido</a></li>
                     <li><a href="@Url.Action("VerFacturas", "Factura")">Facturas</a></li>
+                    <li><a href="@Url.Action("VerUsuarios", "Usuario")">Usuarios</a></li>
                     <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
                     }
                     @if (rol == 3)
@@ -72,6 +75,7 @@
                     @if (rol == 4)
                     {
                         <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
+                        <li><a href="@Url.Action("VerUsuarios", "Usuario")">Usuarios</a></li>
                         <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
                     }
                  </ul>
@@ -122,7 +126,7 @@
                             <p><i class="bi bi-car-front-fill"></i> SUZUKI</p>
                         </li>
                         <li class="mb-2">
-                            <p><i class="bi bi-bicycle"></i> YAHAMADA</p>
+                            <p><i class="bi bi-bicycle"></i> YAMAHA</p>
                         </li>
                         <li class="mb-2">
                             <p><i class="bi bi-bicycle"></i> DUCATI</p>

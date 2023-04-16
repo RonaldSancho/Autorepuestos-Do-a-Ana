@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Autorepuestos.Entities.UsuariosEntities>
 @{
     ViewBag.Title = "VerUsuarios";
+    var usuario = Context.Session.GetInt32("IdUsuario");
+    var rol = Context.Session.GetInt32("IdRol");
 }
 
 <div class="contenedor">
@@ -20,7 +22,9 @@
                                     <th scope="col">Nombre Completo</th>
                                     <th scope="col">Teléfono</th>
                                     <th scope="col">Rol</th>
+                                    <th scope="col">Estado</th>
                                     <th scope="col">Opciones</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,9 +35,65 @@
                                         <td>@Html.DisplayFor(modelItem => item.NombreCompletoUsuario)</td>
                                         <td>@Html.DisplayFor(modelItem => item.pTelefono)</td>
                                         <td>@Html.DisplayFor(modelItem => item.NombreRol)</td>
-                                        <td>
-                                            <a class="btn btn-primary" role="button" href="@Url.Action("ModificarUsuario","Usuario", new{id = item.IdUsuario})">Editar</a>
-                                        </td>
+                                        <td>@(item.Estado ? "Activo" : "Inactivo")</td>
+
+                                        @if (rol == 3)
+                                        {
+                                            @if (usuario != item.IdUsuario)
+                                            {
+                                                <td>
+                                                    @if (item.Estado)
+                                                    {
+                                                        <a class="btn btn-primary" role="button" href="@Url.Action("ModificarUsuarioAdmin","Usuario", new{id = item.IdUsuario})">Editar</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-primary" style="cursor:not-allowed">Editar </a>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <a class="btn text-light" style="background-color:#EE510D" role="button" href="@Url.Action("CambiarEstadoUsuario","Usuario", new{id = item.IdUsuario})">Cambiar Estado</a>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <a class="btn btn-primary" role="button" href="@Url.Action("ModificarUsuarioUno","Usuario", new{id = item.IdUsuario})">Editar</a>
+                                                </td>
+                                                <td>
+                                                    <a class="btn text-light" style="background-color:#EE510D;cursor:not-allowed">Cambiar Estado</a>
+                                                </td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @if (usuario != item.IdUsuario)
+                                            {
+                                                <td>
+                                                    @if (item.Estado)
+                                                    {
+                                                        <a class="btn btn-primary" role="button" href="@Url.Action("ModificarUsuarioTrabajador","Usuario", new{id = item.IdUsuario})">Editar</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-primary" style="cursor:not-allowed">Editar </a>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <a class="btn text-light" style="background-color:#EE510D;cursor:not-allowed">Cambiar Estado</a>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <a class="btn btn-primary" role="button" href="@Url.Action("ModificarUsuarioUno","Usuario", new{id = item.IdUsuario})">Editar</a>
+                                                </td>
+                                                <td>
+                                                    <a class="btn text-light" style="background-color:#EE510D;cursor:not-allowed">Cambiar Estado</a>
+                                                </td>
+                                            }
+                                        }
+
                                     </tr>
                                 }
 

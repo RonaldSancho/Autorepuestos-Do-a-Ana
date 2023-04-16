@@ -35,7 +35,7 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
-        public ActionResult ModificarUsuario(int id)
+        public ActionResult ModificarUsuarioAdmin(int id)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModificarUsuario(UsuariosEntities usuario)
+        public ActionResult ModificarUsuarioAdmin(UsuariosEntities usuario)
         {
             try
             {
@@ -74,6 +74,91 @@ namespace Autorepuestos.Controllers
 
                 //este llamara a la interfaz
                 return RedirectToAction("VerUsuarios");
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
+        }
+        [HttpGet]
+        public ActionResult ModificarUsuarioUno(int id)
+        {
+            try
+            {
+                
+                    var consulta = _usuariosModel.VerUsuario(id);
+                    if (consulta != null)
+                        return View(consulta);
+                    return View();
+               
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ModificarUsuarioUno(UsuariosEntities usuario)
+        {
+            try
+            {
+                _usuariosModel.ModificarUsuario(usuario);
+
+                //este llamara a la interfaz
+                return RedirectToAction("VerUsuarios");
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
+        }
+        [HttpGet]
+        public ActionResult ModificarUsuarioTrabajador(int id)
+        {
+            try
+            {
+               
+                    var consulta = _usuariosModel.VerUsuario(id);
+                    if (consulta != null)
+                        return View(consulta);
+                    return View();
+               
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ModificarUsuarioTrabajador(UsuariosEntities usuario)
+        {
+            try
+            {
+                _usuariosModel.ModificarUsuario(usuario);
+
+                //este llamara a la interfaz
+                return RedirectToAction("VerUsuarios");
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
+        }
+        
+        [HttpGet]
+        public IActionResult CambiarEstadoUsuario(int id)
+        {
+            try
+            {
+                _usuariosModel.CambiarEstadoUsuario(id);
+                return RedirectToAction("VerUsuarios", "Usuario");
             }
             catch (Exception ex)
             {

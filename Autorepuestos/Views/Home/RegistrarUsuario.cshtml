@@ -18,49 +18,49 @@
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.pNombre, new { @class="form-control", @placeholder="Nombre"})
+                        @Html.TextBoxFor(m => m.pNombre, new { @class="form-control", @placeholder="Nombre", @onkeyup = "CorreoExistente();"})
                         @Html.ValidationMessageFor(m => m.pNombre, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="col-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.pApellido1, new {@class="form-control", @placeholder="Apellido"})
+                        @Html.TextBoxFor(m => m.pApellido1, new {@class="form-control", @placeholder="Apellido", @onkeyup = "CorreoExistente();"})
                         @Html.ValidationMessageFor(m => m.pApellido1, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="col-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.pCedula, new {@class="form-control", @placeholder="Cédula sin guiones", @type="number"})
+                        @Html.TextBoxFor(m => m.pCedula, new {@class="form-control", @placeholder="Cédula sin guiones", @type="number", @onkeyup = "CorreoExistente();"})
                         @Html.ValidationMessageFor(m => m.pCedula, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="col-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.pTelefono, new {@class="form-control", @placeholder="Número de teléfono", @type="number"})
+                        @Html.TextBoxFor(m => m.pTelefono, new {@class="form-control", @placeholder="Número de teléfono", @type="number", @onkeyup = "CorreoExistente();"})
                         @Html.ValidationMessageFor(m => m.pTelefono, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="col-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.pCorreo, new {@class="form-control", @placeholder="Correo", @onblur = "CorreoExistente();"})
+                        @Html.TextBoxFor(m => m.pCorreo, new {@class="form-control", @placeholder="Correo", @onkeyup = "CorreoExistente();"})
                         @Html.ValidationMessageFor(m => m.pCorreo, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="col-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.pContrasena, new {@class="form-control", @placeholder="Contraseña", @type = "password"})
+                        @Html.TextBoxFor(m => m.pContrasena, new {@class="form-control", @placeholder="Contraseña", @type = "password", @onkeyup = "CorreoExistente();"})
                         @Html.ValidationMessageFor(m => m.pContrasena, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="col-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.pDireccion, new {@class="form-control", @placeholder="Dirección"})
+                        @Html.TextBoxFor(m => m.pDireccion, new {@class="form-control", @placeholder="Dirección", @onkeyup = "CorreoExistente();"})
                         @Html.ValidationMessageFor(m => m.pDireccion, "", new { @class = "text-danger" })
                     </div>
                 </div>

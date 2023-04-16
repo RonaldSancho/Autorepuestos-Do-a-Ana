@@ -69,7 +69,7 @@
                             
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.ImagenDatos, htmlAttributes: new{@class="form-control-label col-md-4 "})
-                                @Html.TextBoxFor(m => m.ImagenDatos, htmlAttributes: new{@class = "form-control col-md-4",@type = "file",@accept=".png,.jpg,.jpeg"})
+                                @Html.TextBoxFor(m => m.ImagenDatos,htmlAttributes: new{@class = "form-control col-md-4",@type = "file",@accept=".png,.jpg,.jpeg"})
                             </div>
                         </div>
 
@@ -80,7 +80,7 @@
 
                         <div class="row">
                             <div class="col-md-8">
-                                <button class="btn btn-primary" role="button" onclick="MensajeProductoAgregado()">Agregar</button>
+                                <button class="btn btn-success" role="button" onclick="MensajeProductoAgregado()">Agregar</button>
                                 <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarProductos","Producto")">Cancelar</a>
                             </div>
                         </div>
@@ -92,3 +92,4 @@
 </div>
 
 <script src="~/js/site.js"></script>
+

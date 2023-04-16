@@ -11,7 +11,7 @@
                     <h3 class="titulo-card-estilo">Tabla de Pedidos</h3>
                 </div>
                 <div class="card-body">
-                    <a class="btn btn-primary" role="button" href="@Url.Action("AgregarPedido", "Pedido")">Agregar Pedido</a>
+                    <a class="btn btn-success" role="button" href="@Url.Action("AgregarPedido", "Pedido")">Agregar Pedido</a>
                     <br />
                     <br />
                     <div class="table-responsive">
@@ -25,8 +25,8 @@
                                     <th scope="col">Precio Producto</th>
                                     <th scope="col">Precio Total</th>
                                     <th scope="col">Colaborador</th>
-                                    <th scope="col">Opciones</th>
                                     <th scope="col"></th>
+                                    <th scope="col">Opciones</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -44,8 +44,12 @@
                                         <td>
                                             <a class="btn btn-primary" role="button" href="@Url.Action("ModificarPedido","Pedido", new{id = item.pIdPedido})">Editar</a>
                                         </td>
-                                        <td><a class="btn btn-danger" role="button" onclick="MensajeconfirmarEliminacionPedido(@item.pIdPedido)">Eliminar</a></td>@*recordar ver lo del toggle*@
-                                        <td><a class="btn btn-info" role="button" href="@Url.Action("DetallePedido","Pedido", new{id = item.pIdPedido})">Detalle</a></td>
+                                        <td>
+                                            <a class="btn text-light" style="background-color:#0489B1" role="button" href="@Url.Action("DetallePedido","Pedido", new{id = item.pIdPedido})">Detalle</a>
+                                        </td>@*recordar ver lo del toggle*@
+                                        <td>
+                                            <a class="btn btn-danger" role="button" onclick="MensajeconfirmarEliminacionPedido(@item.pIdPedido)">Eliminar</a>
+                                        </td>
                                     </tr>
                                 }
 

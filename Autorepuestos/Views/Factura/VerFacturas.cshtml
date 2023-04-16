@@ -24,10 +24,9 @@
                                     <th scope="col">Direccion</th>
                                     <th scope="col">Tipo de Pago</th>
                                     <th scope="col">Tipo de Retiro</th>
-@*                                    <th scope="col">Detalle Compra</th>*@
                                     <th scope="col">Estado Factura</th>
                                     <th scope="col"></th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Opciones</th>
                                     <th scope="col"></th>
 
 
@@ -45,12 +44,11 @@
                                         <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
                                         <td>@Html.DisplayFor(modelItem => item.TipoPago)</td>
                                         <td>@Html.DisplayFor(modelItem => item.TipoRetiro)</td>
-@*                                        <td class="line-breaks">@Html.DisplayFor(modelItem => item.Detalle)</td>*@
                                         <td class="line-breaks">@(item.EstadoFactura ? "Procesada" : "Pendiente")</td>
-                                        <td><a class="btn btn-primary" role="button" href="@Url.Action("VerDetalleFactura","Factura", new{id = item.IdFactura})">Ver Factura</a></td>
-                                        <td><a class="btn btn-primary" role="button" onclick="MensajeconfirmarEliminacionFactura(@item.IdFactura)">Eliminar</a></td>
-                                        <td><a class="btn btn-primary" role="button" href="@Url.Action("CambiarEstadoFactura","Factura", new{id = item.IdFactura})">Cambiar Estado</a></td>
-
+                                        <td><a class="btn text-light "style="background-color:#0489B1" role="button" href="@Url.Action("VerDetalleFactura","Factura", new{id = item.IdFactura})">Detalle Factura</a></td>
+                                        
+                                            <td><a class="btn text-light" style="background-color:#EE510D" role="button" href="@Url.Action("CambiarEstadoFactura","Factura", new{id = item.IdFactura})">Cambiar Estado</a></td>
+                                                <td><a class="btn btn-danger" role="button" onclick="MensajeconfirmarEliminacionFactura(@item.IdFactura)">Eliminar Factura</a></td>
                                     </tr>
                                 }
 
