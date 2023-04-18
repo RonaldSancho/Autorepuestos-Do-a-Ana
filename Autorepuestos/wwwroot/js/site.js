@@ -68,12 +68,19 @@ function Recuperar() {
         type: 'GET',
         dataType: 'json',
         success: function (res) {
-            console.log(res); // Agregar esta línea
-            Swal.fire({
-                icon: 'success',
-                title: 'Hola',
-                text: 'Se ha enviado un correo a su bendeja con su contraseña.',
-            });
+            if (res.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Hola',
+                    text: 'Se ha enviado un correo a su bendeja con su contraseña.',
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se ha podido enviar el correo. Por favor, inténtelo de nuevo más tarde.'
+                });
+            }
         }
     });
 }
@@ -92,10 +99,16 @@ function MensajeCredenciales() {
 
 function MensajeUsuarioCreado() {
     Swal.fire({
-        title: 'Cuenta creada exitosamente',
+        title: 'Cuenta creada exitosamente.¿Desea volver al iniciar sesión?',
         icon: 'success',
-        showConfirmButton: false,
-        timer: 1500
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir al iniciar sesión',
+        cancelButtonText: 'No, quedarme aquí'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Home/Index";
+        }
     });
 }
 

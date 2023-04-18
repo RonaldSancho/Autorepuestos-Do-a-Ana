@@ -47,7 +47,8 @@ Carrusel
 
 .carousel-item img {
     width: 1250px;
-    height: 600px;
+    height: 650px;
+    padding-top: 2rem;
 }
 
 @media (max-width: 768px) {

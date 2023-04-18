@@ -117,7 +117,7 @@ namespace Autorepuestos.Controllers
                 email.To.Add(MailboxAddress.Parse(resultado.pCorreo));
                 email.Subject = titulo;
                 email.Body = new TextPart(TextFormat.Html)
-                { Text = "<h1>La contraseña del usuario " + resultado.pCorreo + " es " + resultado.pContrasena + "</h1>" };
+                { Text = "<h1>¡Hola " + resultado.pCorreo + ", su contraseña es " + resultado.pContrasena + "</h1>" };
 
                 using var smtp = new SmtpClient();
                 smtp.Connect(Host, int.Parse(Puerto), false);
