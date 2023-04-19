@@ -9,12 +9,12 @@ namespace Autorepuestos.Entities
 
         [DisplayName("Producto")]
         [Required(ErrorMessage = "El nombre del producto es requerido.")]
-        [MinLength(2, ErrorMessage = "El producto no puede contener menos de 3 letras.")]
+        [MinLength(3, ErrorMessage = "El producto no puede contener menos de 3 letras.")]
         public string NombreProducto { get; set; } = string.Empty;
 
         [DisplayName("Descripción")]
         [Required(ErrorMessage = "La descripción del producto es requerida.")]
-        [MinLength(2, ErrorMessage = "La descripción no puede contener menos de 5 letras.")]
+        [MinLength(5, ErrorMessage = "La descripción no puede contener menos de 5 letras.")]
         public string Descripcion { get; set; } = string.Empty;
 
         [DisplayName("Precio")]

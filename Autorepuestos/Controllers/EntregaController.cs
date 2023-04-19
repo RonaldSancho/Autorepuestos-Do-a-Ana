@@ -61,15 +61,41 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public ActionResult AgregarEntrega(EntregasEntities entrega)
         {
-            try
+            if (ModelState.IsValid)
             {
-                _EntregasModel.AgregarEntrega(entrega);
-                return RedirectToAction("VerEntregas", "Entrega");
+                try
+                {
+                    _EntregasModel.AgregarEntrega(entrega);
+                    TempData["MensajeEntregaAgregada"] = true;
+                    return RedirectToAction("AgregarEntrega", "Entrega");
+                }
+                catch (Exception ex)
+                {
+                    RegistrarErrores(ex, ControllerContext);
+                    return View("Error");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                RegistrarErrores(ex, ControllerContext);
-                return View("Error");
+                //var result1 = _EntregasModel.ConsultaEntregaProducto();
+                var result2 = _EntregasModel.ConsultaEntregaUsuario();
+                if (/*result1 != null &&*/ result2 != null)
+                {
+                    var dropdownProductos = new List<SelectListItem>();
+                    var dropdownUsuarios = new List<SelectListItem>();
+
+                    //foreach (var item in result1.RespuestaEntregas)
+                    //    dropdownProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
+
+                    foreach (var item in result2.RespuestaEntregas)
+                        dropdownUsuarios.Add(new SelectListItem { Text = item.NombreUsuario, Value = item.IdUsuario.ToString() });
+
+                    ViewBag.ComboProducto = dropdownProductos;
+                    ViewBag.ComboUsuario = dropdownUsuarios;
+                    return View();
+                }
+                else
+                    return View("Error");
             }
         }
 
@@ -113,15 +139,43 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public ActionResult EditarEntrega(EntregasEntities entrega)
         {
-            try
+            ModelState.Remove("pIdEntrega");
+
+            if (ModelState.IsValid)
             {
-                _EntregasModel.Editar(entrega);
-                return RedirectToAction("VerEntregas", "Entrega");
+                try
+                {
+                    _EntregasModel.Editar(entrega);
+                    TempData["MensajeModificacionEntrega"] = true;
+                    return RedirectToAction("EditarEntrega", "Entrega");
+                }
+                catch (Exception ex)
+                {
+                    RegistrarErrores(ex, ControllerContext);
+                    return View("Error");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                RegistrarErrores(ex, ControllerContext);
-                return View("Error");
+                var result2 = _EntregasModel.ConsultaEntregaUsuario();
+                if (result2 != null)
+                {
+                    var dropdownEstado = new List<SelectListItem>();
+
+                    dropdownEstado.Add(new SelectListItem { Text = "Pendiente", Value = "Pendiente" });
+                    dropdownEstado.Add(new SelectListItem { Text = "Entregado", Value = "Entregado" });
+
+                    var dropdownUsuarios = new List<SelectListItem>();
+                    foreach (var item in result2.RespuestaEntregas)
+                        dropdownUsuarios.Add(new SelectListItem { Text = item.NombreUsuario, Value = item.IdUsuario.ToString() });
+
+                    ViewBag.ComboEstado = dropdownEstado;
+                    ViewBag.ComboUsuario = dropdownUsuarios;
+
+                    return View(entrega);
+                }
+                else
+                    return View("Error");
             }
         }
 

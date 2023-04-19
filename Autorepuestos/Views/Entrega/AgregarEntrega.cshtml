@@ -23,11 +23,13 @@
                         <div class="col-md-4">
                             @Html.LabelFor(m => m.Productos, new{@class="form-control-label"})
                             @Html.TextBoxFor(model => model.Productos, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Productos, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-md-4">
                             @Html.LabelFor(m => m.DireccionEntrega, new{@class="form-control-label"})
                             @Html.TextBoxFor(m=>m.DireccionEntrega, new{@class="form-control", @style="color:grey"})
+                            @Html.ValidationMessageFor(m => m.DireccionEntrega, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-md-4">
@@ -50,7 +52,7 @@
 
                     <div class="row">
                         <div class="col-md-8">
-                            <button class="btn btn-success" role="button" onclick="MensajeEntregaAgregada()">Agregar</button>
+                            <input type="submit" id="EntregaAgregada" class="btn btn-success" value="Agregar" />
                             <a class="btn btn-secondary" role="button" href="@Url.Action("VerEntregas","Entrega")">Cancelar</a>
                         </div>
                     </div>
@@ -61,4 +63,12 @@
 </div>
 </div>
 
-<script src="~/js/site.js"></script>
+@section scripts {
+    <script src="~/js/site.js"></script>
+    <script>
+        @if (TempData.ContainsKey("MensajeEntregaAgregada") && (bool)TempData["MensajeEntregaAgregada"])
+        {
+            @:MensajeEntregaAgregada();
+        }
+    </script>
+}

@@ -23,19 +23,34 @@
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.IdProducto, new{@class="form-control-label"})
-                                @Html.DropDownListFor(model => model.IdProducto, ViewBag.ComboProductos as List<SelectListItem>, new { @class = "form-control" })
+                                @if (ViewBag.ComboProductos != null)
+                                {
+                                    @Html.DropDownListFor(model => model.IdProducto, ViewBag.ComboProductos as List<SelectListItem>, new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.IdProducto, new List<SelectListItem>(), new { @class = "form-control col-md-4" })
+                                }
                             </div>
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.Cantidad, new{@class="form-control-label"})
-                                @Html.TextBoxFor(m=>m.Cantidad, htmlAttributes: new{@type = "number", @class="form-control", @style="color:grey"})
+                                @Html.TextBoxFor(m=>m.Cantidad, new{@class="form-control", @style="color:grey"})
+                                @Html.ValidationMessageFor(m => m.Cantidad, "", new { @class = "text-danger" })
                             </div>
 
                    
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.IdProveedor, new{@class="form-control-label"})
-                                @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control" })
+                                @if (ViewBag.ComboProveedores != null)
+                                {
+                                    @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.IdProveedor, new List<SelectListItem>(), new { @class = "form-control col-md-4" })
+                                }
                             </div>
 
                         </div>
@@ -49,7 +64,9 @@
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.PrecioProducto, new{@class="form-control-label"})
-                                @Html.TextBoxFor(m=>m.PrecioProducto, htmlAttributes: new {@type = "number",@class="form-control", @style="color:grey"})
+                                @Html.TextBoxFor(m=>m.PrecioProducto, new {@class="form-control", @style="color:grey"})
+                                @Html.ValidationMessageFor(m => m.PrecioProducto, "", new { @class = "text-danger" })
+
                             </div>
 
                             @*<div class="col-md-4">
@@ -59,7 +76,14 @@
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.IdUsuario, new{@class="form-control-label"})
-                                @Html.DropDownListFor(model => model.IdUsuario, ViewBag.ComboUsuarios as List<SelectListItem>, new { @class = "form-control" })
+                                @if (ViewBag.ComboUsuarios != null)
+                                {
+                                    @Html.DropDownListFor(model => model.IdUsuario, ViewBag.ComboUsuarios as List<SelectListItem>, new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.IdUsuario, new List<SelectListItem>(), new { @class = "form-control col-md-4" })
+                                }
                             </div>
                         </div>
 
@@ -70,7 +94,7 @@
 
                         <div class="row">
                             <div class="col-md-8">
-                                <button class="btn btn-success" role="button" onclick="MensajePedidoAgregado()">Agregar</button>
+                                <input type="submit" id="PedidoAgregado" class="btn btn-success" value="Agregar" />
                                 <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarPedido","Pedido")">Cancelar</a>
                             </div>
                         </div>
@@ -81,4 +105,12 @@
     </div>
 </div>
 
-<script src="~/js/site.js"></script>
+@section scripts {
+    <script src="~/js/site.js"></script>
+    <script>
+        @if (TempData.ContainsKey("MensajePedidoAgregado") && (bool)TempData["MensajePedidoAgregado"])
+        {
+            @:MensajePedidoAgregado();
+        }
+    </script>
+}

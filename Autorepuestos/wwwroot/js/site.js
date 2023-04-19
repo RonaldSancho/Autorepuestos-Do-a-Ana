@@ -209,10 +209,16 @@ Mensajes de entregas
 
 function MensajeEntregaAgregada() {
     Swal.fire({
-        title: 'Entrega editada exitosamente',
+        title: 'Entrega agregado exitosamente.¿Desea volver a la vista de entregas?',
         icon: 'success',
-        showConfirmButton: false,
-        timer: 1500
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la vista',
+        cancelButtonText: 'No, quedarme aquí'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Entrega/VerEntregas";
+        }
     });
 }
 
@@ -235,10 +241,16 @@ function MensajeconfirmarEliminacionEntrega(id) {
 
 function MensajeModificacionEntrega() {
     Swal.fire({
-        title: 'Entrega editada exitosamente',
+        title: 'Entrega modificada exitosamente.¿Desea volver a la vista de entregas?',
         icon: 'success',
-        showConfirmButton: false,
-        timer: 1500
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la vista',
+        cancelButtonText: 'No, seguir editando'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Entrega/VerEntregas";
+        }
     });
 }
 
@@ -248,19 +260,31 @@ Mensajes de pedidos
 
 function MensajePedidoAgregado() {
     Swal.fire({
-        title: 'Pedido editado exitosamente',
+        title: 'Pedido agregado exitosamente.¿Desea volver a la lista de pedidos?',
         icon: 'success',
-        showConfirmButton: false,
-        timer: 1500
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la lista',
+        cancelButtonText: 'No, quedarme aquí'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Pedido/MostrarPedido";
+        }
     });
 }
 
 function MensajeModificacionPedido() {
     Swal.fire({
-        title: 'Pedido editado exitosamente',
+        title: 'Pedido modificado exitosamente.¿Desea volver a la lista de pedidos?',
         icon: 'success',
-        showConfirmButton: false,
-        timer: 1500
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la lista',
+        cancelButtonText: 'No, seguir editando'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Pedido/MostrarPedido";
+        }
     });
 }
 

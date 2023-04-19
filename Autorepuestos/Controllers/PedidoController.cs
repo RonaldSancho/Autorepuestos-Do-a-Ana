@@ -75,15 +75,47 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public ActionResult AgregarPedido(PedidosEntities pedido)
         {
-            try
+            if (ModelState.IsValid)
             {
-                _PedidosModel.Crear(pedido);
-                return RedirectToAction("MostrarPedido");
+                try
+                {
+                    _PedidosModel.Crear(pedido);
+                    TempData["MensajePedidoAgregado"] = true;
+                    return RedirectToAction("AgregarPedido");
+                }
+                catch (Exception ex)
+                {
+                    RegistrarErrores(ex, ControllerContext);
+                    return View("Error");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                RegistrarErrores(ex, ControllerContext);
-                return View("Error");
+                var resultado1 = _PedidosModel.ConsultaPedidoProducto();
+                var resultado2 = _PedidosModel.ConsultaPedidoProveedor();
+                var resultado3 = _PedidosModel.ConsultaPedidoUsuario();
+                if (resultado1 != null && resultado2 != null && resultado3 != null)
+                {
+                    var opcionesProductos = new List<SelectListItem>();
+                    var opcionesProveedores = new List<SelectListItem>();
+                    var opcionesUsuarios = new List<SelectListItem>();
+
+                    foreach (var item in resultado1.RespuestaPedidos)
+                        opcionesProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
+
+                    foreach (var item in resultado2.RespuestaPedidos)
+                        opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
+
+                    foreach (var item in resultado3.RespuestaPedidos)
+                        opcionesUsuarios.Add(new SelectListItem { Text = item.NombreUsuario, Value = item.IdUsuario.ToString() });
+
+                    ViewBag.ComboProductos = opcionesProductos;
+                    ViewBag.ComboProveedores = opcionesProveedores;
+                    ViewBag.ComboUsuarios = opcionesUsuarios;
+                    return View(pedido);
+                }
+                else
+                    return View("Error");
             }
         }
 
@@ -148,16 +180,50 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public ActionResult ModificarPedido(PedidosEntities pedido)
         {
-            try
+            ModelState.Remove("pIdPedido");
+            if (ModelState.IsValid)
             {
-                //este llamara a la interfaz
-                _PedidosModel.Editar(pedido);
-                return RedirectToAction("MostrarPedido");
+                try
+                {
+                    //este llamara a la interfaz
+                    _PedidosModel.Editar(pedido);
+                    TempData["MensajeModificacionPedido"] = true;
+                    return RedirectToAction("ModificarPedido");
+                }
+                catch (Exception ex)
+                {
+                    RegistrarErrores(ex, ControllerContext);
+                    return View("Error");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                RegistrarErrores(ex, ControllerContext);
-                return View("Error");
+                var resultado1 = _PedidosModel.ConsultaPedidoProducto();
+                var resultado2 = _PedidosModel.ConsultaPedidoProveedor();
+                var resultado3 = _PedidosModel.ConsultaPedidoUsuario();
+                if (resultado1 != null && resultado2 != null && resultado3 != null)
+                {
+                    var opcionesProductos = new List<SelectListItem>();
+                    var opcionesProveedores = new List<SelectListItem>();
+                    var opcionesUsuarios = new List<SelectListItem>();
+
+                    foreach (var item in resultado1.RespuestaPedidos)
+                        opcionesProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
+
+                    foreach (var item in resultado2.RespuestaPedidos)
+                        opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
+
+                    foreach (var item in resultado3.RespuestaPedidos)
+                        opcionesUsuarios.Add(new SelectListItem { Text = item.NombreUsuario, Value = item.IdUsuario.ToString() });
+
+                    ViewBag.ComboProductos = opcionesProductos;
+                    ViewBag.ComboProveedores = opcionesProveedores;
+                    ViewBag.ComboUsuarios = opcionesUsuarios;
+
+                    return View(pedido);
+                }
+                else
+                    return View("Error");
             }
         }
 

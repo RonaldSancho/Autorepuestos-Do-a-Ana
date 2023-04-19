@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using static Mysqlx.Expect.Open.Types.Condition.Types;
 namespace Autorepuestos.Entities
 {
@@ -14,9 +15,13 @@ namespace Autorepuestos.Entities
 
 
         [DisplayName("Productos a Entregar")]
+        [Required(ErrorMessage = "El o los productos a entregar son requerido.")]
+        [MinLength(3, ErrorMessage = "Este espacio no puede contener menos de 3 letras")]
         public string Productos { get; set; } = string.Empty;
 
-        [DisplayName("Dirección")]
+        [DisplayName("Direccion")]
+        [Required(ErrorMessage = "La dirección es requerida.")]
+        [MinLength(15, ErrorMessage = "La dirección debe ser específica por lo que debe tener más de 15 caracteres")]
         public string DireccionEntrega { get; set; } = string.Empty;
         
         [DisplayName("Cliente")]
