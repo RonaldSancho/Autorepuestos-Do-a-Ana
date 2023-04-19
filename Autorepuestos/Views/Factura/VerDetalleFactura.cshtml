@@ -14,17 +14,17 @@
                                 <h2 class="text-dark">Número de factura:  #@Html.DisplayFor(m => m.IdFactura)</h2>
                             </div>
                             <!-- Row start -->
-@*                            <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                    <div class="custom-actions-btns mb-5">
-                                        <a href="#" class="btn btn-primary">
-                                            <i class="icon-download"></i> Download
-                                        </a>
-                                        <a href="#" class="btn btn-secondary">
-                                            <i class="icon-printer"></i> Print
-                                        </a> PONER BOTONES ACÁ
-                                    </div>
-                                </div>
+                            @*                            <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="custom-actions-btns mb-5">
+                            <a href="#" class="btn btn-primary">
+                            <i class="icon-download"></i> Download
+                            </a>
+                            <a href="#" class="btn btn-secondary">
+                            <i class="icon-printer"></i> Print
+                            </a> PONER BOTONES ACÁ
+                            </div>
+                            </div>
                             </div>*@
                             <!-- Row end -->
                             <!-- Row start -->
@@ -87,15 +87,15 @@
                                                     <td>
                                                         <h6 class="text-dark">
                                                             <strong>
-                                                            @*@Html.DisplayFor(m => m.Detalle)*@
+                                                                @*@Html.DisplayFor(m => m.Detalle)*@
 
-                                                            @foreach (var item in Model.Detalle.Replace(",","").Split(" ! "))
+                                                                @foreach (var item in Model.Detalle.Replace(",", "").Split(" ! "))
                                                                 {
-                                                                    @item <br/>
+                                                                    @item <br />
                                                                 }
 
                                                             </strong>
-                                                         </h6>
+                                                        </h6>
 
                                                     </td>
                                                     <td>
@@ -115,6 +115,7 @@
                             Gracias por preferir Autorepuestos Doña Ana.
                         </div>
                         <p>
+                            <a class="btn btn-secondary" role="button" onclick="Imprimir();">Imprimir</a>
                             <a class="btn btn-secondary" role="button" href="@Url.Action("VerFacturas","Factura")">Volver</a>
                         </p>
                     </div>
@@ -123,3 +124,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    function Imprimir() {
+        window.print();
+    }
+</script>
