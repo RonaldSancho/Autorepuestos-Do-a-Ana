@@ -24,18 +24,21 @@
                         <div class="row">
 
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.NombreProducto, htmlAttributes: new{@class="form-control-label col-md-4"})
-                                @Html.TextBoxFor(m => m.NombreProducto ,htmlAttributes: new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.LabelFor(m => m.NombreProducto, new{@class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.NombreProducto, new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.NombreProducto, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.Descripcion, htmlAttributes: new{@class="form-control-label col-md-4"})
-                                @Html.TextBoxFor(m => m.Descripcion, htmlAttributes: new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.LabelFor(m => m.Descripcion, new{@class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.Descripcion,  new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.Descripcion, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.Precio, htmlAttributes: new{ @class="form-control-label col-md-4"})
-                                @Html.TextBoxFor(m => m.Precio, htmlAttributes: new{@type = "number ",@class = "form-control col-md-4"})
+                                @Html.LabelFor(m => m.Precio,  new{ @class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.Precio,  new{@type = "number ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger" })
                             </div>
 
                         </div>
@@ -47,16 +50,31 @@
 
                         <div class="row">
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.IdProveedor, htmlAttributes: new{@class="form-control-label col-md-4"})
-                                @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control col-md-4" })
+                                @Html.LabelFor(m => m.IdProveedor,  new{@class="form-control-label col-md-4"})
+                                @if (ViewBag.ComboProveedores != null)
+                                {
+                                    @Html.DropDownListFor(model => model.IdProveedor, ViewBag.ComboProveedores as List<SelectListItem>, new { @class = "form-control col-md-4" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.IdProveedor, new List<SelectListItem>(), new { @class = "form-control col-md-4" })
+                                }
                             </div>
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.IdCategoria, htmlAttributes: new {@class="form-control-label col-md-4"})
-                                @Html.DropDownListFor(model => model.IdCategoria, ViewBag.ComboCategorias as List<SelectListItem>, new { @class = "form-control col-md-4" })
+                                @Html.LabelFor(m => m.IdCategoria, new {@class="form-control-label col-md-4"})
+                                @if (ViewBag.ComboCategorias != null)
+                                {
+                                    @Html.DropDownListFor(model => model.IdCategoria, ViewBag.ComboCategorias as List<SelectListItem>, new { @class = "form-control col-md-4" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.IdCategoria, new List<SelectListItem>(), new { @class = "form-control col-md-4" })
+                                }
                             </div>
                             <div class=" col-md-4">
-                                @Html.LabelFor(m => m.Existencias, htmlAttributes: new{@class="form-control-label col-md-4"})
-                                @Html.TextBoxFor(m => m.Existencias, htmlAttributes: new{@type = "number ",@class = "form-control col-md-4"})
+                                @Html.LabelFor(m => m.Existencias,  new{@class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.Existencias,  new{@type = "number ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.Existencias, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -68,8 +86,8 @@
                         <div class="row">
                             
                             <div class="col-md-4">
-                                @Html.LabelFor(m => m.ImagenDatos, htmlAttributes: new{@class="form-control-label col-md-4 "})
-                                @Html.TextBoxFor(m => m.ImagenDatos,htmlAttributes: new{@class = "form-control col-md-4",@type = "file",@accept=".png,.jpg,.jpeg"})
+                                @Html.LabelFor(m => m.ImagenDatos, new{@class="form-control-label col-md-4 "})
+                                @Html.TextBoxFor(m => m.ImagenDatos, new{@class = "form-control col-md-4",@type = "file",@accept=".png,.jpg,.jpeg"})
                             </div>
                         </div>
 
@@ -80,7 +98,7 @@
 
                         <div class="row">
                             <div class="col-md-8">
-                                <button class="btn btn-success" role="button" onclick="MensajeProductoAgregado()">Agregar</button>
+                                <input type="submit" id="ProductoAgregado" class="btn btn-success" value="Agregar" />
                                 <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarProductos","Producto")">Cancelar</a>
                             </div>
                         </div>
@@ -91,5 +109,12 @@
     </div>
 </div>
 
-<script src="~/js/site.js"></script>
-
+@section scripts {
+    <script src="~/js/site.js"></script>
+    <script>
+        @if (TempData.ContainsKey("MensajeProductoAgregado") && (bool)TempData["MensajeProductoAgregado"])
+        {
+            @:MensajeProductoAgregado();
+        }
+    </script>
+}

@@ -78,30 +78,62 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public IActionResult AgregarProducto(ProductosEntities producto)
         {
-            try
-            {
-                if (producto.ImagenDatos != null)
-                {
-                    string folder = "/template/img/";
-                    folder += producto.ImagenDatos.FileName;
-                    producto.Imagen = "~" + folder;
+            ModelState.Remove("pIdProducto");
+            ModelState.Remove("ImagenDatos");
 
-                    string serverFolder = _webHostEnvironment.WebRootPath + folder;
-                    producto.ImagenDatos.CopyTo(new FileStream(serverFolder, FileMode.Create));
-                    _ProductosModel.CrearProducto(producto);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (producto.ImagenDatos != null)
+                    {
+                        string folder = "/template/img/";
+                        folder += producto.ImagenDatos.FileName;
+                        producto.Imagen = "~" + folder;
+
+                        string serverFolder = _webHostEnvironment.WebRootPath + folder;
+                        producto.ImagenDatos.CopyTo(new FileStream(serverFolder, FileMode.Create));
+                        _ProductosModel.CrearProducto(producto);
+                    }
+                    else
+                    {
+                        _ProductosModel.CrearProducto(producto);
+                    }
+                    TempData["MensajeProductoAgregado"] = true;
+                    return RedirectToAction("AgregarProducto");
+                }
+                catch (Exception ex)
+                {
+                    RegistrarErrores(ex, ControllerContext);
+                    return View("Error");
+                }
+            }
+            else //Con estas nuevas líneas se recarga el DropDown
+            {
+                var resultado1 = _ProductosModel.ConsultaProductoCategoria();
+                var resultado2 = _ProductosModel.ConsultaProductoProveedor();
+
+                if (resultado1 != null && resultado2 != null)
+                {
+                    var opcionesCategorias = new List<SelectListItem>();
+                    var opcionesProveedores = new List<SelectListItem>();
+
+                    foreach (var item in resultado1.RespuestaProductos)
+                        opcionesCategorias.Add(new SelectListItem { Text = item.NombreCategoria, Value = item.IdCategoria.ToString() });
+
+                    foreach (var item in resultado2.RespuestaProductos)
+                        opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
+
+                    ViewBag.ComboCategorias = opcionesCategorias;
+                    ViewBag.ComboProveedores = opcionesProveedores;
+
+                    return View(producto);
                 }
                 else
-                {
-                    _ProductosModel.CrearProducto(producto);
-                }
-                return RedirectToAction("MostrarProductos");
-            }
-            catch (Exception ex)
-            {
-                RegistrarErrores(ex, ControllerContext);
-                return View("Error");
+                    return View("Error");
             }
         }
+
 
         [HttpGet]
         public IActionResult EliminarProducto(int id)
@@ -163,29 +195,59 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public IActionResult ModificarProducto(ProductosEntities producto)
         {
-            try
-            {
-                if (producto.ImagenDatos != null)
-                {
-                    string folder = "/template/img/";
-                    folder += producto.ImagenDatos.FileName;
-                    producto.ImagenN = "~" + folder;
+            ModelState.Remove("pIdProducto");
+            ModelState.Remove("ImagenDatos");
 
-                    string serverFolder = _webHostEnvironment.WebRootPath + folder;
-                    producto.ImagenDatos.CopyTo(new FileStream(serverFolder, FileMode.Create));
-                    _ProductosModel.EditarProducto(producto);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (producto.ImagenDatos != null)
+                    {
+                        string folder = "/template/img/";
+                        folder += producto.ImagenDatos.FileName;
+                        producto.Imagen = "~" + folder;
+
+                        string serverFolder = _webHostEnvironment.WebRootPath + folder;
+                        producto.ImagenDatos.CopyTo(new FileStream(serverFolder, FileMode.Create));
+                        _ProductosModel.EditarProducto(producto);
+                    }
+                    else
+                    {
+                        _ProductosModel.EditarProducto(producto);
+                    }
+                    TempData["MensajeModificacionProducto"] = true;
+                    return RedirectToAction("ModificarProducto");
+                }
+                catch (Exception ex)
+                {
+                    RegistrarErrores(ex, ControllerContext);
+                    return View("Error");
+                }
+            }
+            else //Con estas nuevas líneas se recarga el DropDown
+            {
+                var resultado1 = _ProductosModel.ConsultaProductoCategoria();
+                var resultado2 = _ProductosModel.ConsultaProductoProveedor();
+
+                if (resultado1 != null && resultado2 != null)
+                {
+                    var opcionesCategorias = new List<SelectListItem>();
+                    var opcionesProveedores = new List<SelectListItem>();
+
+                    foreach (var item in resultado1.RespuestaProductos)
+                        opcionesCategorias.Add(new SelectListItem { Text = item.NombreCategoria, Value = item.IdCategoria.ToString() });
+
+                    foreach (var item in resultado2.RespuestaProductos)
+                        opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
+
+                    ViewBag.ComboCategorias = opcionesCategorias;
+                    ViewBag.ComboProveedores = opcionesProveedores;
+
+                    return View(producto);
                 }
                 else
-                {
-                    _ProductosModel.EditarProducto(producto);
-                }
-                //este llamara a la interfaz
-                return RedirectToAction("MostrarProductos");
-            }
-            catch (Exception ex)
-            {
-                RegistrarErrores(ex, ControllerContext);
-                return View("Error");
+                    return View("Error");
             }
         }
 

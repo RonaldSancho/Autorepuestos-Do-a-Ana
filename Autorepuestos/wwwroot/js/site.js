@@ -113,12 +113,12 @@ function MensajeUsuarioCreado() {
 }
 
 /*--------------------------------------------------------------
-Mensajes de productos
+Mensajes de carrito
 --------------------------------------------------------------*/
 
-function MensajeProductoAgregado() {
+function MensajeProductoAgregadoCarrito() {
     Swal.fire({
-        title: 'Producto agregado exitosamente',
+        title: 'Producto agregado exitosamente al carrito',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
@@ -142,14 +142,49 @@ function MensajeconfirmarEliminacionCarrito(id) {
     });
 }
 
-function MensajeModificacionProducto() {
+function MensajeModificacionProductoCarrito() {
     Swal.fire({
-        title: 'Producto editado exitosamente',
+        title: 'Su orden fue editada exitosamente',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
     });
 }
+
+/*--------------------------------------------------------------
+Mensajes de productos
+--------------------------------------------------------------*/
+
+function MensajeProductoAgregado() {
+    Swal.fire({
+        title: 'Producto agregado exitosamente.¿Desea volver a la lista de productos?',
+        icon: 'success',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la lista',
+        cancelButtonText: 'No, quedarme aquí'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Producto/MostrarProductos";
+        }
+    });
+}
+
+function MensajeModificacionProducto() {
+    Swal.fire({
+        title: 'Producto modificado exitosamente.¿Desea volver a la lista de productos?',
+        icon: 'success',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la lista',
+        cancelButtonText: 'No, seguir editando'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Producto/MostrarProductos";
+        }
+    });
+}
+
 
 function MensajeconfirmarEliminacionAdmin(id) {
     Swal.fire({
