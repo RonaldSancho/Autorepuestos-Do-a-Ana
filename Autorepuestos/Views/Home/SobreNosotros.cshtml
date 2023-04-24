@@ -1,26 +1,44 @@
-﻿<div class="container my-5">
-    <div class="row">
-        <div class="col-lg-6">
-            <h1 class="mb-4">Sobre nosotros</h1>
-            <p>Somos una empresa de autorepuestos comprometida con la satisfacción de nuestros clientes. Ofrecemos una amplia variedad de productos de alta calidad a precios competitivos. Estamos ubicados en la siguiente dirección:</p>
-            <p><strong>Coordenadas:</strong> 9°55'06.1"N 84°06'16.5"W</p>
-            <!-- Mapa de Google con la ubicación de la empresa -->
-            <div id="map"></div>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3926.512962974722!2d-84.07193548563566!3d9.918360692787315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcO1NTUnMDYuNSdCMRQxMjYsINCc0LjRgdCw0LjQsNzbQlSwg0JLQuNGX0LI!5e0!3m2!1sen!2scr!4v1616809284795!5m2!1sen!2scr"
-                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-        <div class="col-lg-6">
-            <!-- Imagen del logo -->
-            <div class="rounded-circle bg-white shadow-1-strong d-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 150px; height: 150px;">
-                <img src="/template/imagen/Logo.png" height="70" alt="" loading="lazy" />
+﻿@{
+    ViewBag.Title = "SobreNosotros";
+}
+
+<br />
+<br />
+<br />
+<section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+
+        <h2 class="text-white" style=" text-align: center">Sobre Nosotros</h2>
+        <p style=" text-align: center">Autorepuestos Doña Ana es una empresa dedicada a la venta de repuestos para vehículos en la ciudad de San José, Costa Rica. Nuestra misión es ofrecer a nuestros clientes una amplia variedad de productos de alta calidad a precios competitivos, con un servicio excepcional y atención personalizada.</p>
+
+        <div class="row gy-4">
+            <div class="col-lg-6">
+                <img src="/template/imagen/Logo.png" class="img-fluid rounded-4 mb-4" alt="">
+                <p>Nos esforzamos por mantenernos actualizados en cuanto a las últimas tendencias y tecnologías en el mercado de repuestos automotrices, para poder ofrecer productos innovadores y soluciones de vanguardia a nuestros clientes.</p>
+                <p>Además de la venta de repuestos, también ofrecemos servicios de instalación y mantenimiento de piezas automotrices, brindando así un servicio integral a nuestros clientes y asegurando que sus vehículos funcionen de manera óptima.</p>
+                <p>En Autorepuestos Doña Ana nos comprometemos a ser una empresa socialmente responsable, apoyando iniciativas que contribuyan al bienestar de la comunidad y del medio ambiente.</p>
             </div>
-            <!-- Objetivos de la empresa -->
-            <h3 class="mb-3">Nuestros objetivos</h3>
-            <ul>
-                <li>Ofrecer productos de alta calidad a precios competitivos.</li>
-                <li>Brindar un servicio excepcional a nuestros clientes.</li>
-                <li>Contribuir al desarrollo del sector de autorepuestos en la región.</li>
-            </ul>
+            <div class="col-lg-6">
+                <div class="content ps-0 ps-lg-5">
+                    <p class="fst-italic">
+                        Objetivos
+                    </p>
+                    <ul>
+                        <li class="text-white"><i class="bi bi-check-circle-fill"></i> Ofrecemos una amplia variedad de productos de alta calidad a precios competitivos.</li>
+                        <li class="text-white"><i class="bi bi-check-circle-fill"></i> Brindamos un servicio excepcional y atención personalizada a nuestros clientes.</li>
+                        <li class="text-white"><i class="bi bi-check-circle-fill"></i> Nos comprometemos a ser una empresa socialmente responsable y a apoyar iniciativas que contribuyan al bienestar de la comunidad y del medio ambiente.</li>
+                    </ul>
+                    <p>
+                        Visítenos en nuestras instalaciones ubicadas en San José, o contáctenos a través de nuestro sitio web o correo electrónico para obtener más información sobre nuestros productos. Estamos comprometidos con la satisfacción de nuestros clientes y con ofrecer soluciones confiables y de alta calidad para sus vehículos.
+                    </p>
+
+                    <div class="position-relative mt-4">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3926.512962974722!2d-84.07193548563566!3d9.918360692787315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcO1NTUnMDYuNSdCMRQxMjYsINCc0LjRgdCw0LjQsNzbQlSwg0JLQuNGX0LI!5e0!3m2!1sen!2scr!4v1616809284795!5m2!1sen!2scr&q=9.918358,-84.104569"
+                                width="500" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
-</div>
+</section>
