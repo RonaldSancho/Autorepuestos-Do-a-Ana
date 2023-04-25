@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <br />
 
-                    @using (Html.BeginForm("ModificarUsuario", "Usuario", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+                    @using (Html.BeginForm("ModificarUsuarioAdmin", "Usuario", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
                     {
 
                         @Html.HiddenFor(m => m.IdUsuario, new{@class="form-control", @style="color:grey"})
