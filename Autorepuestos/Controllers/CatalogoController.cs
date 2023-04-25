@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Autorepuestos.Controllers
 {
-    [ResponseCache (NoStore =true, Duration = 0)]
+    [ResponseCache(NoStore = true, Duration = 0)]
     public class CatalogoController : Controller
     {
 
@@ -16,7 +16,7 @@ namespace Autorepuestos.Controllers
         private readonly IUsuariosModel _UsuariosModel;
         private readonly IErroresModel _ErroresModel;
 
-        public CatalogoController(ILogger<CatalogoController> logger, ICatalogosModel catalogoModel, 
+        public CatalogoController(ILogger<CatalogoController> logger, ICatalogosModel catalogoModel,
             IUsuariosModel usuariosModel, IErroresModel erroresModel)
         {
             _logger = logger;
@@ -31,6 +31,7 @@ namespace Autorepuestos.Controllers
             try
             {
                 var resultado = _UsuariosModel.ValidarUsuarios(usuarios);
+                var res = usuarios.Estado;
                 if (resultado != null)
                 {
                     HttpContext.Session.SetInt32("IdUsuario", resultado.IdUsuario);
@@ -39,8 +40,16 @@ namespace Autorepuestos.Controllers
                 }
                 else
                 {
-                    TempData["MensajeCredenciales"] = true;
-                    return RedirectToAction("Index", "Home");
+                    if (res == false)
+                    {
+                        TempData["MensajeCredenciales2"] = true;
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        TempData["MensajeCredenciales"] = true;
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
             catch (Exception ex)

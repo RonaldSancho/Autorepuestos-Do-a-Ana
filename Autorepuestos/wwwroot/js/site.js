@@ -97,6 +97,14 @@ function MensajeCredenciales() {
     });
 }
 
+function MensajeCredenciales2() {
+    Swal.fire({
+        title: 'Error de inicio de sesión',
+        text: 'Cuenta inactiva',
+        icon: 'error',
+        confirmButtonText: 'OK'
+    });
+}
 function MensajeUsuarioCreado() {
     Swal.fire({
         title: 'Cuenta creada exitosamente.¿Desea volver al iniciar sesión?',

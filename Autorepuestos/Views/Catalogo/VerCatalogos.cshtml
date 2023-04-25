@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Autorepuestos.Entities.CatalogosEntities>
 @{
     ViewData["Title"] = "ConsultarProductos";
-    
+
 }
 <br />
 <br />
@@ -36,9 +36,6 @@
                     <div class="card-body text-center mx-auto">
                         <div class='cvp'>
                             <h5 class="card-title font-weight-bold">@Html.DisplayFor(modelItem => item.NombreProducto)</h5>
-                            <p class="card-text">@Html.DisplayFor(modelItem => item.Descripcion)</p>
-                            @Html.HiddenFor(modelItem => item.Precio)
-                            
                             <p class="card-text">₡@Html.DisplayFor(modelItem => item.Precio)</p>
                             <a class="btn btn-dark" role="button" href="@Url.Action("ProductoCarrito", "Carrito", new{id = item.IdProducto})">Agregar al Carrito</a> <br><br>
                             <a class="btn btn-dark" role="button" href="@Url.Action("VerProductoCatalogo","Catalogo", new{id = item.IdProducto})">Ver más</a>
