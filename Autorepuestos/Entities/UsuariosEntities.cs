@@ -33,7 +33,7 @@ namespace Autorepuestos.Entities
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$",
         ErrorMessage = "La contraseña debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial")]
         public string pContrasena { get; set; } = string.Empty;
-        [DisplayName("Direccion")]
+        [DisplayName("Dirección")]
         [Required(ErrorMessage = "La dirección es requerida.")]
         [MinLength(15, ErrorMessage = "La dirección debe ser específica por lo que debe tener más de 15 caracteres")]
         public string pDireccion { get; set; } = string.Empty;
