@@ -74,11 +74,11 @@ namespace Autorepuestos.Models
         }
 
         /*aqui empieza la parte del detalle como tal para verificar la compra*/
-        public void CreandoDetalle()
+        public void CreandoDetalle(int? IdUsuario)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                conexion.Execute("CreandoDetalle", new { }, commandType: CommandType.StoredProcedure);
+                conexion.Execute("CreandoDetalle", new { IdUsuario}, commandType: CommandType.StoredProcedure);
             }
         }
 

@@ -100,15 +100,21 @@ namespace Autorepuestos.Controllers
             }
         }
 
+
         [HttpPost]
         public ActionResult ModificarUsuarioUno(UsuariosEntities usuario)
         {
             try
             {
-                _usuariosModel.ModificarUsuario(usuario);
 
+                _usuariosModel.ModificarUsuario(usuario);
+                if (usuario.pIdRol == 1)
+                {
+                    return RedirectToAction("VerCatalogos", "Catalogo");
+                }
                 //este llamara a la interfaz
                 return RedirectToAction("VerUsuarios");
+
             }
             catch (Exception ex)
             {

@@ -1,6 +1,7 @@
 ﻿using Autorepuestos.Entities;
 using Autorepuestos.Interfaces;
 using Autorepuestos.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
@@ -31,8 +32,11 @@ namespace Autorepuestos.Controllers
             {
                 var usuario = HttpContext.Session.GetInt32("IdUsuario");
                 var datos = _CarritoModel.ConsultarCarrito(carro, usuario);
+                HttpContext.Session.SetInt32("cant", datos.Sum(x => x.Cantidad));
 
                 ViewBag.Total = datos.Sum(x => x.Subtotal);
+                
+
 
                 return View(datos);
             }
@@ -138,7 +142,7 @@ namespace Autorepuestos.Controllers
             try
             {
                 var usuario = HttpContext.Session.GetInt32("IdUsuario");
-                _CarritoModel.CreandoDetalle();
+                _CarritoModel.CreandoDetalle(usuario);
 
                 var datos = _CarritoModel.ConsultarDetalle(usuario);
                 ViewBag.Total = datos.Sum(x => x.Subtotal);
@@ -155,9 +159,11 @@ namespace Autorepuestos.Controllers
         private void RegistrarErrores(Exception ex, ControllerContext contexto)
         {
             ErroresEntities errores = new ErroresEntities();
+            var idusuario = HttpContext.Session.GetInt32("IdUsuario");
+
             errores.Origen = contexto.ActionDescriptor.ControllerName + "-" + contexto.ActionDescriptor.ActionName;
             errores.Mensaje = ex.Message;
-            errores.IdUsuario = int.Parse(HttpContext.Session.GetString("IdUsuario"));
+            errores.IdUsuario = (int)idusuario; /*int.Parse(HttpContext.Session.GetString("IdUsuario"));*/
             _ErroresModel.RegistrarErrores(errores);
         }
     }

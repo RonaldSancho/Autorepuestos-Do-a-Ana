@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Autorepuestos.Entities.CarritoEntities>
 @{
     ViewBag.Title = "CarritoCompras";
+    var cant = Context.Session.GetInt32("cant");
+
 }
 
 <div class="contenedor">
@@ -52,7 +54,9 @@
                             </tr>
                         </table>
                     </div>
+                    @if(@cant > 0){
                     <a href="@Url.Action("ConsultarDetalle", "Carrito")" class="btn btn-primary">Finalizar Compra</a>
+                    }
                 </div>
             </div>
         </div>
