@@ -764,6 +764,16 @@ WHERE
         AND factura.IdFactura = maximoIdFactura;
 END
 
+delimiter $$
+CREATE PROCEDURE `FacturasDelCliente`(in IdUsuario int)
+begin
+	select f.IdFactura, f.Fecha, u.NombreUsuario, f.MontoTotal, f.Telefono, f.Direccion, t.TipoPago, r.TipoRetiro, f.Detalle, f.EstadoFactura
+    from Factura f, Usuario u, TipoPago t, TipodeRetiro r
+    where f.IdUsuario= u.IdUsuario and f.IdTipoPago=t.IdTipoPago
+    and f.IdTipoRetiro=r.IdTipoRetiro
+    and f.IdUsuario=IdUsuario;
+end$$
+
 /*FIN SP DE FACTURA*/
 
 /*********************************************INICIO SP ERRORES**************************************************************************/

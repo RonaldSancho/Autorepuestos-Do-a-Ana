@@ -13,5 +13,6 @@ namespace Autorepuestos.Interfaces
         public void CrearFactura(FacturaEntities entidad, int? IdUsuario);
         public void CambiarEstadoFactura(int IdFactura);
         public FacturaEntities? EnviarCorreoConfirmacion(FacturaEntities entidad);
+        public List<FacturaEntities> FacturasDelCliente(int? IdUsuario);
     }
 }

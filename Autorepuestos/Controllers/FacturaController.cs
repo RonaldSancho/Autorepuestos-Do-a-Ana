@@ -163,6 +163,21 @@ namespace Autorepuestos.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult FacturasDelCliente()
+        {
+            try
+            {
+                var IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+                return View(_facturaModel.FacturasDelCliente(IdUsuario));
+            }
+            catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
+        }
+
         private void RegistrarErrores(Exception ex, ControllerContext contexto)
         {
             ErroresEntities errores = new ErroresEntities();

@@ -114,5 +114,14 @@ namespace Autorepuestos.Models
                 return resultado;
             }
         }
+
+        public List<FacturaEntities> FacturasDelCliente(int? IdUsuario)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                return conexion.Query<FacturaEntities>("FacturasDelCliente", new { IdUsuario }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
     }
 }
