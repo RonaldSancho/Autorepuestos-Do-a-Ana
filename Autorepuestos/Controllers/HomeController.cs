@@ -135,9 +135,9 @@ namespace Autorepuestos.Controllers
         }
 
         [HttpGet]
+        [FiltroSesiones]
         public IActionResult SobreNosotros()
         {
-            HttpContext.Session.Clear();
             return View();
         }
 
