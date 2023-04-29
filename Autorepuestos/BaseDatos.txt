@@ -678,6 +678,12 @@ BEGIN
     and c.IdUsuario = IdUsuario
     and c.Estado= 1;
 end$$
+
+delimiter $$
+CREATE PROCEDURE `EliminarDetalle`(IdUsuario int)
+BEGIN
+    delete from DetalleCarrito where D.IdUsuario=IdUsuario;
+END$$
 /* FIN SP DE CARRITO */
 
 /*INICIO SP FACTURA*/

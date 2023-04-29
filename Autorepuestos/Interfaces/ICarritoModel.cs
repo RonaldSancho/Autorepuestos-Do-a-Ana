@@ -19,5 +19,6 @@ namespace Autorepuestos.Interfaces
         /*aqui empieza la parte del detalle como tal para verificar la compra*/
         public void CreandoDetalle(int? IdUsuario);
         public List<CarritoEntities> ConsultarDetalle(int? IdUsuario);
+        public void EliminarDetalle(int? IdUsuario);
     }
 }

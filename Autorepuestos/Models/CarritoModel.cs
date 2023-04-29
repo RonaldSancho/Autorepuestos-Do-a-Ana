@@ -82,6 +82,14 @@ namespace Autorepuestos.Models
             }
         }
 
+        public void EliminarDetalle(int? IdUsuario)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("EliminarDetalle", new { IdUsuario }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
         public List<CarritoEntities> ConsultarDetalle(int? IdUsuario)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))

@@ -42,12 +42,3 @@
     </tr>
 </table>
 <a href="@Url.Action("ConsultarTipoPago", "Factura")" class="btn btn-primary">Elegir Método Pago</a>
-
-<script>
-    //esto me permite que se me desactive la tecla f5 o que cuando se recargue pantalla no se ejecute de nuevo el sp
-    document.onkeydown = function(e){
-    recarga = (document.all) ? e.keyCode : e.which;
-    if (recarga = 116) { return false; }
-    }
-
-</script>
