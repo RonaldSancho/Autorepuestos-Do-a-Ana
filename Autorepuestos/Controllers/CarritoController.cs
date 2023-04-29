@@ -143,13 +143,26 @@ namespace Autorepuestos.Controllers
             try
             {
                 var usuario = HttpContext.Session.GetInt32("IdUsuario");
-                _CarritoModel.EliminarDetalle(usuario);
-                _CarritoModel.CreandoDetalle(usuario);
+                var consulta = _CarritoModel.ConsultarDetalle(usuario);
+                if(consulta.Count > 0)
+                {
+                    _CarritoModel.EliminarDetalle(usuario);
+                    _CarritoModel.CreandoDetalle(usuario);
 
-                var datos = _CarritoModel.ConsultarDetalle(usuario);
-                ViewBag.Total = datos.Sum(x => x.Subtotal);
+                    var datos = _CarritoModel.ConsultarDetalle(usuario);
+                    ViewBag.Total = datos.Sum(x => x.Subtotal);
 
-                return View(datos);
+                    return View(datos);
+                }
+                else
+                {
+                    _CarritoModel.CreandoDetalle(usuario);
+
+                    var datos = _CarritoModel.ConsultarDetalle(usuario);
+                    ViewBag.Total = datos.Sum(x => x.Subtotal);
+
+                    return View(datos);
+                }
             }
             catch (Exception ex)
             {
