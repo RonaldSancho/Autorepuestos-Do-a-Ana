@@ -42,3 +42,12 @@
     </tr>
 </table>
 <a href="@Url.Action("ConsultarTipoPago", "Factura")" class="btn btn-primary">Elegir Método Pago</a>
+
+<script>
+    document.onkeydown = function (e) {
+        recarga = (document.all) ? e.keyCode : e.which;
+        if (recarga = 116) {
+            return false;
+        }
+    }
+</script>
