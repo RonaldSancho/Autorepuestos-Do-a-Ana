@@ -3,7 +3,6 @@ using Autorepuestos.Interfaces;
 using Dapper;
 using MySql.Data.MySqlClient;
 using System.Data;
-using Autorepuestos.Interfaces;
 
 namespace Autorepuestos.Models
 {
