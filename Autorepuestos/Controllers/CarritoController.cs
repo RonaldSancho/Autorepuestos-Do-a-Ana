@@ -16,7 +16,7 @@ namespace Autorepuestos.Controllers
         private readonly IFacturaModel _facturaModel;
         private readonly IErroresModel _ErroresModel;
 
-        public CarritoController(ILogger<CarritoController> logger, ICarritoModel carritoModel, 
+        public CarritoController(ILogger<CarritoController> logger, ICarritoModel carritoModel,
             IFacturaModel facturaModel, IErroresModel errores)
         {
             _logger = logger;
@@ -35,7 +35,7 @@ namespace Autorepuestos.Controllers
                 HttpContext.Session.SetInt32("cant", datos.Sum(x => x.Cantidad));
 
                 ViewBag.Total = datos.Sum(x => x.Subtotal);
-                
+
 
 
                 return View(datos);
@@ -105,7 +105,8 @@ namespace Autorepuestos.Controllers
         [HttpGet]
         public IActionResult ModificarCarrito(int id)
         {
-            try {
+            try
+            {
                 var resultado = _CarritoModel.MostrarProductoCarrito(id);
                 if (resultado != null)
                     return View(resultado);
@@ -142,26 +143,13 @@ namespace Autorepuestos.Controllers
             try
             {
                 var usuario = HttpContext.Session.GetInt32("IdUsuario");
-                var consulta = _CarritoModel.ConsultarDetalle(usuario);
-                if(consulta.Count > 0)
-                {
-                    _CarritoModel.EliminarDetalle(usuario);
-                    _CarritoModel.CreandoDetalle(usuario);
+                _CarritoModel.EliminarDetalle(usuario);
+                _CarritoModel.CreandoDetalle(usuario);
 
-                    var datos = _CarritoModel.ConsultarDetalle(usuario);
-                    ViewBag.Total = datos.Sum(x => x.Subtotal);
+                var datos = _CarritoModel.ConsultarDetalle(usuario);
+                ViewBag.Total = datos.Sum(x => x.Subtotal);
 
-                    return View(datos);
-                }
-                else
-                {
-                    _CarritoModel.CreandoDetalle(usuario);
-
-                    var datos = _CarritoModel.ConsultarDetalle(usuario);
-                    ViewBag.Total = datos.Sum(x => x.Subtotal);
-
-                    return View(datos);
-                }
+                return View(datos);
             }
             catch (Exception ex)
             {
