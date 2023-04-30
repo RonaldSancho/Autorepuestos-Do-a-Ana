@@ -1,0 +1,96 @@
+﻿@model Autorepuestos.Entities.FacturaEntities
+@{
+    ViewBag.Title = "Descargar Detalle Factura";
+    Layout = "";
+}
+
+<div class="contenedor">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="invoice-container">
+                        <div class="invoice-header">
+                            <div style="text-align: center;">
+                                <h2 class="text-dark">Número de factura:  #@Html.DisplayFor(m => m.IdFactura)</h2>
+                            </div>
+                            <div class="row gutters">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <br />
+                                    <address class="text-right" style="color: black">
+                                        Av. Central, Hatillo 3, San José.<br>
+                                        2252-0404<br>
+                                        autorepuestosda@outlook.com
+                                    </address>
+                                </div>
+                            </div>
+                            <div class="row gutters">
+                                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                                    <div class="invoice-details">
+                                        <address>
+                                            Datos del cliente
+                                            <div><strong>Nombre del cliente:</strong> @Html.DisplayFor(m => m.NombreUsuario)</div>
+                                            <div><strong>Teléfono del cliente:</strong> @Html.DisplayFor(m => m.Telefono)</div>
+                                            <div><strong>Dirección del cliente:</strong> @Html.DisplayFor(m => m.Direccion)</div>
+                                        </address>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                                    <div class="invoice-details">
+                                        <address>
+                                            Datos de la factura
+                                            <div><strong>Fecha de creación:</strong> @Html.DisplayFor(m => m.Fecha)</div>
+                                            <div><strong>Tipo de pago:</strong> @Html.DisplayFor(m => m.TipoPago)</div>
+                                            <div><strong>Tipo de retiro:</strong> @Html.DisplayFor(m => m.TipoRetiro)</div>
+                                        </address>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invoice-body">
+                            <div class="row gutters">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-light custom-table m-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-dark">Detalle de compra</th>
+                                                    <th class="text-dark">Monto total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <h6 class="text-dark">
+                                                            <strong>
+                                                                @*@Html.DisplayFor(m => m.Detalle)*@
+
+                                                                @foreach (var item in Model.Detalle.Replace(",", "").Split(" ! "))
+                                                                {
+                                                                    @item <br />
+                                                                }
+
+                                                            </strong>
+                                                        </h6>
+
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="text-dark"><strong>₡@Html.DisplayFor(m => m.MontoTotal)</strong></h6>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="invoice-footer">
+                            Gracias por preferir Autorepuestos Doña Ana.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

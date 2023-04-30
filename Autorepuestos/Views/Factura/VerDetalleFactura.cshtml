@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "DetalleFactura";
     var rol = Context.Session.GetInt32("IdRol");
+    var IdFactura = Context.Session.GetInt32("IdFactura");
 }
 
 <div class="contenedor">
@@ -117,7 +118,7 @@
                         </div>
                         <p>
                             <a class="btn btn-secondary" role="button" onclick="Imprimir();">Imprimir</a>
-                            <a class="btn btn-secondary" role="button">PDF</a>
+                            <a class="btn btn-primary" role="button" href="@Url.Action("DescargarDetalle","Factura", new{IdFactura= @IdFactura})">PDF</a>
                             @if (rol != 1)
                             {
                                 <a class="btn btn-secondary" role="button" href="@Url.Action("VerFacturas","Factura")">Volver</a>

@@ -7,6 +7,7 @@ using MimeKit;
 using MimeKit.Text;
 using MailKit.Net.Smtp;
 using System.Configuration;
+using Rotativa.AspNetCore;
 
 namespace Autorepuestos.Controllers
 {
@@ -68,6 +69,7 @@ namespace Autorepuestos.Controllers
         {
             try
             {
+                HttpContext.Session.SetInt32("IdFactura", id);
                 var resultado = _facturaModel.VerDetalleFactura(id);
                 if (resultado != null)
                     return View(resultado);
@@ -172,6 +174,24 @@ namespace Autorepuestos.Controllers
                 return View(_facturaModel.FacturasDelCliente(IdUsuario));
             }
             catch (Exception ex)
+            {
+                RegistrarErrores(ex, ControllerContext);
+                return View("Error");
+            }
+        }
+
+        public IActionResult DescargarDetalle(int IdFactura)
+        {
+            try
+            {
+                var result= _facturaModel.VerDetalleFactura(IdFactura);
+                return new ViewAsPdf("DescargarDetalle", result)
+                {
+                    FileName = $"Factura # {result.IdFactura}.pdf",
+                    PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                    PageSize= Rotativa.AspNetCore.Options.Size.A4
+                };
+            }catch (Exception ex)
             {
                 RegistrarErrores(ex, ControllerContext);
                 return View("Error");
