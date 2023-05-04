@@ -88,7 +88,7 @@ namespace Autorepuestos.Controllers
             ErroresEntities errores = new ErroresEntities();
             errores.Origen = contexto.ActionDescriptor.ControllerName + "-" + contexto.ActionDescriptor.ActionName;
             errores.Mensaje = ex.Message;
-            errores.IdUsuario = int.Parse(HttpContext.Session.GetString("IdUsuario"));
+            errores.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
             _ErroresModel.RegistrarErrores(errores);
         }
 

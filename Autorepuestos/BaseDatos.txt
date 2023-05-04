@@ -108,6 +108,7 @@ Mensaje varchar(80) not null,
 IdUsuario int not null,
 Origen varchar(60) not null,
 foreign key(IdUsuario) references Usuario(IdUsuario));
+alter table Errores drop column Codigo;
 
 Create table Entregas(
 IdEntrega int primary key auto_increment,
@@ -787,8 +788,8 @@ end$$
 DELIMITER $$
 CREATE PROCEDURE `RegistrarErrores`(Mensaje varchar(80), Origen varchar(60), IdUsuario int)
 begin
-	INSERT INTO Errores(Fecha, Mensaje, Origen, IdUsuario)
-	VALUES(GETDATE(), Mensaje, Origen, IdUsuario);
+	INSERT INTO Errores(FechaHora, Mensaje, Origen, IdUsuario)
+	VALUES(now(), Mensaje, Origen, IdUsuario);
 end$$
 
 /*********************************************FIN SP ERRORES**************************************************************************/
