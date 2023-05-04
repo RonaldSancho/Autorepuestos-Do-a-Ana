@@ -42,7 +42,14 @@ namespace Autorepuestos.Controllers
         [HttpGet]
         public IActionResult RegistrarUsuario()
         {
-            return View();
+            try
+            {
+                return View();
+            } catch (Exception ex)
+            {
+                RegistrarBitacora(ex, ControllerContext);
+                return View("Error");
+            }
         }
 
         [HttpPost]
@@ -58,7 +65,7 @@ namespace Autorepuestos.Controllers
                 }
                 catch (Exception ex)
                 {
-                    RegistrarErrores(ex, ControllerContext);
+                    RegistrarBitacora(ex, ControllerContext);
                     return View("ErrorLogin");
                 }
             }
@@ -80,7 +87,7 @@ namespace Autorepuestos.Controllers
             }
             catch (Exception ex)
             {
-                RegistrarErrores(ex, ControllerContext);
+                RegistrarBitacora(ex, ControllerContext);
                 return View("ErrorLogin");
             }
         }
@@ -94,7 +101,7 @@ namespace Autorepuestos.Controllers
             }
             catch (Exception ex)
             {
-                RegistrarErrores(ex, ControllerContext);
+                RegistrarBitacora(ex, ControllerContext);
                 return View("ErrorLogin");
             }
         }
@@ -168,6 +175,14 @@ namespace Autorepuestos.Controllers
             errores.Mensaje = ex.Message;
             errores.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
             _ErroresModel.RegistrarErrores(errores);
+        }
+
+        private void RegistrarBitacora(Exception ex, ControllerContext contexto)
+        {
+            ErroresEntities errores = new ErroresEntities();
+            errores.Accion = contexto.ActionDescriptor.ControllerName + "-" + contexto.ActionDescriptor.ActionName;
+            errores.Resultado = ex.Message;
+            _ErroresModel.RegistrarBitacora(errores);
         }
     }
 }

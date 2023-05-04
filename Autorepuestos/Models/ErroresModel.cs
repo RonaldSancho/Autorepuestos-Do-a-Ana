@@ -24,5 +24,15 @@ namespace Autorepuestos.Models
                     commandType: System.Data.CommandType.StoredProcedure);
             }
         }
+
+        public void RegistrarBitacora(ErroresEntities errores)
+        {
+            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                conexion.Execute("RegistrarBitacora",
+                    new { errores.Accion, errores.Resultado},
+                    commandType: System.Data.CommandType.StoredProcedure);
+            }
+        }
     }
 }

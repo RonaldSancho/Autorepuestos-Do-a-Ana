@@ -125,6 +125,8 @@ IdUsuario int not null,
 Accion varchar(30) not null, /*ya sea un error al iniciar sesion o que se este devolviendo algun articulo*/
 Resultado varchar(30) not null, /*fallo de sesion o devolucion del articulo de forma exitosa*/
 foreign key(IdUsuario) references Usuario(IdUsuario));
+ALTER TABLE Bitacora DROP FOREIGN KEY bitacora_ibfk_1;
+alter table Bitacora drop column IdUsuario;
 
 Create table Carrito(
 IdCarrito int primary key not null auto_increment,
@@ -790,6 +792,13 @@ CREATE PROCEDURE `RegistrarErrores`(Mensaje varchar(80), Origen varchar(60), IdU
 begin
 	INSERT INTO Errores(FechaHora, Mensaje, Origen, IdUsuario)
 	VALUES(now(), Mensaje, Origen, IdUsuario);
+end$$
+
+DELIMITER $$
+CREATE PROCEDURE `RegistrarBitacora`(Accion varchar(30), Resultado varchar(30))
+begin
+	INSERT INTO Bitacora(FechaHora, Accion, Resultado)
+	VALUES(now(), Accion, Resultado);
 end$$
 
 /*********************************************FIN SP ERRORES**************************************************************************/
