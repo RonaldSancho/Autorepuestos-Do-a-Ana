@@ -25,7 +25,6 @@ Telefono varchar(30) not null,
 Correo varchar(60) unique not null,
 Contrasena varchar(16) not null,
 foreign key(IdRol) references Rol(IdRol));
-alter table usuario add column Direccion varchar(200);
 
 Create table Proveedor(
 IdProveedor int primary key auto_increment,
@@ -271,12 +270,11 @@ $$
 
 DELIMITER $$
 CREATE PROCEDURE `RegistrarUsuario`(in pnombre varchar(30), in papellido1 varchar(20), in pcedula varchar(30),
-								  in ptelefono varchar(30), in pcorreo varchar(60), in pcontrasena varchar(16),
-                                  in pdireccion varchar(200))
+								  in ptelefono varchar(30), in pcorreo varchar(60), in pcontrasena varchar(16))
 BEGIN
-	insert into usuario(NombreUsuario, Apellido1, IdRol, Cedula, Telefono, Correo, Contrasena, Direccion,Estado) 
-    values ( pnombre, papellido1, 1, pcedula, ptelefono,pcorreo, pcontrasena, pdireccion,1);
-END$$
+	insert into usuario(NombreUsuario, Apellido1, IdRol, Cedula, Telefono, Correo, Contrasena,Estado) 
+    values ( pnombre, papellido1, 1, pcedula, ptelefono,pcorreo, pcontrasena,1);
+end$$
 
 delimiter $$
 create procedure CorreoExistente(in pcorreo varchar(60))
@@ -322,8 +320,9 @@ begin
 	select IdUsuario,concat(NombreUsuario,' ',Apellido1) as NombreCompletoUsuario,nombreRol ,Telefono'pTelefono',Correo'pCorreo' from Usuario,Rol where usuario.idRol=Rol.IdRol;
 	end;
 $$
-delimiter$$
-CREATE  PROCEDURE `VerUsuario`(in id int)
+
+delimiter $$
+CREATE PROCEDURE `VerUsuario`(in id int)
 begin
 select 
 IdUsuario,
@@ -332,15 +331,13 @@ Apellido1'pApellido1',
 cedula'pCedula',
 idRol'pIdRol',
 telefono'pTelefono',
-direccion'pDireccion',
 correo'pCorreo'
 from Usuario
 where id=IdUsuario  ;
 end$$
 
-
 delimiter //
-CREATE  PROCEDURE `ModificarUsuario`(IdUsuario int, pIdRol int,pNombre varchar(30), pApellido1 varchar(20), pCedula varchar(30), pTelefono varchar(30), pDireccion varchar(200),pCorreo varchar (60),pContrasena varchar(16))
+CREATE PROCEDURE `ModificarUsuario`(IdUsuario int, pIdRol int,pNombre varchar(30), pApellido1 varchar(20), pCedula varchar(30), pTelefono varchar(30), pCorreo varchar (60),pContrasena varchar(16))
 begin
 	Update Usuario
     Set 
@@ -349,12 +346,12 @@ begin
     Apellido1=pApellido1,
     Cedula=pCedula,
     telefono=pTelefono,
-    Direccion=pDireccion,
     Correo=pCorreo,
 	Contrasena=case when pContrasena='' then Contrasena else pContrasena end
     where Usuario.IdUsuario=IdUsuario;
 end//
 alter table usuario add estado tinyint;
+
 delimiter $$
 CREATE PROCEDURE `CambiarEstadoUsuario`(IdUsuario int)
 begin
@@ -701,18 +698,24 @@ begin
 end $$
 
 delimiter $$
-CREATE PROCEDURE `CrearFactura`(IdUsuario int, IdTipoPago int, IdTipoRetiro  int)
+CREATE PROCEDURE `CrearFactura`(IdUsuario int, IdTipoPago int, IdTipoRetiro int, Direccion varchar(200))
 begin
-	insert into Factura(IdUsuario, Telefono, Direccion,Fecha, MontoTotal,IdTipoPago,IdTipoRetiro,EstadoFactura,Detalle) (select d.IdUsuario, u.Telefono, u.Direccion, Now() 'Fecha', (sum(d.Subtotal)) 'MontoTotal', IdTipoPago, IdTipoRetiro, 0,
+	insert into Factura(IdUsuario, Telefono,Fecha, MontoTotal,IdTipoPago,IdTipoRetiro, Direccion, EstadoFactura, Detalle) (select d.IdUsuario, u.Telefono, Now() 'Fecha', (sum(d.Subtotal)) 'MontoTotal', IdTipoPago, IdTipoRetiro, Direccion, 0,
     (SELECT GROUP_CONCAT('Código: ', d.IdProducto,'| Producto: ', p.NombreProducto, 
-    '| Precio: ',d.Precio,'| Cantidad: ',d.Cantidad SEPARATOR ' ,\n') as nombres_concatenados)
+    '| Precio: ',d.Precio,'| Cantidad: ',d.Cantidad ,' ! ') as nombres_concatenados)
     from DetalleCarrito d, Usuario u, Producto p
     where d.IdUsuario=u.IdUsuario and d.IdUsuario = IdUsuario and d.Estado=1 and
     d.IdProducto = p.IdProducto
-    Group by d.IdUsuario, u.Telefono, u.Direccion); 
+    Group by d.IdUsuario, u.Telefono);
+    
+    update PRODUCTO P 
+        INNER JOIN DetalleCarrito DC ON P.IdProducto = DC.IdProducto
+        set P.Existencias = P.Existencias - DC.Cantidad
+        WHERE DC.IdUsuario = IdUsuario;
+    
     Delete from Carrito where Carrito.IdUsuario = IdUsuario;
     Delete from DetalleCarrito where DetalleCarrito.IdUsuario = IdUsuario;
-end $$
+end$$
 
 delimiter $$
 create procedure EliminarFactura(IdFactura int)

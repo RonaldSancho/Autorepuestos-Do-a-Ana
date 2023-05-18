@@ -27,6 +27,11 @@
                                 @Html.DropDownListFor(m => m.IdTipoRetiro, ViewBag.ComboTipoRetiro as List<SelectListItem>, new{@type = "text ",@class = "form-control col-md-4"})
                             </div>
 
+                            <div class="col-md-4">
+                                <span style="text-align:center;color:darkred">*Si selecciona en el tipo de retiro la opción de envío, indicar la dirección de entrega*</span>
+                                @Html.TextBoxFor(m => m.Direccion, new{@type = "text ",@class = "form-control col-md-4", @placeholder="Dirección"})
+                            </div>
+
                         </div>
 
                         <br />

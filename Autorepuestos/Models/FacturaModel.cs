@@ -83,7 +83,7 @@ namespace Autorepuestos.Models
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                conexion.Execute("CrearFactura", new {entidad.IdTipoPago, entidad.IdTipoRetiro, IdUsuario }, commandType: CommandType.StoredProcedure);
+                conexion.Execute("CrearFactura", new {entidad.IdTipoPago, entidad.IdTipoRetiro, entidad.Direccion, IdUsuario }, commandType: CommandType.StoredProcedure);
             }
         }
         public List<FacturaEntities> VerFacturas()
