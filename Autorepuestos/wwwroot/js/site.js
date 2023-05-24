@@ -346,3 +346,17 @@ function MensajeModificacionUsuario() {
         timer: 1500
     });
 }
+
+/*--------------------------------------------------------------
+Evitar letras
+--------------------------------------------------------------*/
+
+function LetrasCedula() {
+    var input = document.getElementById("pCedula");
+    input.value = input.value.replace(/\D/g, "");
+}
+
+function LetrasTelefono() {
+    var input = document.getElementById("pTelefono");
+    input.value = input.value.replace(/\D/g, "");
+}

@@ -36,6 +36,7 @@ namespace Autorepuestos.Controllers
         public IActionResult Index()
         {
             HttpContext.Session.Clear();
+
             return View();
         }
 
@@ -97,7 +98,10 @@ namespace Autorepuestos.Controllers
         {
             try
             {
-                return RedirectToAction("Index", "Home");
+                TempData["ExitoMensaje"] = "Se ha enviado un mensaje a su correo electrónico. " +
+                    "Verifique su bandeja de entrada para recuperar su contraseña.";
+
+                return RedirectToAction("RecuperarContrasenna", "Home");
             }
             catch (Exception ex)
             {
@@ -124,7 +128,16 @@ namespace Autorepuestos.Controllers
                 email.To.Add(MailboxAddress.Parse(resultado.pCorreo));
                 email.Subject = titulo;
                 email.Body = new TextPart(TextFormat.Html)
-                { Text = "<h1>¡Hola " + resultado.pCorreo + ", su contraseña es " + resultado.pContrasena + "</h1>" };
+                {
+                    Text = "<h1>Estimado/a " + resultado.pCorreo + ",</h1>" +
+                           "<p>Hemos recibido su solicitud de recuperación de contraseña para su cuenta en Autorepuestos Doña Ana.</p>" +
+                           "<p>A continuación, le proporcionamos la información solicitada:</p>" +
+                           "<p><strong>Correo electrónico:</strong> " + resultado.pCorreo + "</p>" +
+                           "<p><strong>Contraseña:</strong> " + resultado.pContrasena + "</p>" +
+                           "<p>Si tiene alguna pregunta o necesita asistencia adicional, no dude en contactarnos.</p>" +
+                           "<p>Atentamente,</p>" +
+                           "<p>El equipo de Autorepuestos Doña Ana</p>"
+                };
 
                 using var smtp = new SmtpClient();
                 smtp.Connect(Host, int.Parse(Puerto), false);

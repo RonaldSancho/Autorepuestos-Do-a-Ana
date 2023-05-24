@@ -9,7 +9,8 @@
 
     <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white" style="width: 700px">
         <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">AutoRepuestos<span class="tx-info tx-normal">DoñaAna</span></div>
-        <div class="tx-center mg-b-60">Registrarse</div>
+        <br />
+        <div class="tx-center mg-b-60">Por favor, brinde toda la información solicitada para crear su cuenta.</div>
 
         @using (Html.BeginForm("RegistrarUsuario", "Home", FormMethod.Post))
         {
@@ -32,14 +33,14 @@
 
                 <div class="col-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.pCedula, new {@class="form-control", @placeholder="Cédula sin guiones", @type="number", @onkeyup = "CorreoExistente();"})
+                        @Html.TextBoxFor(m => m.pCedula, new { @class = "form-control", @placeholder = "Cédula sin guiones", @onkeyup = "CorreoExistente(); LetrasCedula();"})
                         @Html.ValidationMessageFor(m => m.pCedula, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="col-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.pTelefono, new {@class="form-control", @placeholder="Número de teléfono", @type="number", @onkeyup = "CorreoExistente();"})
+                        @Html.TextBoxFor(m => m.pTelefono, new {@class="form-control", @placeholder="Número de teléfono", @onkeyup = "CorreoExistente(); LetrasTelefono();"})
                         @Html.ValidationMessageFor(m => m.pTelefono, "", new { @class = "text-danger" })
                     </div>
                 </div>
