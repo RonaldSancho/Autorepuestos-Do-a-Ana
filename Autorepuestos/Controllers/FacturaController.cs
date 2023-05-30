@@ -11,9 +11,11 @@ using Rotativa.AspNetCore;
 
 namespace Autorepuestos.Controllers
 {
+    //Líneas para controlar el borrado de sesión y que el usuario no se devuelva
+    [ResponseCache(NoStore = true, Duration = 0)]
+    [FiltroSesiones]
     public class FacturaController : Controller
     {
-
         private readonly IFacturaModel _facturaModel;
         private readonly ILogger<FacturaController> _logger;
         private readonly IConfiguration _configuration;

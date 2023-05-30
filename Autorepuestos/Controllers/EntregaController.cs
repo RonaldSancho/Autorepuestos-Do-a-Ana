@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Autorepuestos.Controllers
 {
+    //Líneas para controlar el borrado de sesión y que el usuario no se devuelva
+    [ResponseCache(NoStore = true, Duration = 0)]
+    [FiltroSesiones]
     public class EntregaController : Controller
     {
         private readonly ILogger<EntregaController> _logger;
