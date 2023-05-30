@@ -30,8 +30,14 @@ namespace Autorepuestos.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(usuarios.pCorreo) || string.IsNullOrEmpty(usuarios.pContrasena))
+                {
+                    TempData["MensajeCredenciales"] = true;
+                    return RedirectToAction("Index", "Home");
+                }
+
                 var resultado = _UsuariosModel.ValidarUsuarios(usuarios);
-                var res = usuarios.Estado;
+
                 if (resultado != null)
                 {
                     HttpContext.Session.SetInt32("IdUsuario", resultado.IdUsuario);
@@ -40,16 +46,16 @@ namespace Autorepuestos.Controllers
                 }
                 else
                 {
-                    if (res == false)
+                    if (!usuarios.Estado)
                     {
                         TempData["MensajeCredenciales2"] = true;
-                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
                         TempData["MensajeCredenciales"] = true;
-                        return RedirectToAction("Index", "Home");
                     }
+
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception ex)
@@ -58,6 +64,7 @@ namespace Autorepuestos.Controllers
                 return View("Error");
             }
         }
+
 
         [HttpGet]
         [FiltroSesiones]

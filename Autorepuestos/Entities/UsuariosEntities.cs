@@ -47,7 +47,5 @@ namespace Autorepuestos.Entities
             public List<UsuariosEntities> RespuestaUsuarios { get; set; } = new List<UsuariosEntities>();
         }
 
-        //Falta IdRol y poner correctamente el valor de IdUsuario
-
     }
 }
