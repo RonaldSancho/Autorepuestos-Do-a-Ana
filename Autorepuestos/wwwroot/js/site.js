@@ -88,23 +88,34 @@ function Recuperar() {
 /*--------------------------------------------------------------
 Mensajes de login
 --------------------------------------------------------------*/
-function MensajeCredenciales() {
+function MensajeEspaciosVacios() {
     Swal.fire({
         title: 'Error de inicio de sesión',
-        text: 'Credenciales incorrectas',
+        text: 'Por favor, complete todos los campos de inicio de sesión',
         icon: 'error',
         confirmButtonText: 'OK'
     });
 }
 
-function MensajeCredenciales2() {
+function MensajeCuentaInactiva() {
     Swal.fire({
         title: 'Error de inicio de sesión',
-        text: 'Cuenta inactiva',
+        html: 'Cuenta inactiva. Comuníquese con <a href="mailto:autorepuestosda@outlook.com">autorepuestosda@outlook.com</a> para activar su cuenta.',
         icon: 'error',
         confirmButtonText: 'OK'
     });
 }
+
+
+function MensajeCredencialesIncorrectas() {
+    Swal.fire({
+        title: 'Error de inicio de sesión',
+        text: 'Credenciales incorrectas. Verifique su usuario y contraseña.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+    });
+}
+
 function MensajeUsuarioCreado() {
     Swal.fire({
         title: 'Cuenta creada exitosamente.¿Desea volver al iniciar sesión?',

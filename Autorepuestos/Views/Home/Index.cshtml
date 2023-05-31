@@ -45,12 +45,16 @@
 
 @section scripts {
     <script src="~/js/site.js"></script>
-    @if (TempData.ContainsKey("MensajeCredenciales") && (bool)TempData["MensajeCredenciales"])
+    @if (TempData.ContainsKey("MensajeEspaciosVacios") && (bool)TempData["MensajeEspaciosVacios"])
     {
-        <script>MensajeCredenciales();</script>
+        <script>MensajeEspaciosVacios();</script>
     }
-    @if (TempData.ContainsKey("MensajeCredenciales2") && (bool)TempData["MensajeCredenciales2"])
+    @if (TempData.ContainsKey("MensajeCuentaInactiva") && (bool)TempData["MensajeCuentaInactiva"])
     {
-        <script>MensajeCredenciales2();</script>
+        <script>MensajeCuentaInactiva();</script>
+    }
+    @if (TempData.ContainsKey("MensajeCredencialesIncorrectas") && (bool)TempData["MensajeCredencialesIncorrectas"])
+    {
+        <script>MensajeCredencialesIncorrectas();</script>
     }
 }

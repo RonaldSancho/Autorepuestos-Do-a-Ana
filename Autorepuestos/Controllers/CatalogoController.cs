@@ -30,9 +30,10 @@ namespace Autorepuestos.Controllers
         {
             try
             {
+                //Verifica si los campos del login están vacíos
                 if (string.IsNullOrEmpty(usuarios.pCorreo) || string.IsNullOrEmpty(usuarios.pContrasena))
                 {
-                    TempData["MensajeCredenciales"] = true;
+                    TempData["MensajeEspaciosVacios"] = true;
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -40,21 +41,22 @@ namespace Autorepuestos.Controllers
 
                 if (resultado != null)
                 {
+                    //Si el usuario es diferente de null verifica si el estado es true o false
+                    if (resultado.Estado == false)
+                    {
+                        TempData["MensajeCuentaInactiva"] = true;
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    //Si es true inicia la sesión
                     HttpContext.Session.SetInt32("IdUsuario", resultado.IdUsuario);
                     HttpContext.Session.SetInt32("IdRol", resultado.pIdRol);
                     return RedirectToAction("VerCatalogos", "Catalogo");
                 }
                 else
                 {
-                    if (!usuarios.Estado)
-                    {
-                        TempData["MensajeCredenciales2"] = true;
-                    }
-                    else
-                    {
-                        TempData["MensajeCredenciales"] = true;
-                    }
-
+                    //Este mensaje se muestra si las credenciales están incorrectas
+                    TempData["MensajeCredencialesIncorrectas"] = true;
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -64,7 +66,6 @@ namespace Autorepuestos.Controllers
                 return View("Error");
             }
         }
-
 
         [HttpGet]
         [FiltroSesiones]
