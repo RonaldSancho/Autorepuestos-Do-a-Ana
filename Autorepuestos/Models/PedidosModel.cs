@@ -104,29 +104,7 @@ namespace Autorepuestos.Models
             }
         }
 
-        public RespuestaPedido ConsultaPedidoProveedor()
-        {
-            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-            {
-                var resultado = conexion.Query("ConsultaPedidoProveedor", new { }, commandType: CommandType.StoredProcedure).ToList();
-                RespuestaPedido respuesta = new RespuestaPedido();
-                List<PedidosEntities> datos = new List<PedidosEntities>();
-
-                if (resultado.Count > 0)
-                {
-                    foreach (var item in resultado)
-                    {
-                        datos.Add(new PedidosEntities
-                        {
-                            IdProveedor = item.IdProveedor,
-                            NombreProveedor = item.NombreProveedor,
-                        });
-                    }
-                    respuesta.RespuestaPedidos = datos;
-                }
-                return respuesta;
-            }
-        }
+        
 
         public RespuestaPedido ConsultaPedidoUsuario()
         {

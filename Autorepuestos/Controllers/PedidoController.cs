@@ -14,13 +14,17 @@ namespace Autorepuestos.Controllers
         private readonly ILogger<PedidoController> _logger;
         private readonly IPedidosModel _PedidosModel;
         private readonly IErroresModel _ErroresModel;
+        private readonly IProveedorModel _ProveedorModel;
 
 
-        public PedidoController(ILogger<PedidoController> logger,IPedidosModel pedidosModel, IErroresModel erroresModel)
+
+        public PedidoController(ILogger<PedidoController> logger,IPedidosModel pedidosModel, IErroresModel erroresModel, IProveedorModel proveedorModel)
         {
             _logger = logger;
             _PedidosModel = pedidosModel;
             _ErroresModel = erroresModel;
+            _ProveedorModel = proveedorModel;
+
         }
 
         [HttpGet]
@@ -43,7 +47,7 @@ namespace Autorepuestos.Controllers
             try
             {
                 var resultado1 = _PedidosModel.ConsultaPedidoProducto();
-                var resultado2 = _PedidosModel.ConsultaPedidoProveedor();
+                var resultado2 = _ProveedorModel.ConsultaPedidoProveedor();
                 var resultado3 = _PedidosModel.ConsultaPedidoUsuario();
                 if (resultado1 != null && resultado2 != null && resultado3 != null)
                 {
@@ -54,7 +58,7 @@ namespace Autorepuestos.Controllers
                     foreach (var item in resultado1.RespuestaPedidos)
                         opcionesProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
 
-                    foreach (var item in resultado2.RespuestaPedidos)
+                    foreach (var item in resultado2.RespuestaProveedores)
                         opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
 
                     foreach (var item in resultado3.RespuestaPedidos)
@@ -95,7 +99,7 @@ namespace Autorepuestos.Controllers
             else
             {
                 var resultado1 = _PedidosModel.ConsultaPedidoProducto();
-                var resultado2 = _PedidosModel.ConsultaPedidoProveedor();
+                var resultado2 = _ProveedorModel.ConsultaPedidoProveedor();
                 var resultado3 = _PedidosModel.ConsultaPedidoUsuario();
                 if (resultado1 != null && resultado2 != null && resultado3 != null)
                 {
@@ -106,7 +110,7 @@ namespace Autorepuestos.Controllers
                     foreach (var item in resultado1.RespuestaPedidos)
                         opcionesProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
 
-                    foreach (var item in resultado2.RespuestaPedidos)
+                    foreach (var item in resultado2.RespuestaProveedores)
                         opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
 
                     foreach (var item in resultado3.RespuestaPedidos)
@@ -144,7 +148,7 @@ namespace Autorepuestos.Controllers
             try
             {
                 var resultado1 = _PedidosModel.ConsultaPedidoProducto();
-                var resultado2 = _PedidosModel.ConsultaPedidoProveedor();
+                var resultado2 = _ProveedorModel.ConsultaPedidoProveedor();
                 var resultado3 = _PedidosModel.ConsultaPedidoUsuario();
                 if (resultado1 != null && resultado2 != null && resultado3 != null)
                 {
@@ -155,7 +159,7 @@ namespace Autorepuestos.Controllers
                     foreach (var item in resultado1.RespuestaPedidos)
                         opcionesProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
 
-                    foreach (var item in resultado2.RespuestaPedidos)
+                    foreach (var item in resultado2.RespuestaProveedores)
                         opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
 
                     foreach (var item in resultado3.RespuestaPedidos)
@@ -202,7 +206,7 @@ namespace Autorepuestos.Controllers
             else
             {
                 var resultado1 = _PedidosModel.ConsultaPedidoProducto();
-                var resultado2 = _PedidosModel.ConsultaPedidoProveedor();
+                var resultado2 = _ProveedorModel.ConsultaPedidoProveedor();
                 var resultado3 = _PedidosModel.ConsultaPedidoUsuario();
                 if (resultado1 != null && resultado2 != null && resultado3 != null)
                 {
@@ -213,7 +217,7 @@ namespace Autorepuestos.Controllers
                     foreach (var item in resultado1.RespuestaPedidos)
                         opcionesProductos.Add(new SelectListItem { Text = item.NombreProducto, Value = item.IdProducto.ToString() });
 
-                    foreach (var item in resultado2.RespuestaPedidos)
+                    foreach (var item in resultado2.RespuestaProveedores)
                         opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
 
                     foreach (var item in resultado3.RespuestaPedidos)

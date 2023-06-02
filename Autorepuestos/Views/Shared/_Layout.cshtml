@@ -45,7 +45,7 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    @if(rol == 1)
+                    @if(rol == 1)/*Cliente*/
                     {
 @*                       <input type="text" id="search-input" class="form-control" placeholder="Buscar productos...">*@
                         <li><a href="@Url.Action("SobreNosotros", "Home")">Sobre Nosotros</a></li>
@@ -54,8 +54,9 @@
                         <li><a href="@Url.Action("FacturasDelCliente", "Factura")">Facturas</a></li>
                         <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
                     }
-                    @if(rol == 2){
+                    @if(rol == 2)/*Trabajador*/{
                     <li><a href="@Url.Action("MostrarProductos", "Producto")">Productos</a></li>
+                        <li><a href="@Url.Action("MostrarProveedor", "Proveedor")">Proveedores</a></li>
                     <li><a href="@Url.Action("CarritoCompras", "Carrito")">Carrito</a></li>
                     <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
                     <li><a href="@Url.Action("MostrarPedido", "Pedido")">Pedido</a></li>
@@ -63,9 +64,11 @@
                     <li><a href="@Url.Action("VerUsuarios", "Usuario")">Usuarios</a></li>
                     <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
                     }
-                    @if (rol == 3)
+                    @if (rol == 3)/*Admin*/
                     {
                         <li><a href="@Url.Action("MostrarProductos", "Producto")">Productos</a></li>
+                        <li><a href="@Url.Action("MostrarProveedor", "Proveedor")">Proveedores</a></li>
+                        <li><a href="@Url.Action("MostrarCategoria", "Categoria")">Categorías</a></li>
                         <li><a href="@Url.Action("CarritoCompras", "Carrito")">Carrito</a></li>
                         <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
                         <li><a href="@Url.Action("MostrarPedido", "Pedido")">Pedido</a></li>
@@ -73,8 +76,9 @@
                         <li><a href="@Url.Action("VerUsuarios", "Usuario")">Usuarios</a></li>
                         <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>
                     }
-                    @if (rol == 4)
+                    @if (rol == 4)/*Repartidor*/
                     {
+                        <li><a href="@Url.Action("MostrarProveedor", "Proveedor")">Proveedores</a></li>
                         <li><a href="@Url.Action("VerEntregas", "Entrega")">Entregas</a></li>
                         <li><a href="@Url.Action("VerUsuarios", "Usuario")">Usuarios</a></li>
                         <li><a href="@Url.Action("CerrarSesion", "Home")">Cerrar Sesión</a></li>

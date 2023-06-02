@@ -371,3 +371,72 @@ function LetrasTelefono() {
     var input = document.getElementById("pTelefono");
     input.value = input.value.replace(/\D/g, "");
 }
+
+/*--------------------------------------------------------------
+Mensajes de Proveedor
+--------------------------------------------------------------*/
+function MensajeProveedorAgregado() {
+    Swal.fire({
+        title: 'Proveedor agregado exitosamente.¿Desea volver a la lista de proveedores?',
+        icon: 'success',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la lista',
+        cancelButtonText: 'No, quedarme aquí'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Proveedor/MostrarProveedor";
+        }
+    });
+}
+
+function MensajeModificacionProveedor() {
+    Swal.fire({
+        title: 'Proveedor modificado exitosamente.¿Desea volver a la lista de proveedores?',
+        icon: 'success',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la lista',
+        cancelButtonText: 'No, seguir editando'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Proveedor/MostrarProveedor";
+        }
+    });
+}
+
+
+
+
+/*--------------------------------------------------------------
+Mensajes de Categoria
+--------------------------------------------------------------*/
+function MensajeCategoriaAgregado() {
+    Swal.fire({
+        title: 'Categoria agregado exitosamente.¿Desea volver a la lista de categorias?',
+        icon: 'success',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la lista',
+        cancelButtonText: 'No, quedarme aquí'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Categoria/MostrarCategoria";
+        }
+    });
+}
+
+function MensajeModificacionCategoria() {
+    Swal.fire({
+        title: 'Categoria modificado exitosamente.¿Desea volver a la lista de categorias?',
+        icon: 'success',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la lista',
+        cancelButtonText: 'No, seguir editando'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Categoria/MostrarCategoria";
+        }
+    });
+}

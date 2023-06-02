@@ -1,0 +1,97 @@
+﻿@model Autorepuestos.Entities.ProveedorEntities
+@{
+    ViewBag.Title = "ModificarProveedor";
+    var rol = Context.Session.GetInt32("IdRol");
+}
+
+<div class="contenedor">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="background-color: white">
+                <div class="card-header" style="background-color: #cbcbcb; height: 50px;">
+                    <h3 class="titulo-card-estilo">Modificar Proveedor</h3>
+                </div>
+                <div class="card-body">
+                    <br />
+
+                    @using (Html.BeginForm("ModificarProveedor", "Proveedor", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+                    {
+
+                        @Html.HiddenFor(m => m.IdProveedor, new{@class="form-control", @style="color:grey"})
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="row">
+                            @if(rol==3)
+                            {
+                                <div class="col-md-4">
+                                @Html.LabelFor(m => m.NombreProveedor, new{@class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.NombreProveedor , new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.NombreProveedor, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.Telefono, new{@class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.Telefono, new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.Direccion, new{ @class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.Direccion, new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-4">
+                                    @Html.LabelFor(m => m.NombreProveedor, new{@class="form-control-label col-md-4"})
+                                    @Html.TextBoxFor(m => m.NombreProveedor , new{@type = "text ",@class = "form-control col-md-4",@readonly="true"})
+                                    @Html.ValidationMessageFor(m => m.NombreProveedor, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-md-4">
+                                    @Html.LabelFor(m => m.Telefono, new{@class="form-control-label col-md-4"})
+                                    @Html.TextBoxFor(m => m.Telefono, new{@type = "text ",@class = "form-control col-md-4"})
+                                    @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-md-4">
+                                    @Html.LabelFor(m => m.Direccion, new{ @class="form-control-label col-md-4"})
+                                    @Html.TextBoxFor(m => m.Direccion, new{@type = "text ",@class = "form-control col-md-4"})
+                                    @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
+                                </div>
+                            }
+
+
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="submit" id="ProveedorEditado" class="btn btn-success" value="Guardar" />
+                                <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarProveedor","Proveedor")">Cancelar</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/site.js"></script>
+    <script>
+        @if (TempData.ContainsKey("MensajeModificacionProveedor") && (bool)TempData["MensajeModificacionProveedor"])
+        {
+            @:MensajeModificacionProveedor();
+        }
+    </script>
+}
+
+
+

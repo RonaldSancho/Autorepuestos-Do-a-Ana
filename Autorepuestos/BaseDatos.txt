@@ -812,3 +812,89 @@ update Producto set Existencias = Existencias - new.Cantidad
 where IdProducto = new.IdProducto;
 
 /*FIN TRIGGER DE CARRITO*/
+
+/*******************************************Inicio Sp Proveedores**********************************************************************/
+ /*Proveedor*/
+
+DELIMITER $$
+CREATE DEFINER=`a97354_autodb`@`%` PROCEDURE `CrearProveedor`(IdProveedor int,NombreProveedor varchar(40), Telefono varchar(30), Direccion varchar(80))
+begin
+	Insert into Proveedor(IdProveedor ,NombreProveedor , Telefono , Direccion ) 
+    values(IdProveedor ,NombreProveedor , Telefono , Direccion);
+end
+$$
+
+DELIMITER $$
+CREATE DEFINER=`a97354_autodb`@`%` PROCEDURE `EditarProveedor`(IdProveedor int,NombreProveedor varchar(40), Telefono varchar(30), Direccion varchar(80))
+begin
+	Update Proveedor
+    Set 
+    Proveedor.NombreProveedor=NombreProveedor, 
+    Proveedor.Telefono=Telefono, 
+    Proveedor.Direccion=Direccion 
+    where Proveedor.IdProveedor=IdProveedor;
+end
+$$
+
+DELIMITER $$
+CREATE DEFINER=`a97354_autodb`@`%` PROCEDURE `VerProveedores`()
+begin
+	SELECT 
+    IdProveedor,
+    NombreProveedor,
+    Telefono,
+    Direccion
+    FROM  Proveedor ;
+end
+$$
+
+DELIMITER $$
+CREATE DEFINER=`a97354_autodb`@`%` PROCEDURE `VisualizarProveedor`(id int)
+begin
+	 SELECT IdProveedor,
+     NombreProveedor,
+     Telefono,
+     Direccion
+    FROM Proveedor B
+	where B.IdProveedor=id;
+end
+$$
+/*************************************************Fin Sp Proveedores******************************************************/
+/*************************************************Inicio sp Categorias****************************************************/
+
+DELIMITER $$
+CREATE DEFINER=`a97354_autodb`@`%` PROCEDURE `CrearCategoria`(IdCategoria int,NombreCategoria varchar(30))
+begin
+	Insert into Categoria(IdCategoria ,NombreCategoria) 
+    values(IdCategoria,NombreCategoria);
+end
+$$
+
+DELIMITER $$
+CREATE DEFINER=`a97354_autodb`@`%` PROCEDURE `EditarCategoria`(IdCategoria int,NombreCategoria varchar(30))
+begin
+	Update Categoria
+    Set categoria.NombreCategoria=NombreCategoria
+    where categoria.IdCategoria=IdCategoria;
+end
+$$
+
+DELIMITER $$
+CREATE DEFINER=`a97354_autodb`@`%` PROCEDURE `VerCategorias`()
+begin
+	SELECT IdCategoria,
+    NombreCategoria
+    FROM categoria;
+end
+$$
+
+DELIMITER $$
+CREATE DEFINER=`a97354_autodb`@`%` PROCEDURE `VisualizarCategoria`(id int)
+begin
+	 SELECT IdCategoria,
+     NombreCategoria
+    FROM Categoria C
+	where C.IdCategoria=id ;
+end
+$$
+/********************************************** Fin sp Categorias********************************************/

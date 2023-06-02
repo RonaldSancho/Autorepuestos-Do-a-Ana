@@ -17,15 +17,19 @@ namespace Autorepuestos.Controllers
         private readonly IPedidosModel _PedidosModel;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IErroresModel _ErroresModel;
+        private readonly IProveedorModel _ProveedorModel;
+        private readonly ICategoriaModel _CategoriaModel;
 
-        public ProductoController(ILogger<ProductoController> logger, IProductosModel productos, 
-            IPedidosModel pedidosModel,IWebHostEnvironment webHostEnvironment, IErroresModel erroresModel)
+        public ProductoController(ILogger<ProductoController> logger, IProductosModel productos,
+            IPedidosModel pedidosModel, IWebHostEnvironment webHostEnvironment, IErroresModel erroresModel, IProveedorModel proveedorModel, ICategoriaModel categoriaModel)
         {
             _logger = logger;
             _ProductosModel = productos;
             _PedidosModel = pedidosModel;
             _webHostEnvironment = webHostEnvironment;
             _ErroresModel = erroresModel;
+            _CategoriaModel = categoriaModel;
+            _ProveedorModel = proveedorModel;
         }
 
         [HttpGet]
@@ -48,8 +52,8 @@ namespace Autorepuestos.Controllers
         {
             try
             {
-                var resultado1 = _ProductosModel.ConsultaProductoCategoria();
-                var resultado2 = _ProductosModel.ConsultaProductoProveedor();
+                var resultado1 = _CategoriaModel.ConsultaProductoCategoria();
+                var resultado2 = _ProveedorModel.ConsultaProductoProveedor();
 
                 if (resultado1 != null && resultado2 != null)
                 {
@@ -57,10 +61,10 @@ namespace Autorepuestos.Controllers
                     var opcionesProveedores = new List<SelectListItem>();
 
 
-                    foreach (var item in resultado1.RespuestaProductos)
+                    foreach (var item in resultado1.RespuestaCategorias)
                         opcionesCategorias.Add(new SelectListItem { Text = item.NombreCategoria, Value = item.IdCategoria.ToString() });
 
-                    foreach (var item in resultado2.RespuestaProductos)
+                    foreach (var item in resultado2.RespuestaProveedores)
                         opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
 
                     ViewBag.ComboCategorias = opcionesCategorias;
@@ -113,22 +117,24 @@ namespace Autorepuestos.Controllers
             }
             else //Con estas nuevas líneas se recarga el DropDown
             {
-                var resultado1 = _ProductosModel.ConsultaProductoCategoria();
-                var resultado2 = _ProductosModel.ConsultaProductoProveedor();
+                var resultado1 = _CategoriaModel.ConsultaProductoCategoria();
+                var resultado2 = _ProveedorModel.ConsultaProductoProveedor();
 
                 if (resultado1 != null && resultado2 != null)
                 {
                     var opcionesCategorias = new List<SelectListItem>();
                     var opcionesProveedores = new List<SelectListItem>();
 
-                    foreach (var item in resultado1.RespuestaProductos)
+
+                    foreach (var item in resultado1.RespuestaCategorias)
                         opcionesCategorias.Add(new SelectListItem { Text = item.NombreCategoria, Value = item.IdCategoria.ToString() });
 
-                    foreach (var item in resultado2.RespuestaProductos)
+                    foreach (var item in resultado2.RespuestaProveedores)
                         opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
 
                     ViewBag.ComboCategorias = opcionesCategorias;
                     ViewBag.ComboProveedores = opcionesProveedores;
+
 
                     return View(producto);
                 }
@@ -159,8 +165,8 @@ namespace Autorepuestos.Controllers
         {
             try
             {
-                var resultado1 = _ProductosModel.ConsultaProductoCategoria();
-                var resultado2 = _ProductosModel.ConsultaProductoProveedor();
+                var resultado1 = _CategoriaModel.ConsultaProductoCategoria();
+                var resultado2 = _ProveedorModel.ConsultaProductoProveedor();
 
                 if (resultado1 != null && resultado2 != null)
                 {
@@ -168,17 +174,15 @@ namespace Autorepuestos.Controllers
                     var opcionesProveedores = new List<SelectListItem>();
 
 
-
-                    foreach (var item in resultado1.RespuestaProductos)
+                    foreach (var item in resultado1.RespuestaCategorias)
                         opcionesCategorias.Add(new SelectListItem { Text = item.NombreCategoria, Value = item.IdCategoria.ToString() });
 
-                    foreach (var item in resultado2.RespuestaProductos)
+                    foreach (var item in resultado2.RespuestaProveedores)
                         opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
-
-
 
                     ViewBag.ComboCategorias = opcionesCategorias;
                     ViewBag.ComboProveedores = opcionesProveedores;
+
 
                     var consulta = _ProductosModel.VerProducto(id);
                     if (consulta != null)
@@ -230,22 +234,24 @@ namespace Autorepuestos.Controllers
             }
             else //Con estas nuevas líneas se recarga el DropDown
             {
-                var resultado1 = _ProductosModel.ConsultaProductoCategoria();
-                var resultado2 = _ProductosModel.ConsultaProductoProveedor();
+                var resultado1 = _CategoriaModel.ConsultaProductoCategoria();
+                var resultado2 = _ProveedorModel.ConsultaProductoProveedor();
 
                 if (resultado1 != null && resultado2 != null)
                 {
                     var opcionesCategorias = new List<SelectListItem>();
                     var opcionesProveedores = new List<SelectListItem>();
 
-                    foreach (var item in resultado1.RespuestaProductos)
+
+                    foreach (var item in resultado1.RespuestaCategorias)
                         opcionesCategorias.Add(new SelectListItem { Text = item.NombreCategoria, Value = item.IdCategoria.ToString() });
 
-                    foreach (var item in resultado2.RespuestaProductos)
+                    foreach (var item in resultado2.RespuestaProveedores)
                         opcionesProveedores.Add(new SelectListItem { Text = item.NombreProveedor, Value = item.IdProveedor.ToString() });
 
                     ViewBag.ComboCategorias = opcionesCategorias;
                     ViewBag.ComboProveedores = opcionesProveedores;
+
 
                     return View(producto);
                 }

@@ -77,48 +77,9 @@ namespace Autorepuestos.Models
             }
         }
 
-        public RespuestaProducto ConsultaProductoCategoria()
-        {
-            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-            {
-                var resultado = conexion.Query("ConsultaProductoCategoria", new { }, commandType: CommandType.StoredProcedure).ToList(); RespuestaProducto respuesta = new RespuestaProducto();
-                List<ProductosEntities> datos = new List<ProductosEntities>(); if (resultado.Count > 0)
-                {
-                    foreach (var item in resultado)
-                    {
-                        datos.Add(new ProductosEntities
-                        {
-                            IdCategoria = item.IdCategoria,
-                            NombreCategoria = item.NombreCategoria,
-                        });
-                    }
-                    respuesta.RespuestaProductos = datos;
-                }
-                return respuesta;
-            }
-        }
 
-        public RespuestaProducto ConsultaProductoProveedor()
-        {
-            using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-            {
-                var resultado = conexion.Query("ConsultaProductoProveedor", new { }, commandType: CommandType.StoredProcedure).ToList();
-                RespuestaProducto respuesta = new RespuestaProducto();
-                List<ProductosEntities> datos = new List<ProductosEntities>(); if (resultado.Count > 0)
-                {
-                    foreach (var item in resultado)
-                    {
-                        datos.Add(new ProductosEntities
-                        {
-                            IdProveedor = item.IdProveedor,
-                            NombreProveedor = item.NombreProveedor,
-                        });
-                    }
-                    respuesta.RespuestaProductos = datos;
-                }
-                return respuesta;
-            }
-        }
+
+        
         public void DevolucionProducto(ProductosEntities entidad)
         {
             using (var conexion = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))

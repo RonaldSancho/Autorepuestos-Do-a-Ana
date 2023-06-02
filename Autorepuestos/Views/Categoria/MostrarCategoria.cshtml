@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Autorepuestos.Entities.CategoriaEntities>
+@{
+    ViewBag.Title = "MostrarCategorias";
+    var rol = Context.Session.GetInt32("IdRol");
+}
+
+<div class="contenedor">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="background-color: white">
+                <div class="card-header" style="background-color: #cbcbcb; height: 50px;">
+                    <h3 class="titulo-card-estilo">Tabla de Categorias</h3>
+                </div>
+                <div class="card-body">
+                    @if (rol == 3)
+                    {
+                        <a class="btn btn-success" role="button" href="@Url.Action("AgregarCategoria", "Categoria")">Agregar Categoria</a>
+                    }
+                    
+                    <br />
+                    <br />
+                    <div class="table-responsive">
+                        <table id="example" class="table table-light table-hover" style="width:100%">
+
+                            <thead>
+                                <tr>
+                                    <th scope="col">Código Categoria</th>
+                                    <th scope="col">Categoria</th>
+                                    <th scope="col">Opciones</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@Html.DisplayFor(modelItem => item.IdCategoria)</th>
+                                        <td>@Html.DisplayFor(modelItem => item.NombreCategoria)</td>
+                                        @if (rol == 3)
+                                        {
+                                            <td>
+                                                <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCategoria","Categoria", new{id = item.IdCategoria})">Editar</a>
+                                            </td>
+                                            
+                                        }
+                                        @if (rol == 2)
+                                        {
+                                            <td></td>
+                                            <td></td>
+                                        }
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/site.js"></script>

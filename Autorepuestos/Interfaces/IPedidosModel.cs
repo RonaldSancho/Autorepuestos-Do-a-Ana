@@ -11,7 +11,6 @@ namespace Autorepuestos.Interfaces
         public PedidosEntities? verPedido(int id);
         public List<PedidosEntities> VerPedidos(PedidosEntities pedido);
         public RespuestaPedido ConsultaPedidoProducto();
-        public RespuestaPedido ConsultaPedidoProveedor();
         public RespuestaPedido ConsultaPedidoUsuario();
     }
 }

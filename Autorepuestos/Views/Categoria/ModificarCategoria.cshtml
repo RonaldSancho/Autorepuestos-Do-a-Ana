@@ -1,0 +1,60 @@
+﻿@model Autorepuestos.Entities.CategoriaEntities
+@{
+    ViewBag.Title = "ModificarCategoria";
+}
+
+<div class="contenedor">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="background-color: white">
+                <div class="card-header" style="background-color: #cbcbcb; height: 50px;">
+                    <h3 class="titulo-card-estilo">Modificar Categoria</h3>
+                </div>
+                <div class="card-body">
+                    <br />
+
+                    @using (Html.BeginForm("ModificarCategoria", "Categoria", FormMethod.Post, new { @class = "form-layout row mg-b-25" }))
+                    {
+
+                        @Html.HiddenFor(m => m.IdCategoria, new{@class="form-control", @style="color:grey"})
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                @Html.LabelFor(m => m.NombreCategoria, new{@class="form-control-label col-md-4"})
+                                @Html.TextBoxFor(m => m.NombreCategoria , new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.NombreCategoria, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="submit" id="CategoriaEditado" class="btn btn-success" value="Guardar" />
+                                <a class="btn btn-secondary" role="button" href="@Url.Action("MostrarCategoria","Categoria")">Cancelar</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/site.js"></script>
+    <script>
+        @if (TempData.ContainsKey("MensajeModificacionCategoria") && (bool)TempData["MensajeModificacionCategoria"])
+        {
+            @:MensajeModificacionCategoria();
+        }
+    </script>
+}
+
+
+

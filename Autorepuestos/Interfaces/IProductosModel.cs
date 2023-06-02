@@ -9,8 +9,6 @@ namespace Autorepuestos.Interfaces
         public void EliminarProducto(int id); 
         public ProductosEntities? VerProducto(int id);
         public List<ProductosEntities> VerProductos(ProductosEntities producto); 
-        public RespuestaProducto ConsultaProductoCategoria();
-        public RespuestaProducto ConsultaProductoProveedor();
         public void DevolucionProducto(ProductosEntities entidad);
     }
 }
