@@ -349,12 +349,60 @@ function MensajeconfirmarEliminacionFactura(id) {
 Mensajes de usuarios
 --------------------------------------------------------------*/
 
-function MensajeModificacionUsuario() {
+function MensajeModificacionUsuarioAdmin() {
     Swal.fire({
-        title: 'Usuario editado exitosamente',
+        title: 'Usuario modificado exitosamente.¿Desea volver a la lista de usuarios?',
         icon: 'success',
-        showConfirmButton: false,
-        timer: 1500
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la lista',
+        cancelButtonText: 'No, seguir editando'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Usuario/VerUsuarios";
+        }
+    });
+}
+function MensajeModificacionUsuarioTrabajador() {
+    Swal.fire({
+        title: 'Usuario modificado exitosamente.¿Desea volver a la lista de usuarios?',
+        icon: 'success',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la lista',
+        cancelButtonText: 'No, seguir editando'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Usuario/VerUsuarios";
+        }
+    });
+}
+function MensajeModificacionUsuarioUnoCliente() {
+    Swal.fire({
+        title: 'Usuario modificado exitosamente.¿Desea volver a al catálogo?',
+        icon: 'success',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a al catálogo',
+        cancelButtonText: 'No, seguir editando'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Catalogo/VerCatalogos";
+        }
+    });
+}
+function MensajeModificacionUsuarioUno() {
+    Swal.fire({
+        title: 'Usuario modificado exitosamente.¿Desea volver a la lista de usuarios?',
+        icon: 'success',
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ir a la lista',
+        cancelButtonText: 'No, seguir editando'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/Usuario/VerUsuarios";
+        }
     });
 }
 
@@ -369,6 +417,30 @@ function LetrasCedula() {
 
 function LetrasTelefono() {
     var input = document.getElementById("pTelefono");
+    input.value = input.value.replace(/\D/g, "");
+}
+function LetrasTelefonoP() {
+    var input = document.getElementById("Telefono");
+    input.value = input.value.replace(/\D/g, "");
+}
+function LetrasCantidad() {
+    var input = document.getElementById("Cantidad");
+    input.value = input.value.replace(/\D/g, "");
+}
+function LetrasCantidad2() {
+    var input = document.getElementById("Cantidad");
+    input.value = input.value.replace(/\D/g, "");
+}
+function LetrasExistencias() {
+    var input = document.getElementById("Existencias");
+    input.value = input.value.replace(/\D/g, "");
+}
+function LetrasPrecio() {
+    var input = document.getElementById("PrecioProducto");
+    input.value = input.value.replace(/\D/g, "");
+}
+function LetrasPrecio2() {
+    var input = document.getElementById("Precio");
     input.value = input.value.replace(/\D/g, "");
 }
 

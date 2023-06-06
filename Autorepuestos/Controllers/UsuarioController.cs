@@ -73,6 +73,7 @@ namespace Autorepuestos.Controllers
         public ActionResult ModificarUsuarioAdmin(UsuariosEntities usuario)
         {
             ModelState.Remove("IdUsuario");
+            ModelState.Remove("pContrasena");
             if (ModelState.IsValid)
             {
                 try
@@ -80,7 +81,8 @@ namespace Autorepuestos.Controllers
                     _usuariosModel.ModificarUsuario(usuario);
 
                     //este llamara a la interfaz
-                    return RedirectToAction("VerUsuarios");
+                    TempData["MensajeModificacionUsuarioAdmin"] = true;
+                    return RedirectToAction("ModificarUsuarioAdmin");
                 }
                 catch (Exception ex)
                 {
@@ -145,10 +147,12 @@ namespace Autorepuestos.Controllers
                         _usuariosModel.ModificarUsuario(usuario);
                         if (usuario.pIdRol == 1)
                         {
-                            return RedirectToAction("VerCatalogos", "Catalogo");
+                            TempData["MensajeModificacionUsuarioUnoCliente"] = true;
+                            return RedirectToAction("ModificarUsuarioUno");
                         }
                         //este llamara a la interfaz
-                        return RedirectToAction("VerUsuarios");
+                        TempData["MensajeModificacionUsuarioUno"] = true;
+                        return RedirectToAction("ModificarUsuarioUno");
 
                     }
                     catch (Exception ex)
@@ -172,10 +176,12 @@ namespace Autorepuestos.Controllers
                         _usuariosModel.ModificarUsuario(usuario);
                         if (usuario.pIdRol == 1)
                         {
-                            return RedirectToAction("VerCatalogos", "Catalogo");
+                            TempData["MensajeModificacionUsuarioUnoCliente"] = true;
+                            return RedirectToAction("ModificarUsuarioUno");
                         }
                         //este llamara a la interfaz
-                        return RedirectToAction("VerUsuarios");
+                        TempData["MensajeModificacionUsuarioUno"] = true;
+                        return RedirectToAction("ModificarUsuarioUno");
 
                     }
                     catch (Exception ex)
@@ -216,6 +222,7 @@ namespace Autorepuestos.Controllers
         public ActionResult ModificarUsuarioTrabajador(UsuariosEntities usuario)
         {
             ModelState.Remove("IdUsuario");
+            ModelState.Remove("pContrasena");
             if (ModelState.IsValid)
             {
                 try
@@ -223,7 +230,8 @@ namespace Autorepuestos.Controllers
                     _usuariosModel.ModificarUsuario(usuario);
 
                     //este llamara a la interfaz
-                    return RedirectToAction("VerUsuarios");
+                    TempData["MensajeModificacionUsuarioTrabajador"] = true;
+                    return RedirectToAction("ModificarUsuarioTrabajador");
                 }
                 catch (Exception ex)
                 {

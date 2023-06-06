@@ -74,13 +74,13 @@
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.Cantidad, new{@class="form-control-label"})
-                                @Html.TextBoxFor(m => m.Cantidad, new{@class="form-control"})
+                                @Html.TextBoxFor(m => m.Cantidad, new{@class="form-control" ,@onkeyup = "LetrasCantidad();"})
                                 @Html.ValidationMessageFor(m => m.Cantidad, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.PrecioProducto, new{@class="form-control-label"})
-                                @Html.TextBoxFor(m => m.PrecioProducto, new{@class="form-control"})
+                                @Html.TextBoxFor(m => m.PrecioProducto, new{@class="form-control",@onkeyup = "LetrasPrecio();"})
                                 @Html.ValidationMessageFor(m => m.PrecioProducto, "", new { @class = "text-danger" })
                             </div>
 

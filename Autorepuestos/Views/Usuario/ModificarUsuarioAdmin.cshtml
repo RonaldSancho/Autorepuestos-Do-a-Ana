@@ -36,7 +36,7 @@
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.pCedula, htmlAttributes: new{ @class="form-control-label col-md-4"})
-                                @Html.TextBoxFor(m => m.pCedula, htmlAttributes: new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.TextBoxFor(m => m.pCedula, htmlAttributes: new{@type = "text ",@class = "form-control col-md-4",@onkeyup = "LetrasCedula();"})
                                 @Html.ValidationMessageFor(m => m.pCedula, "", new { @class = "text-danger" })
                             </div>
 
@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.pTelefono, htmlAttributes: new{ @class="form-control-label col-md-4"})
-                                @Html.TextBoxFor(m => m.pTelefono, htmlAttributes: new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.TextBoxFor(m => m.pTelefono, htmlAttributes: new{@type = "text ",@class = "form-control col-md-4", @onkeyup = "LetrasTelefono();"})
                                 @Html.ValidationMessageFor(m => m.pTelefono, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-4">
@@ -77,7 +77,7 @@
                         <br />
                         <div class="row">
                             <div class="col-md-8">
-                                <button class="btn btn-success" onclick="MensajeModificacionUsuario()" role="button">Guardar</button>
+                                <input type="submit" id="UsuarioEditado" class="btn btn-success" value="Guardar" />
                                 <a class="btn btn-secondary" role="button" href="@Url.Action("VerUsuarios","Usuario")">Cancelar</a>
                             </div>
                         </div>
@@ -88,6 +88,12 @@
     </div>
 </div>
 
-<script src="~/js/site.js"></script>
-
-
+@section scripts {
+    <script src="~/js/site.js"></script>
+    <script>
+        @if (TempData.ContainsKey("MensajeModificacionUsuarioAdmin") && (bool)TempData["MensajeModificacionUsuarioAdmin"])
+        {
+            @:MensajeModificacionUsuarioAdmin();
+        }
+    </script>
+}

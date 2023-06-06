@@ -32,7 +32,7 @@
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.Telefono, new{@class="form-control-label col-md-4"})
-                                @Html.TextBoxFor(m => m.Telefono, new{@type = "text ",@class = "form-control col-md-4"})
+                                    @Html.TextBoxFor(m => m.Telefono, new{@type = "text ",@class = "form-control col-md-4",@onkeyup = "LetrasTelefonoP();"})
                                 @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger" })
                             </div>
 
@@ -52,7 +52,7 @@
 
                                 <div class="col-md-4">
                                     @Html.LabelFor(m => m.Telefono, new{@class="form-control-label col-md-4"})
-                                    @Html.TextBoxFor(m => m.Telefono, new{@type = "text ",@class = "form-control col-md-4"})
+                                    @Html.TextBoxFor(m => m.Telefono, new{@type = "text ",@class = "form-control col-md-4",@onkeyup = "LetrasTelefonoP();"})
                                     @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger" })
                                 </div>
 

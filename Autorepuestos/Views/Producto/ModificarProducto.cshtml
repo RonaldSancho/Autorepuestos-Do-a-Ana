@@ -36,7 +36,7 @@
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.Precio, new{ @class="form-control-label col-md-4"})
-                                @Html.TextBoxFor(m => m.Precio, new{@type = "number ",@class = "form-control col-md-4"})
+                                @Html.TextBoxFor(m => m.Precio, new{@class = "form-control col-md-4",@onkeyup = "LetrasPrecio2();"})
                                 @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger" })
                             </div>
 
@@ -72,7 +72,7 @@
                             </div>
                             <div class=" col-md-4">
                                 @Html.LabelFor(m => m.Existencias,  new{@class="form-control-label col-md-4"})
-                                @Html.TextBoxFor(m => m.Existencias,  new{@type = "number ",@class = "form-control col-md-4"})
+                                @Html.TextBoxFor(m => m.Existencias,  new{@class = "form-control col-md-4",@onkeyup = "LetrasExistencias();"})
                                 @Html.ValidationMessageFor(m => m.Existencias, "", new { @class = "text-danger" })
                             </div>
                         </div>
