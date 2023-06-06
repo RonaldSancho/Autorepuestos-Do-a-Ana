@@ -16,7 +16,7 @@ namespace Autorepuestos.Controllers
         private readonly IUsuariosModel _usuariosModel;
         private readonly IErroresModel _ErroresModel;
 
-        public UsuarioController(ILogger<UsuarioController> logger, IUsuariosModel usuariosModel, 
+        public UsuarioController(ILogger<UsuarioController> logger, IUsuariosModel usuariosModel,
             IErroresModel erroresModel)
         {
             _logger = logger;
@@ -27,7 +27,8 @@ namespace Autorepuestos.Controllers
         [HttpGet]
         public ActionResult VerUsuarios(UsuariosEntities usuario)
         {
-            try {
+            try
+            {
                 return View(_usuariosModel.VerUsuarios(usuario));
             }
             catch (Exception ex)
@@ -71,30 +72,54 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public ActionResult ModificarUsuarioAdmin(UsuariosEntities usuario)
         {
-            try
+            ModelState.Remove("IdUsuario");
+            if (ModelState.IsValid)
             {
-                _usuariosModel.ModificarUsuario(usuario);
+                try
+                {
+                    _usuariosModel.ModificarUsuario(usuario);
 
-                //este llamara a la interfaz
-                return RedirectToAction("VerUsuarios");
+                    //este llamara a la interfaz
+                    return RedirectToAction("VerUsuarios");
+                }
+                catch (Exception ex)
+                {
+                    RegistrarErrores(ex, ControllerContext);
+                    return View("Error");
+                }
             }
-            catch (Exception ex)
+            else //Con estas nuevas líneas se recarga el DropDown
             {
-                RegistrarErrores(ex, ControllerContext);
-                return View("Error");
+                var resultado = _usuariosModel.ConsultarRol();
+
+                if (resultado != null)
+                {
+                    var opcionesRol = new List<SelectListItem>();
+                    foreach (var item in resultado.RespuestaUsuarios)
+                        opcionesRol.Add(new SelectListItem { Text = item.NombreRol, Value = item.pIdRol.ToString() });
+
+
+                    ViewBag.ComboRol = opcionesRol;
+
+
+                    return View(usuario);
+                }
+                else
+                    return View("Error");
             }
+
         }
         [HttpGet]
         public ActionResult ModificarUsuarioUno(int id)
         {
             try
             {
-                
-                    var consulta = _usuariosModel.VerUsuario(id);
-                    if (consulta != null)
-                        return View(consulta);
-                    return View();
-               
+
+                var consulta = _usuariosModel.VerUsuario(id);
+                if (consulta != null)
+                    return View(consulta);
+                return View();
+
             }
             catch (Exception ex)
             {
@@ -107,60 +132,111 @@ namespace Autorepuestos.Controllers
         [HttpPost]
         public ActionResult ModificarUsuarioUno(UsuariosEntities usuario)
         {
-            try
+            ModelState.Remove("IdUsuario");
+            if (usuario.pContrasena == null)
             {
+                ModelState.Remove("pContrasena");
 
-                _usuariosModel.ModificarUsuario(usuario);
-                if (usuario.pIdRol == 1)
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("VerCatalogos", "Catalogo");
-                }
-                //este llamara a la interfaz
-                return RedirectToAction("VerUsuarios");
+                    try
+                    {
 
+                        _usuariosModel.ModificarUsuario(usuario);
+                        if (usuario.pIdRol == 1)
+                        {
+                            return RedirectToAction("VerCatalogos", "Catalogo");
+                        }
+                        //este llamara a la interfaz
+                        return RedirectToAction("VerUsuarios");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        RegistrarErrores(ex, ControllerContext);
+                        return View("Error");
+                    }
+                }
+                else
+                {
+                    return View();
+                }
             }
-            catch (Exception ex)
+            else
             {
-                RegistrarErrores(ex, ControllerContext);
-                return View("Error");
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+
+                        _usuariosModel.ModificarUsuario(usuario);
+                        if (usuario.pIdRol == 1)
+                        {
+                            return RedirectToAction("VerCatalogos", "Catalogo");
+                        }
+                        //este llamara a la interfaz
+                        return RedirectToAction("VerUsuarios");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        RegistrarErrores(ex, ControllerContext);
+                        return View("Error");
+                    }
+                }
+                else
+                {
+                    return View();
+                }
             }
         }
+
         [HttpGet]
         public ActionResult ModificarUsuarioTrabajador(int id)
         {
+
             try
             {
-               
-                    var consulta = _usuariosModel.VerUsuario(id);
-                    if (consulta != null)
-                        return View(consulta);
-                    return View();
-               
+
+                var consulta = _usuariosModel.VerUsuario(id);
+                if (consulta != null)
+                    return View(consulta);
+                return View();
+
             }
             catch (Exception ex)
             {
                 RegistrarErrores(ex, ControllerContext);
                 return View("Error");
             }
+
         }
 
         [HttpPost]
         public ActionResult ModificarUsuarioTrabajador(UsuariosEntities usuario)
         {
-            try
+            ModelState.Remove("IdUsuario");
+            if (ModelState.IsValid)
             {
-                _usuariosModel.ModificarUsuario(usuario);
+                try
+                {
+                    _usuariosModel.ModificarUsuario(usuario);
 
-                //este llamara a la interfaz
-                return RedirectToAction("VerUsuarios");
+                    //este llamara a la interfaz
+                    return RedirectToAction("VerUsuarios");
+                }
+                catch (Exception ex)
+                {
+                    RegistrarErrores(ex, ControllerContext);
+                    return View("Error");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                RegistrarErrores(ex, ControllerContext);
-                return View("Error");
+                return View();
             }
         }
-        
+
         [HttpGet]
         public IActionResult CambiarEstadoUsuario(int id)
         {

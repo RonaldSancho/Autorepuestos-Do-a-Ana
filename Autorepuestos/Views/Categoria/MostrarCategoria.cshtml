@@ -16,7 +16,7 @@
                     {
                         <a class="btn btn-success" role="button" href="@Url.Action("AgregarCategoria", "Categoria")">Agregar Categoria</a>
                     }
-                    
+
                     <br />
                     <br />
                     <div class="table-responsive">
@@ -27,7 +27,7 @@
                                     <th scope="col">Código Categoria</th>
                                     <th scope="col">Categoria</th>
                                     <th scope="col">Opciones</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,18 +36,10 @@
                                     <tr>
                                         <th scope="row">@Html.DisplayFor(modelItem => item.IdCategoria)</th>
                                         <td>@Html.DisplayFor(modelItem => item.NombreCategoria)</td>
-                                        @if (rol == 3)
-                                        {
-                                            <td>
-                                                <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCategoria","Categoria", new{id = item.IdCategoria})">Editar</a>
-                                            </td>
-                                            
-                                        }
-                                        @if (rol == 2)
-                                        {
-                                            <td></td>
-                                            <td></td>
-                                        }
+                                        <td>
+                                            <a class="btn btn-primary" role="button" href="@Url.Action("ModificarCategoria","Categoria", new{id = item.IdCategoria})">Editar</a>
+                                        </td>
+
                                     </tr>
                                 }
 

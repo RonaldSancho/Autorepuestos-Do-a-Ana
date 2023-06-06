@@ -5,6 +5,7 @@ namespace Autorepuestos.Entities
 {
     public class ProductosEntities : ValidationAttribute
     {
+        [DisplayName("Producto")]
         public int pIdProducto { get; set; }
 
         [DisplayName("Producto")]

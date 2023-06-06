@@ -122,7 +122,7 @@ namespace Autorepuestos.Controllers
             else
             {
 
-                return View("Error");
+                return View();
             }
         }
 

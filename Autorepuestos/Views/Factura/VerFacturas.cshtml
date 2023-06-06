@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Autorepuestos.Entities.FacturaEntities>
 @{
     ViewBag.Title = "VerFacturas";
+    var rol = Context.Session.GetInt32("IdRol");
 }
 
 <div class="contenedor">
@@ -45,10 +46,19 @@
                                         <td>@Html.DisplayFor(modelItem => item.TipoPago)</td>
                                         <td>@Html.DisplayFor(modelItem => item.TipoRetiro)</td>
                                         <td class="line-breaks">@(item.EstadoFactura ? "Procesada" : "Pendiente")</td>
-                                        <td><a class="btn text-light "style="background-color:#0489B1" role="button" href="@Url.Action("VerDetalleFactura","Factura", new{id = item.IdFactura})">Detalle Factura</a></td>
-                                        
-                                            <td><a class="btn text-light" style="background-color:#EE510D" role="button" href="@Url.Action("CambiarEstadoFactura","Factura", new{id = item.IdFactura})">Cambiar Estado</a></td>
-                                                <td><a class="btn btn-danger" role="button" onclick="MensajeconfirmarEliminacionFactura(@item.IdFactura)">Eliminar Factura</a></td>
+                                        <td><a class="btn text-light " style="background-color:#0489B1" role="button" href="@Url.Action("VerDetalleFactura","Factura", new{id = item.IdFactura})">Detalle Factura</a></td>
+
+                                        <td><a class="btn text-light" style="background-color:#EE510D" role="button" href="@Url.Action("CambiarEstadoFactura","Factura", new{id = item.IdFactura})">Cambiar Estado</a></td>
+
+                                        @if (rol == 3)
+                                        {
+                                            <td><a class="btn btn-danger" role="button" onclick="MensajeconfirmarEliminacionFactura(@item.IdFactura)">Eliminar Factura</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td><a class="btn btn-danger" style="cursor:not-allowed " >Eliminar Factura</a></td>
+                                        }
+
                                     </tr>
                                 }
 

@@ -18,25 +18,24 @@
 
                         @Html.HiddenFor(m => m.IdUsuario, new{@class="form-control", @style="color:grey"})
                         @Html.HiddenFor(m => m.pIdRol, new{@class="form-control", @style="color:grey"})
-
-
-
-
                         <div class="row">
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.pNombre, htmlAttributes: new{@class="form-control-label col-md-4"})
                                 @Html.TextBoxFor(m => m.pNombre ,htmlAttributes: new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.pNombre, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.pApellido1, htmlAttributes: new{@class="form-control-label col-md-4"})
                                 @Html.TextBoxFor(m => m.pApellido1, htmlAttributes: new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.pApellido1, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.pCedula, htmlAttributes: new{ @class="form-control-label col-md-4"})
                                 @Html.TextBoxFor(m => m.pCedula, htmlAttributes: new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.pCedula, "", new { @class = "text-danger" })
                             </div>
 
                         </div>
@@ -50,10 +49,12 @@
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.pTelefono, htmlAttributes: new{ @class="form-control-label col-md-4"})
                                 @Html.TextBoxFor(m => m.pTelefono, htmlAttributes: new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.pTelefono, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-4">
                                 @Html.LabelFor(m => m.pCorreo, htmlAttributes: new{ @class="form-control-label col-md-4"})
                                 @Html.TextBoxFor(m => m.pCorreo, htmlAttributes: new{@type = "text ",@class = "form-control col-md-4"})
+                                @Html.ValidationMessageFor(m => m.pCorreo, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
